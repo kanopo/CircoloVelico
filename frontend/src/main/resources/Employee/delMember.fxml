@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="me.ollari.circolonauticogui.controllers.employeeFunctionality.DelMember">
+    <children>
+        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#go_home" text="Home"/>
+        <Button layoutX="526.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" text="Logout"/>
+        <Label layoutX="252.0" layoutY="18.0" text="Delete member"/>
+        <TableView fx:id="memberTable" layoutY="50.0" prefHeight="200.0" prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="id" prefWidth="150.0" text="ID"/>
+                <TableColumn fx:id="name" prefWidth="150.0" text="Name"/>
+                <TableColumn fx:id="surname" prefWidth="150.0" text="Surname"/>
+                <TableColumn fx:id="fiscal_code" prefWidth="150.0" text="Fiscal Code"/>
+            </columns>
+        </TableView>
+        <Button layoutX="246.0" layoutY="290.0" mnemonicParsing="false" onAction="#delete" text="Delete member"/>
+    </children>
+</AnchorPane>

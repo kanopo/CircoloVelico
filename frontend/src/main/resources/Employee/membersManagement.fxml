@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="me.ollari.circolonauticogui.controllers.employeeFunctionality.MemberManagement">
+    <children>
+        <TableView layoutY="45.0" fx:id="userTable" onMouseClicked="#requestDataToMod" prefHeight="200.0"
+                   prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="name" prefWidth="200.0" text="Nome"/>
+                <TableColumn fx:id="surname" prefWidth="200.0" text="Cognome"/>
+                <TableColumn fx:id="address" prefWidth="200.0" text="Indirizzo"/>
+            </columns>
+        </TableView>
+        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goHome" text="Home"/>
+        <Button layoutX="524.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" text="Logout"/>
+        <Label layoutX="195.0" layoutY="18.0" text="Seleziona l'utente da modificare"/>
+        <Label layoutX="14.0" layoutY="267.0" text="Nome"/>
+        <TextField fx:id="nameMod" layoutX="110.0" layoutY="263.0"/>
+        <Label layoutX="14.0" layoutY="305.0" text="Cognome"/>
+        <TextField fx:id="surnameMod" layoutX="110.0" layoutY="301.0"/>
+        <Label layoutX="14.0" layoutY="345.0" text="Indirizzo"/>
+        <TextField fx:id="addressMod" layoutX="110.0" layoutY="341.0"/>
+        <Button layoutX="406.0" layoutY="301.0" mnemonicParsing="false" onAction="#modifySelected" text="Modifica"/>
+    </children>
+</AnchorPane>

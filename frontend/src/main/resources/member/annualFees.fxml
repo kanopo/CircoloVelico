@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.ollari.circolonauticogui.controllers.memberFunctionality.MemberAnnualFees">
+    <children>
+        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#go_home" prefHeight="20.0" prefWidth="100.0" text="Home" />
+        <Label layoutX="255.0" layoutY="57.0" text="Tasse annuali" />
+        <TableView fx:id="annualFeeTable" layoutY="90.0" prefHeight="204.0" prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="transactionDate" prefWidth="250.0" text="Pagamento" />
+                <TableColumn fx:id="endSubscriptionDate" maxWidth="600.0" prefWidth="250.0" resizable="false" text="Scadenza" />
+                <TableColumn fx:id="price" prefWidth="100.0" text="Prezzo" />
+            </columns>
+        </TableView>
+        <Button layoutX="486.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefHeight="20.0" prefWidth="100.0" text="Logout" />
+      <Button layoutX="250.0" layoutY="355.0" mnemonicParsing="false" onAction="#renew" prefHeight="20.0" prefWidth="100.0" text="Rinnova" fx:id="renewButton" />
+    </children>
+</AnchorPane>

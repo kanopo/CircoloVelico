@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.ollari.circolonauticogui.controllers.loginHandlers.MemberLogin">
+    <children>
+      <Label fx:id="backendIsOff" text="Backend is offline" textFill="RED" opacity="0.0"/>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <children>
+                <Label text="Member username">
+                    <HBox.margin>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </HBox.margin>
+
+                </Label>
+                <TextField fx:id="member_username" onMouseClicked="#clear_camps" prefWidth="200.0">
+                    <HBox.margin>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </HBox.margin>
+
+                </TextField>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <children>
+                <Label text="Member password">
+                    <HBox.margin>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </HBox.margin>
+
+                </Label>
+                <PasswordField fx:id="member_password" onMouseClicked="#clear_camps" prefWidth="200.0">
+                    <HBox.margin>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </HBox.margin>
+
+                </PasswordField>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <children>
+                <Button minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#member_login" text="Login">
+                    <HBox.margin>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </HBox.margin>
+
+                </Button>
+                <Button minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#go_back" text="Go back">
+                    <HBox.margin>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </HBox.margin>
+
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</VBox>

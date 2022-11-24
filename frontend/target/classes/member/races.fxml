@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.ollari.circolonauticogui.controllers.memberFunctionality.MemberRaces">
+    <children>
+        <Label layoutX="251.0" layoutY="18.0" text="Tabellone gare" />
+        <TableView fx:id="raceTable" layoutY="45.0" onMouseReleased="#selectBoat" prefHeight="300.0" prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="name" prefWidth="150.0" text="Nome" />
+                <TableColumn fx:id="date" prefWidth="150.0" text="Data" />
+                <TableColumn fx:id="participationPrice" prefWidth="150.0" text="Prezzo" />
+                <TableColumn fx:id="award" prefWidth="150.0" text="Vincita" />
+            </columns>
+        </TableView>
+        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#go_home" prefHeight="20.0" prefWidth="100.0" text="Home" />
+        <Button layoutX="486.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefHeight="20.0" prefWidth="100.0" text="Logout" />
+        <Button layoutX="488.0" layoutY="362.0" mnemonicParsing="false" onAction="#IscriviBarca" text="Iscrivi barca" />
+        <ComboBox fx:id="boatSelector" layoutX="14.0" layoutY="362.0" prefHeight="24.0" prefWidth="210.0" promptText="Selezionare barca" />
+      <ComboBox fx:id="paymentSelector" layoutX="238.0" layoutY="362.0" prefHeight="24.0" prefWidth="239.0" promptText="Selezionare metodo di pagamento" visibleRowCount="2" />
+    </children>
+</AnchorPane>

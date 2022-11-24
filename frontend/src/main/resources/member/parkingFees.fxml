@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.ollari.circolonauticogui.controllers.memberFunctionality.MemberParkingFee">
+    <children>
+        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#go_home" prefHeight="20.0" prefWidth="100.0" text="Home" />
+        <Label layoutX="335.0" layoutY="18.0" text="Tasse di parcheggio" />
+        <TableView fx:id="parkingFeeTable" layoutY="50.0" prefHeight="259.0" prefWidth="800.0">
+            <columns>
+                <TableColumn fx:id="boatName" prefWidth="200.0" text="Barca" />
+                <TableColumn fx:id="parkingFeeStart" prefWidth="200.0" resizable="false" text="Inizio" />
+                <TableColumn fx:id="parkingFeeEnd" prefWidth="200.0" text="Fine" />
+                <TableColumn fx:id="parkingFeePrice" prefWidth="200.0" text="Prezzo" />
+            </columns>
+        </TableView>
+        <Button layoutX="686.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefHeight="20.0" prefWidth="100.0" text="Logout" />
+      <Button fx:id="renewButton" layoutX="655.0" layoutY="340.0" mnemonicParsing="false" onAction="#renew" text="Renew"  />
+      <ChoiceBox fx:id="boatsDropDownSelector" layoutX="280.0" layoutY="340.0" prefHeight="24.0" prefWidth="241.0" />
+      <Label fx:id="warningNotifier" layoutX="14.0" layoutY="321.0" prefHeight="63.0" prefWidth="256.0" text="Selezionare la barca prima di rinnovare il rimessaggio" textAlignment="CENTER" wrapText="true" />
+    </children>
+</AnchorPane>
