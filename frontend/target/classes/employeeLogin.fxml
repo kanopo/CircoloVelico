@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.ollari.circolonauticogui.controllers.loginHandlers.EmployeeLogin">
+<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.ollari.circolovelicogui.controllers.loginHandlers.EmployeeLogin">
     <children>
       <Label fx:id="backendisOffline" text="Backend is offline" textFill="RED" opacity="0" />
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

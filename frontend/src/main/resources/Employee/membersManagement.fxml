@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="me.ollari.circolonauticogui.controllers.employeeFunctionality.MemberManagement">
+            fx:controller="me.ollari.circolovelicogui.controllers.employeeFunctionality.MemberManagement">
     <children>
         <TableView layoutY="45.0" fx:id="userTable" onMouseClicked="#requestDataToMod" prefHeight="200.0"
                    prefWidth="600.0">

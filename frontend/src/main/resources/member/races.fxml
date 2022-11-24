@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.ollari.circolonauticogui.controllers.memberFunctionality.MemberRaces">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.ollari.circolovelicogui.controllers.memberFunctionality.MemberRaces">
     <children>
         <Label layoutX="251.0" layoutY="18.0" text="Tabellone gare" />
         <TableView fx:id="raceTable" layoutY="45.0" onMouseReleased="#selectBoat" prefHeight="300.0" prefWidth="600.0">
