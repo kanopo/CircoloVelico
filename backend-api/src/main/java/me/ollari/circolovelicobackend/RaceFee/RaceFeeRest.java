@@ -46,16 +46,32 @@ public class RaceFeeRest {
         this.raceRepository = raceRepository;
     }
 
+    /**
+     * EndPoint di tipo GET della RESP API utilizzato per richiedere tutte le tasse di partecipazione alle gare salvate nel DB
+     * @return lista dui oggetti raceFee
+     */
     @GetMapping("/raceFees")
     Iterable<RaceFee> getRaceFees() {
         return raceFeeRepository.findAll();
     }
 
+    /**
+     * EndPoint di tipo POST della RESP API utilizzato per creare una tassa d'iscrizione a una gara
+     * @param boatId id della barca
+     * @param memberId id dell'utente
+     * @param raceId id della gara
+     * @return 201 se la tassa viene creata e 406 se la creazione fallisce
+     */
     @PostMapping("/raceFees/raceId/{raceId}/memberId/{memberId}/boatId/{boatId}")
     ResponseEntity<RaceFee> createRaceFee(@PathVariable Long boatId, @PathVariable Long memberId, @PathVariable Long raceId) {
         Member m = memberRepository.findById(memberId).orElse(null);
         Boat b = boatRepository.findById(boatId).orElse(null);
         Race r = raceRepository.findById(raceId).orElse(null);
+
+        /*
+        TODO:
+            - penso di poter semplificare la query eliminando la richiesta del memberId e prendere il membro dall'oggetto barca
+         */
 
 
         if (m != null && b != null && r != null) {
@@ -80,7 +96,7 @@ public class RaceFeeRest {
                 if (raceFees.isEmpty()) {
                     // boat can be registered to the race
                     raceFeeRepository.save(raceFee);
-                    return new ResponseEntity<>(HttpStatus.ACCEPTED);
+                    return new ResponseEntity<>(HttpStatus.CREATED);
                 } else {
 
 
@@ -92,7 +108,7 @@ public class RaceFeeRest {
                         } else {
 
                             raceFeeRepository.save(raceFee);
-                            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+                            return new ResponseEntity<>(HttpStatus.CREATED);
 
                         }
                     }

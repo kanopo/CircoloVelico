@@ -33,11 +33,20 @@ public class ParkingFeeRest {
         this.boatRepository = boatRepository;
     }
 
+    /**
+     * EndPoint di tipo GET della RESP API utilizzato per ottenere una lista di tutte le tasse di parcheggio salvate nel DB
+     * @return lista di tasse di parcheggio
+     */
     @GetMapping("/parkingFees")
     Iterable<ParkingFee> getParkingFees() {
         return parkingFeeRepository.findAll();
     }
 
+    /**
+     * EndPoint di tipo GET della RESP API utilizzato per ricevere le tasse di parcheggio in base all'id dell'utente
+     * @param memberId id dell'utente
+     * @return lista di tasse di parcheggio
+     */
     @GetMapping("/parkingFees/memberId/{memberId}")
     ResponseEntity<Iterable<ParkingFee>> getParkingFeesByMemberId(@PathVariable Long memberId) {
         List<ParkingFee> parkingFees = parkingFeeRepository.findAll();
@@ -60,6 +69,11 @@ public class ParkingFeeRest {
             return new ResponseEntity<>(memberParkingFees, HttpStatus.OK);
     }
 
+    /**
+     * EndPoint di tipo GET della RESP API utilizzato per ottenere la lista delle tasse di parcheggio relative al'id di una barca
+     * @param boatId id della barca
+     * @return lista di tasse di parcheggio
+     */
     @GetMapping("/parkingFees/boatId/{boatId}")
     ResponseEntity<Iterable<ParkingFee>> getParkingFeeByBoatId(@PathVariable Long boatId) {
         List<ParkingFee> parkingFees = parkingFeeRepository.findAll();
@@ -84,6 +98,12 @@ public class ParkingFeeRest {
     }
 
 
+    /**
+     * EndPoint di tipo PUT della RESP API utilizzato per aggiungere una tassa di parcheggio alla barca
+     * @param boatId id della barca
+     * @param parkingFee oggetto contenente i dati della tassa di partcheggio
+     * @return 404 se l'id della barca non esiste, 406 se ci sono problemi d'inserimento della tassa nel DB, 200 se l'inserimento avviene correttamente
+     */
     @PutMapping("/parkingFees/boatId/{boatId}")
     ResponseEntity<ParkingFee> createParkingFeeForBoat(@PathVariable Long boatId, @RequestBody ParkingFee parkingFee) {
         Boat boat = boatRepository.findById(boatId).orElse(null);

@@ -29,11 +29,20 @@ public class RaceRest {
         this.raceRepository = raceRepository;
     }
 
+    /**
+     * EndPoint di tipo GET della RESP API utilizzato per ottenere una lista di tutte le gare del DB
+     * @return lista di oggetti gara
+     */
     @GetMapping("/races")
     Iterable<Race> getRaces() {
         return raceRepository.findAll();
     }
 
+    /**
+     * EndPoint di tipo POST della RESP API utilizzato per creare una gara nel DB
+     * @param race oggetto gara che si vuole aggiungere nel DB
+     * @return 201 se creazione avvenuta con successo, 406 se avviene un problema durante l'inserimento
+     */
     @PostMapping("/races")
     ResponseEntity<Race> createRace(@RequestBody Race race) {
         try {
