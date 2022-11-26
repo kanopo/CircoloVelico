@@ -169,7 +169,7 @@ public class MemberRaces {
             String body = "{\"price\":\"" + price + "\",\"paymentDate\":\"" + paymentDate + "\",\"price\":\"" + price + "\"}";
 
             // TODO: modificare l'api per prendere il memberID dalla barca
-            HttpResponse<String> responsePost = httpFunctions.POST("/raceFees/raceId/1/memberId/1/boatId/1", body);
+            HttpResponse<String> responsePost = httpFunctions.POST("/raceFees/raceId/" + raceId + "/memberId/" + memberId + "/boatId/" + boatId, body);
 
 
             System.out.println(responsePost);

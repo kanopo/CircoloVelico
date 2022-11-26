@@ -53,7 +53,7 @@ public class MemberRaceFees {
             List<RaceFeeVisualization> raceFeeVisualizations = new ArrayList<>();
 
             for (RaceFee rf : raceFees) {
-                RaceFeeVisualization rfv = new RaceFeeVisualization(rf);
+                RaceFeeVisualization rfv = new RaceFeeVisualization();
 
                 raceFeeVisualizations.add(rfv);
             }
