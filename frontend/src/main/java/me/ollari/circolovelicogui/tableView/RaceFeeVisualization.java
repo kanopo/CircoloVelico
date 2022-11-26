@@ -5,7 +5,6 @@ import me.ollari.circolovelicogui.rest.RaceFee;
 public class RaceFeeVisualization {
     private final Long raceFeeId;
     private final Long raceId;
-    private final String raceName;
     private final Long boatId;
     private final String boatName;
     private final String raceDate;
@@ -30,7 +29,7 @@ public class RaceFeeVisualization {
 
 
         this.raceId = raceFee.getRace().getId();
-        this.raceName = raceFee.getRace().getName();
+        //this.raceName = raceFee.getRace().getName();
         this.raceDate = raceFee.getRace().getDate();
 
         this.boatId = raceFee.getBoat().getId();
@@ -55,9 +54,6 @@ public class RaceFeeVisualization {
         return raceDate;
     }
 
-    public String getRaceName() {
-        return raceName;
-    }
 
     public Long getBoatId() {
         return boatId;
@@ -94,7 +90,6 @@ public class RaceFeeVisualization {
                 "\tmemberId: " + memberId + "\n" +
                 "\tmemberUsername: " + memberUsername + "\n" +
                 "\traceId: " + raceId + "\n" +
-                "\traceName: " + raceName + "\n" +
                 "\traceDate: " + raceDate + "\n" +
                 "\tboatId: " + boatId + "\n" +
                 "\tboatName: " + boatName + "\n" +

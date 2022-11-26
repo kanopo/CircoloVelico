@@ -158,7 +158,7 @@ public class AddBoat {
                         System.out.println(responsePut.statusCode());
 
                         if (responsePut.statusCode() == 200) {
-                            HttpResponse<String> getRes = httpFunctions.Get(":8080/get/boat/member-id/" + memberId);
+                            HttpResponse<String> getRes = httpFunctions.GET(":8080/get/boat/member-id/" + memberId);
 
                             if (getRes.statusCode() == 200) {
                                 ObjectMapper mapper1 = new ObjectMapper();
@@ -189,7 +189,7 @@ public class AddBoat {
                         perché ho immaginato che se lo deve un impiegato il pagamento avvenga sul posto
                          */
 
-                                HttpResponse<String> putParkingFee = httpFunctions.Put(
+                                HttpResponse<String> putParkingFee = httpFunctions.PUT(
                                         ":8080/put/parking-fee/add-parking-fee/member-id/" + memberId + "/boat-id/" + boatId,
                                         bodyParkingFee
                                 );

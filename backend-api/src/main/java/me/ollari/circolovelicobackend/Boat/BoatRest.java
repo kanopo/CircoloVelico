@@ -4,6 +4,8 @@ import me.ollari.circolovelicobackend.Member.Member;
 import me.ollari.circolovelicobackend.Member.MemberRepository;
 import me.ollari.circolovelicobackend.ParkingFee.ParkingFee;
 import me.ollari.circolovelicobackend.ParkingFee.ParkingFeeRepository;
+import me.ollari.circolovelicobackend.Race.Race;
+import me.ollari.circolovelicobackend.Race.RaceRepository;
 import me.ollari.circolovelicobackend.RaceFee.RaceFee;
 import me.ollari.circolovelicobackend.RaceFee.RaceFeeRepository;
 import org.springframework.http.HttpStatus;
@@ -31,23 +33,28 @@ public class BoatRest {
     private final MemberRepository memberRepository;
     private final RaceFeeRepository raceFeeRepository;
     private final ParkingFeeRepository parkingFeeRepository;
+    private final RaceRepository raceRepository;
 
     /**
      * Questo costruttore viene utilizzato per inizializzare le repository che verranno utilizzate nelle chiamate del'API.
-     * @param boatRepository repository usata per operazioni crud inerenti alle barche
-     * @param memberRepository repository usata per operazioni crud inerenti ai membri
-     * @param raceFeeRepository repository usata per operazioni crud inerenti alle tasse delle gare
+     *
+     * @param boatRepository       repository usata per operazioni crud inerenti alle barche
+     * @param memberRepository     repository usata per operazioni crud inerenti ai membri
+     * @param raceFeeRepository    repository usata per operazioni crud inerenti alle tasse delle gare
      * @param parkingFeeRepository repository usata per operazioni crud inerenti alle tasse di rimessaggio
+     * @param raceRepository       repository usata per operazioni crud inerenti alle gare
      */
-    public BoatRest(BoatRepository boatRepository, MemberRepository memberRepository, RaceFeeRepository raceFeeRepository, ParkingFeeRepository parkingFeeRepository) {
+    public BoatRest(BoatRepository boatRepository, MemberRepository memberRepository, RaceFeeRepository raceFeeRepository, ParkingFeeRepository parkingFeeRepository, RaceRepository raceRepository) {
         this.boatRepository = boatRepository;
         this.memberRepository = memberRepository;
         this.raceFeeRepository = raceFeeRepository;
         this.parkingFeeRepository = parkingFeeRepository;
+        this.raceRepository = raceRepository;
     }
 
     /**
      * EndPoint di tipo GET della RESP API che restituisce tutte le barche
+     *
      * @return lista di tutte le barche
      */
     @GetMapping("/boats")
@@ -57,6 +64,7 @@ public class BoatRest {
 
     /**
      * EndPoint di tipo GET della RESP API che restituisce la barca con il corrispettivo id
+     *
      * @param boatId id della barca
      * @return la barca richiesta e il codice 200 oppure se la barca con l'id scelte non dovesse
      * esistere, 404(not found)
@@ -74,6 +82,7 @@ public class BoatRest {
 
     /**
      * EndPoint di tipo GET della RESP API che restituisce tutte le barche associate a un'utente
+     *
      * @param memberId id dell'utente
      * @return tutte le barche dell'utente e il codice 200, altrimenti, se l'utente non esiste, restituisce il codice 404(not found)
      */
@@ -90,6 +99,7 @@ public class BoatRest {
 
     /**
      * EndPoint di tipo GET della RESP API che restituisce tutte le barche che hanno la tassa di parcheggio scaduta
+     *
      * @param memberId id dell'utente
      * @return lista di barche con tassa scaduta e il codice 200, se l'id del membro non esiste, restituisce 404(not found)
      */
@@ -140,6 +150,7 @@ public class BoatRest {
 
     /**
      * EndPoint di tipo GET della RESP API che restituisce la barca associata a una tassa di parcheggio
+     *
      * @param parkingFeeId id della tassa di parcheggio
      * @return la barca associata e il codice 200, altrimenti se non dovesse esistere l'id della tassa, restituisce 404
      */
@@ -156,30 +167,40 @@ public class BoatRest {
 
     /**
      * EndPoint di tipo GET della RESP API che restituisce tutte le barche di un'utente non iscritte a una gara
+     *
      * @param memberId id dell'utente
-     * @param raceId id della gara
+     * @param raceId   id della gara
      * @return tutte le barche dell'utente non iscritte alla gara, se la gara o l'utente non dovessero esistere in DB, viene restituito 404
      */
     @GetMapping("/boats/memberId/{memberId}/notInRace/{raceId}")
     ResponseEntity<Iterable<Boat>> boatOfMemberNotSubscribedToRace(@PathVariable Long memberId, @PathVariable Long raceId) {
-        if (raceFeeRepository.existsById(raceId)) {
-            if (memberRepository.existsById(memberId)) {
-                Set<Boat> boatsOfUser = memberRepository.findById(memberId).get().getBoats();
+        Member m = memberRepository.findById(memberId).orElse(null);
+        Race r = raceRepository.findById(memberId).orElse(null);
 
-                for (Boat b : boatsOfUser) {
-                    Set<RaceFee> raceFees = b.getRaceFees();
 
-                    raceFees.forEach(raceFee -> {
-                        if (raceFee.getId().equals(raceId)) {
-                            boatsOfUser.remove(b);
+        Set<Boat> boatsNotSubscribed = new HashSet<>();
+
+        if (r != null && m != null) {
+            Set<Boat> membersBoats = m.getBoats();
+
+            for (Boat b : membersBoats) {
+                if (b.getRaceFees().isEmpty()) {
+                    // non iscritto a nessuna gara -> può iscriversi
+                   boatsNotSubscribed.add(b);
+                } else {
+                    // devo fare il check per vesere se la barca b ha gia una tassa che fa riferimento alla gare di id raceId
+                    for (RaceFee rf : b.getRaceFees()) {
+                        if (rf.getRacesRaceFee().getId().equals(raceId)) {
+                            // barca già iscritta alla gara, interrompere il loop e skippare la barca
+                            break;
                         }
-                    });
-                }
 
-                return new ResponseEntity<>(boatsOfUser, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                        boatsNotSubscribed.add(b);
+                    }
+                }
             }
+            return new ResponseEntity<>(boatsNotSubscribed, HttpStatus.OK);
+
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -187,7 +208,8 @@ public class BoatRest {
 
     /**
      * EndPoint di tipo PUT della RESP API utilizzato per aggiungere un'imbarcazione a un membro
-     * @param boat oggetto che rappresenta la barca con le sue feature {@link Boat}
+     *
+     * @param boat     oggetto che rappresenta la barca con le sue feature {@link Boat}
      * @param memberId id dell'utente
      * @return 406 se l'utente non esiste o se l'inserimento della barca fallisce, 201 se la barca viene inserita correttamente.
      */
@@ -214,6 +236,7 @@ public class BoatRest {
 
     /**
      * EndPoint di tipo DELETE della RESP API utilizzato per eliminare una barca
+     *
      * @param boatId id della barca da eliminare
      * @return 200 se la barca esiste ed è stata eliminata, 404 se la barca non esiste o se l'eliminazione è fallita
      */

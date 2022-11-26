@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import me.ollari.circolovelicogui.HttpFunctions;
 import me.ollari.circolovelicogui.Ip;
 import me.ollari.circolovelicogui.controllers.employeeFunctionality.*;
 import me.ollari.circolovelicogui.rest.Employee;
@@ -28,20 +29,15 @@ public class EmployeeHome {
     private Stage stage;
     private Scene scene;
     private Parent parent;
+    private HttpFunctions httpFunctions;
 
 
     @FXML
     public Label user_logged_in;
 
     public void initializer() throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + ":8080/employee/" + employeeId + ""))
-                .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpFunctions.GET("/employee/" + employeeId);
 
         if (response.statusCode() == 200) {
             // the user is there

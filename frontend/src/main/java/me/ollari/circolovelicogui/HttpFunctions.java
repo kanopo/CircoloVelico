@@ -10,31 +10,47 @@ import java.net.http.HttpResponse;
 
 public class HttpFunctions {
 
-    public HttpResponse<String> Get(String url) throws IOException, InterruptedException {
+    public HttpResponse<String> GET(String url) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .header("accept", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + url))
+                .uri(URI.create("http://" + Ip.getIp() + ":8080" + url))
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        return response;
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    public HttpResponse<String> Put(String url, String body) throws IOException, InterruptedException {
-        // String body = "{\"name\":\"" + boatName + "\",\"length\":\"" + boatLenght + "\"}";
-        HttpClient clientPut = HttpClient.newHttpClient();
-        HttpRequest requestPut = HttpRequest.newBuilder()
-                .PUT(HttpRequest.BodyPublishers.ofString(body))
+    public HttpResponse<String> POST(String url, String body) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(body))
                 .header("Content-Type", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + url))
+                .uri(URI.create("http://" + Ip.getIp() + ":8080" + url))
                 .build();
 
-        HttpResponse<String> responsePut = clientPut.send(requestPut, HttpResponse.BodyHandlers.ofString());
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
+    }
+    public HttpResponse<String> PUT(String url, String body) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .PUT(HttpRequest.BodyPublishers.ofString(body))
+                .header("Content-Type", "application/json")
+                .uri(URI.create("http://" + Ip.getIp() + ":8080" + url))
+                .build();
 
-        return responsePut;
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
+    }
+
+    public HttpResponse<String> DELETE(String url) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .DELETE()
+                .header("accept", "application/json")
+                .uri(URI.create("http://" + Ip.getIp() + ":8080" + url))
+                .build();
+
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
     public boolean pingHost() {

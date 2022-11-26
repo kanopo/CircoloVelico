@@ -40,7 +40,7 @@ public class MemberRaceFees {
     private final HttpFunctions httpFunctions = new HttpFunctions();
 
     public void setTable() throws IOException, InterruptedException {
-        HttpResponse<String> response = httpFunctions.Get(":8080/get/race-fee/member-id/" + memberId);
+        HttpResponse<String> response = httpFunctions.GET("/get/race-fee/member-id/" + memberId);
 
         if (response.statusCode() == 200) {
             // the user is there

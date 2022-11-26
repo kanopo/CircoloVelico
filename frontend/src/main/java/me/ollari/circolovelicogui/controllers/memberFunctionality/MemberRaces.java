@@ -22,17 +22,17 @@ import me.ollari.circolovelicogui.rest.Race;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class MemberRaces {
     public TableView<Race> raceTable;
-    public TableColumn<Race, String> name;
     public TableColumn<Race, String> date;
-    public TableColumn<Race, Float> participationPrice;
+    public TableColumn<Race, Double> price;
 
-    public TableColumn<Race, Float> award;
+    public TableColumn<Race, Double> award;
 
     public Long memberId;
     public ComboBox<String> boatSelector;
@@ -52,7 +52,7 @@ public class MemberRaces {
 
 
     public void setTable() throws IOException, InterruptedException {
-        HttpResponse<String> response = httpFunctions.Get(":8080/get/race");
+        HttpResponse<String> response = httpFunctions.GET("/races");
 
         if (response.statusCode() == 200) {
             // the user is there
@@ -63,9 +63,8 @@ public class MemberRaces {
             });
 
 
-            name.setCellValueFactory(new PropertyValueFactory<>("name"));
             date.setCellValueFactory(new PropertyValueFactory<>("date"));
-            participationPrice.setCellValueFactory(new PropertyValueFactory<>("participationPrice"));
+            price.setCellValueFactory(new PropertyValueFactory<>("price"));
             award.setCellValueFactory(new PropertyValueFactory<>("award"));
 
             ObservableList<Race> racesToDisplay = FXCollections.observableArrayList();
@@ -129,6 +128,7 @@ public class MemberRaces {
 
 
     public void IscriviBarca(ActionEvent actionEvent) throws IOException, InterruptedException {
+/*
         try {
             boatId = boats.get(boatSelector.getSelectionModel().getSelectedIndex()).getId();
 
@@ -152,7 +152,8 @@ public class MemberRaces {
             System.out.println("Barca e/o gara non selezionata");
         }
 
-        /*
+ */
+
         try {
             boatId = boats.get(boatSelector.getSelectionModel().getSelectedIndex()).getId();
             System.out.println(boatId);
@@ -160,19 +161,18 @@ public class MemberRaces {
             // ora creo la race fee per far si che la barca risulti iscritta
 
 
-            double price = raceTable.getSelectionModel().getSelectedItem().getParticipationPrice();
+            Double price = raceTable.getSelectionModel().getSelectedItem().getPrice();
             LocalDate localDate = LocalDate.now();
             String paymentDate = localDate.toString();
             String paymentMethod = "";
 
-            String body = "{\"price\":\"" + price + "\",\"paymentDate\":\"" + paymentDate + "\",\"paymentMethod\":\"" + paymentMethod + "\"}";
+            String body = "{\"price\":\"" + price + "\",\"paymentDate\":\"" + paymentDate + "\",\"price\":\"" + price + "\"}";
 
-            HttpResponse<String> responsePut = httpFunctions.Put(
-                    ":8080/put/race-fee/add-race-fee/race-id/" + raceId + "/member-id/" + memberId + "/boat-id/" + boatId,
-                    body
-            );
+            // TODO: modificare l'api per prendere il memberID dalla barca
+            HttpResponse<String> responsePost = httpFunctions.POST("/raceFees/raceId/1/memberId/1/boatId/1", body);
 
-            System.out.println(responsePut);
+
+            System.out.println(responsePost);
 
 
             ObservableList<String> empty = FXCollections.observableArrayList();
@@ -185,7 +185,6 @@ public class MemberRaces {
         } catch (Error e) {
             System.out.println("Barca e/o gara non selezionata");
         }
-         */
 
     }
 
@@ -195,7 +194,7 @@ public class MemberRaces {
             Race race = raceTable.getSelectionModel().getSelectedItem();
             raceId = race.getId();
 
-            HttpResponse<String> response = httpFunctions.Get(":8080/get/boat-not-in-race/race-id/" + raceId + "/member-id/" + memberId);
+            HttpResponse<String> response = httpFunctions.GET("/boats/memberId/" + memberId + "/notInRace/" + raceId);
 
             if (response.statusCode() == 200) {
                 // the user is there

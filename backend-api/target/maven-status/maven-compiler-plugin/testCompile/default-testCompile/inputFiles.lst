@@ -1,1 +1,8 @@
-/home/user/Documents/circolo-velico-backend/src/test/java/me/ollari/circolovelicobackend/CircoloVelicoBackendApplicationTests.java
+/home/user/Documents/CircoloVelico/backend-api/src/test/java/me/ollari/circolovelicobackend/AnnualFee/AnnualFeeTest.java
+/home/user/Documents/CircoloVelico/backend-api/src/test/java/me/ollari/circolovelicobackend/RaceFee/RaceFeeTest.java
+/home/user/Documents/CircoloVelico/backend-api/src/test/java/me/ollari/circolovelicobackend/ParkingFee/ParkingFeeTest.java
+/home/user/Documents/CircoloVelico/backend-api/src/test/java/me/ollari/circolovelicobackend/Employee/EmployeeTest.java
+/home/user/Documents/CircoloVelico/backend-api/src/test/java/me/ollari/circolovelicobackend/CircoloVelicoBackendApplicationTests.java
+/home/user/Documents/CircoloVelico/backend-api/src/test/java/me/ollari/circolovelicobackend/Boat/BoatTest.java
+/home/user/Documents/CircoloVelico/backend-api/src/test/java/me/ollari/circolovelicobackend/Race/RaceTest.java
+/home/user/Documents/CircoloVelico/backend-api/src/test/java/me/ollari/circolovelicobackend/Member/MemberTest.java

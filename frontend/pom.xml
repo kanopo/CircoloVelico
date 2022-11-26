@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>me.ollari</groupId>
-    <artifactId>circolo-velico-gui</artifactId>
+    <artifactId>CV-gui</artifactId>
     <version>0.0.1</version>
     <name>circolo-velico-gui</name>
     <description>circolo-velico-gui</description>

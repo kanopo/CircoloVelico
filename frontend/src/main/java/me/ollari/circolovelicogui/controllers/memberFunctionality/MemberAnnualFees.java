@@ -39,7 +39,7 @@ public class MemberAnnualFees {
     private Parent parent;
 
     public void setTable() throws IOException, InterruptedException {
-        HttpResponse<String> response = httpFunctions.Get(":8080/annualFees/memberId/" + memberId);
+        HttpResponse<String> response = httpFunctions.GET("/annualFees/memberId/" + memberId);
 
         if (response.statusCode() == 200) {
             // the user is there
@@ -144,7 +144,7 @@ public class MemberAnnualFees {
          */
 
 
-        HttpResponse<String> response = httpFunctions.Get(":8080/annualFees/memberId/" + memberId);
+        HttpResponse<String> response = httpFunctions.GET("/annualFees/memberId/" + memberId);
 
         if (response.statusCode() == 200) {
             // the user is there
@@ -164,7 +164,7 @@ public class MemberAnnualFees {
                     ",\"end\":\"" + newEndSubscription + "\"}";
 
 
-            HttpResponse<String> response1 = httpFunctions.Put(":8080/annualFees/memberId/" + memberId, body);
+            HttpResponse<String> response1 = httpFunctions.PUT("/annualFees/memberId/" + memberId, body);
 
             if (response1.statusCode() == 201) {
                 setTable();

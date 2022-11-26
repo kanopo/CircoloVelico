@@ -54,7 +54,7 @@ public class MemberLogin {
 
             if (!username.isBlank() && !password.isBlank()) {
 
-                HttpResponse<String> response = httpFunctions.Get(":8080/members/username/" + username);
+                HttpResponse<String> response = httpFunctions.GET("/members/username/" + username);
 
                 if (response.statusCode() == 200) {
                     // the user is there

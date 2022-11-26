@@ -55,7 +55,7 @@ public class MemberParkingFee {
         devo richiedere le barche di un utente, dopo di che chiedo le parking fee in base alla barca(id della barca)
          */
 
-        HttpResponse<String> getBoatsResponse = httpFunctions.Get(":8080/boats/memberId/" + memberId);
+        HttpResponse<String> getBoatsResponse = httpFunctions.GET("/boats/memberId/" + memberId);
 
         if (getBoatsResponse.statusCode() == 200) {
             // esistono delle barche associate all'id dell'utente
@@ -64,7 +64,7 @@ public class MemberParkingFee {
             List<Boat> usersBoats = boatsMapper.readValue(getBoatsResponse.body(), new TypeReference<List<Boat>>() {
             });
             for (Boat b : usersBoats) {
-                HttpResponse<String> getParkingFeesResponse = httpFunctions.Get(":8080/parkingFees/boatId/" + b.getId());
+                HttpResponse<String> getParkingFeesResponse = httpFunctions.GET("/parkingFees/boatId/" + b.getId());
 
                 if (getBoatsResponse.statusCode() == 200) {
                     // esistono delle barche associate all'id dell'utente
@@ -196,69 +196,63 @@ public class MemberParkingFee {
 
         Boat selectedBoat = new Boat();
 
-       if (boatName != null) {
-           HttpResponse<String> boatsOfMemberResponse = httpFunctions.Get(":8080/boats/memberId/" + memberId);
+        if (boatName != null) {
+            HttpResponse<String> boatsOfMemberResponse = httpFunctions.GET("/boats/memberId/" + memberId);
 
-           if (boatsOfMemberResponse.statusCode() == 200) {
-               // esistono delle barche associate all'id dell'utente
-               ObjectMapper boatsMapper = new ObjectMapper();
+            if (boatsOfMemberResponse.statusCode() == 200) {
+                // esistono delle barche associate all'id dell'utente
+                ObjectMapper boatsMapper = new ObjectMapper();
 
-               List<Boat> usersBoats = boatsMapper.readValue(boatsOfMemberResponse.body(), new TypeReference<List<Boat>>() {
-               });
+                List<Boat> usersBoats = boatsMapper.readValue(boatsOfMemberResponse.body(), new TypeReference<List<Boat>>() {
+                });
 
-               for (Boat b : usersBoats) {
-                   if (b.getName().equals(boatName)) {
-                       selectedBoat = b;
-                       break;
-                   }
-               }
+                for (Boat b : usersBoats) {
+                    if (b.getName().equals(boatName)) {
+                        selectedBoat = b;
+                        break;
+                    }
+                }
 
-               System.out.println(selectedBoat);
+                System.out.println(selectedBoat);
 
-               // when the boat object is known, i can procede requesting all the fees for this p[articular id
-               // and can submit another parking fee
-               // after that I can call the setTable function to refresh the table and check other things
-
-
-               HttpResponse<String> feesForBoatRequest = httpFunctions.Get(":8080/parkingFees/boatId/" + selectedBoat.getId());
-
-               if (feesForBoatRequest.statusCode() == 200) {
-                   // esistono delle barche associate all'id dell'utente
-                   ObjectMapper parkingFeesMapper = new ObjectMapper();
-
-                   List<ParkingFee> boatsFees = parkingFeesMapper.readValue(feesForBoatRequest.body(), new TypeReference<List<ParkingFee>>() {
-                   });
+                // when the boat object is known, i can procede requesting all the fees for this p[articular id
+                // and can submit another parking fee
+                // after that I can call the setTable function to refresh the table and check other things
 
 
-                   Collections.reverse(boatsFees);
+                HttpResponse<String> feesForBoatRequest = httpFunctions.GET("/parkingFees/boatId/" + selectedBoat.getId());
 
-                   System.out.println(boatsFees.get(0));
+                if (feesForBoatRequest.statusCode() == 200) {
+                    // esistono delle barche associate all'id dell'utente
+                    ObjectMapper parkingFeesMapper = new ObjectMapper();
 
-                   // this is the last tax applied to the boat, I use its ending data to set the new fee
-
-                   LocalDate newStart = LocalDate.parse(boatsFees.get(0).getEnd());
-                   LocalDate newEnd = newStart.plusYears(1);
-
-                   // TODO: fare la PUT per aggiungere questa fee (ti serve il boat id nella richiesta del PUT)
+                    List<ParkingFee> boatsFees = parkingFeesMapper.readValue(feesForBoatRequest.body(), new TypeReference<List<ParkingFee>>() {
+                    });
 
 
+                    Collections.reverse(boatsFees);
+
+                    System.out.println(boatsFees.get(0));
+
+                    // this is the last tax applied to the boat, I use its ending data to set the new fee
+
+                    LocalDate newStart = LocalDate.parse(boatsFees.get(0).getEnd());
+                    LocalDate newEnd = newStart.plusYears(1);
 
 
-                   String body = "{\"price\":\"" + boatsFees.get(0).getPrice() + "\"" +
-                           ",\"start\":\"" + newStart + "\"" +
-                           ",\"end\":\"" + newEnd + "\"}";
-                   System.out.println(body);
+                    String body = "{\"price\":\"" + boatsFees.get(0).getPrice() + "\"" +
+                            ",\"start\":\"" + newStart + "\"" +
+                            ",\"end\":\"" + newEnd + "\"}";
+                    System.out.println(body);
 
-                    HttpResponse<String> putBoatParkingFeeResponse = httpFunctions.Put(":8080/parkingFees/boatId/" + selectedBoat.getId(), body);
+                    HttpResponse<String> putBoatParkingFeeResponse = httpFunctions.PUT("/parkingFees/boatId/" + selectedBoat.getId(), body);
 
                     System.out.println(putBoatParkingFeeResponse.statusCode());
                     // I use the settable function to reload the table
                     setTable();
-               }
-               //TODO da ssitemare questa schifezza
+                }
 
-
-           }
-       }
+            }
+        }
     }
 }

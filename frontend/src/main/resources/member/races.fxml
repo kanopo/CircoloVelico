@@ -12,10 +12,9 @@
         <Label layoutX="251.0" layoutY="18.0" text="Tabellone gare" />
         <TableView fx:id="raceTable" layoutY="45.0" onMouseReleased="#selectBoat" prefHeight="300.0" prefWidth="600.0">
             <columns>
-                <TableColumn fx:id="name" prefWidth="150.0" text="Nome" />
-                <TableColumn fx:id="date" prefWidth="150.0" text="Data" />
-                <TableColumn fx:id="participationPrice" prefWidth="150.0" text="Prezzo" />
-                <TableColumn fx:id="award" prefWidth="150.0" text="Vincita" />
+                <TableColumn fx:id="date" prefWidth="200.0" text="Data" />
+                <TableColumn fx:id="price" prefWidth="200.0" text="Prezzo" />
+                <TableColumn fx:id="award" prefWidth="200.0" text="Vincita" />
             </columns>
         </TableView>
         <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#go_home" prefHeight="20.0" prefWidth="100.0" text="Home" />

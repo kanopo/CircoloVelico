@@ -77,14 +77,8 @@ public class EmployeeLogin {
             }
 
             if (!username.isBlank() && !password.isBlank()) {
-                HttpClient client = HttpClient.newHttpClient();
-                HttpRequest request = HttpRequest.newBuilder()
-                        .GET()
-                        .header("accept", "application/json")
-                        .uri(URI.create("http://" + Ip.getIp() + ":8080/employee/username/" + username + ""))
-                        .build();
 
-                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> response = httpFunctions.GET("/employee/username/" + username);
 
 
                 if (response.statusCode() == 200) {

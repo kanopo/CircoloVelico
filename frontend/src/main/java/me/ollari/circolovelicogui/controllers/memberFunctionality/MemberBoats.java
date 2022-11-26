@@ -15,14 +15,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import me.ollari.circolovelicogui.HttpFunctions;
-import me.ollari.circolovelicogui.Ip;
 import me.ollari.circolovelicogui.controllers.homeHandlers.MemberHome;
 import me.ollari.circolovelicogui.rest.Boat;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Objects;
@@ -43,14 +39,8 @@ public class MemberBoats {
     private final HttpFunctions httpFunctions = new HttpFunctions();
 
     public void setTable() throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + ":8080/boats/memberId/" + memberId + ""))
-                .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpFunctions.GET("/boats/memberId/" + memberId);
 
         if (response.statusCode() == 200) {
             // the user is there
@@ -84,17 +74,15 @@ public class MemberBoats {
     public void delete_boat(ActionEvent actionEvent) throws IOException, InterruptedException {
         Long idToDelete = boats_table.getSelectionModel().getSelectedItem().getId();
 
-        HttpClient clientDel = HttpClient.newHttpClient();
-        HttpRequest requestDel = HttpRequest.newBuilder()
-                .DELETE()
-                .header("accept", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + ":8080/boats/" + idToDelete + ""))
-                .build();
 
-        HttpResponse<String> responseDel = clientDel.send(requestDel, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> responseDel = httpFunctions.DELETE("/boats/" + idToDelete);
         System.out.println(responseDel);
 
+        if (responseDel.statusCode() == 200) {
+            setTable();
+        }
 
+        /*
         HttpClient clientGet = HttpClient.newHttpClient();
         HttpRequest requestGet = HttpRequest.newBuilder()
                 .GET()
@@ -131,6 +119,7 @@ public class MemberBoats {
             System.out.println("Boat array is empty");
             boats_table.getItems().clear();
         }
+         */
 
 
     }
@@ -142,11 +131,11 @@ public class MemberBoats {
 
         String body = "{\"name\":\"" + nameToAdd + "\",\"length\":\"" + lengthToAdd + "\"}";
 
-        HttpResponse<String> responsePut = httpFunctions.Put(":8080/boats/memberId/" + memberId, body);
+        HttpResponse<String> responsePut = httpFunctions.PUT("/boats/memberId/" + memberId, body);
 
 
         if (responsePut.statusCode() == 201) {
-            HttpResponse<String> getRes = httpFunctions.Get(":8080/boats/memberId/" + memberId);
+            HttpResponse<String> getRes = httpFunctions.GET("/boats/memberId/" + memberId);
 
             if (getRes.statusCode() == 200) {
                 ObjectMapper mapper1 = new ObjectMapper();
@@ -172,42 +161,20 @@ public class MemberBoats {
                         ",\"end\":\"" + endSubscriptionDate + "\"}";
 
 
-                HttpResponse<String> putParkingFee = httpFunctions.Put(
-                        ":8080/parkingFees/boatId/" + boatId,
+                HttpResponse<String> putParkingFee = httpFunctions.PUT(
+                        "/parkingFees/boatId/" + boatId,
                         bodyParkingFee
                 );
                 System.out.println(putParkingFee.statusCode());
+
+                if (putParkingFee.statusCode() == 200) {
+                    setTable();
+                }
+                else
+                {
+                    System.out.println("Problema di connessione!");
+                }
             }
-        }
-
-
-        HttpResponse<String> responseGet = httpFunctions.Get(":8080/boats/memberId/" + memberId);
-
-        if (responseGet.statusCode() == 200) {
-            // the user is there
-
-            // parse JSON
-            ObjectMapper mapper = new ObjectMapper();
-            List<Boat> boats = mapper.readValue(responseGet.body(), new TypeReference<List<Boat>>() {
-            });
-
-
-            name.setCellValueFactory(new PropertyValueFactory<>("name"));
-            length.setCellValueFactory(new PropertyValueFactory<>("length"));
-
-            ObservableList<Boat> boatsToDisplay = FXCollections.observableArrayList();
-
-            boats.forEach(boat -> {
-                boatsToDisplay.add(boat);
-                System.out.println(boat.getName());
-            });
-
-            boats_table.setItems(boatsToDisplay);
-
-
-        } else {
-            // 404 user not present
-            System.out.println("Problema di connessione");
         }
     }
 

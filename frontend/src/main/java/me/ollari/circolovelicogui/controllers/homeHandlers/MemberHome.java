@@ -43,7 +43,7 @@ public class MemberHome {
 
 
     public void initializer() throws IOException, InterruptedException {
-        HttpResponse<String> response = httpFunctions.Get(":8080/members/" + userId);
+        HttpResponse<String> response = httpFunctions.GET("/members/" + userId);
 
         if (response.statusCode() == 200) {
             // the user is there
@@ -62,7 +62,7 @@ public class MemberHome {
 
 
         /*
-        HttpResponse<String> userHasSomethingToPay = httpFunctions.Get(":8080/get/leftover-fees/member-id/" + member.getId());
+        HttpResponse<String> userHasSomethingToPay = httpFunctions.GET(":8080/get/leftover-fees/member-id/" + member.getId());
 
         if (userHasSomethingToPay.statusCode() == 200) {
             ObjectMapper mapper = new ObjectMapper();
@@ -78,7 +78,7 @@ public class MemberHome {
          */
 
         LocalDate today = java.time.LocalDate.now();
-        HttpResponse<String> annualFeesResponse = httpFunctions.Get(":8080/annualFees/memberId/" + member.getId());
+        HttpResponse<String> annualFeesResponse = httpFunctions.GET("/annualFees/memberId/" + member.getId());
 
         if (annualFeesResponse.statusCode() == 200) {
             ObjectMapper mapper = new ObjectMapper();
@@ -116,7 +116,7 @@ public class MemberHome {
             }
         }
 
-        HttpResponse<String> response1 = httpFunctions.Get(":8080/boats/expiredParking/" + member.getId());
+        HttpResponse<String> response1 = httpFunctions.GET("/boats/expiredParking/" + member.getId());
 
         if (response1.statusCode() == 200) {
             ObjectMapper mapper1 = new ObjectMapper();
@@ -135,7 +135,7 @@ public class MemberHome {
              */
             /*
             for (Integer boatid : feesForBoats.keySet()) {
-                HttpResponse<String> responseParkingFeeByBoatId = httpFunctions.Get(":8080/get/parking-fee/parking-fee-boat-id/" + boatid);
+                HttpResponse<String> responseParkingFeeByBoatId = httpFunctions.GET(":8080/get/parking-fee/parking-fee-boat-id/" + boatid);
 
                 if (responseParkingFeeByBoatId.statusCode() == 200) {
                     ObjectMapper mapper2 = new ObjectMapper();

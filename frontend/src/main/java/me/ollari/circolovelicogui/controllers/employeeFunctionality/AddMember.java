@@ -90,7 +90,7 @@ public class AddMember {
 
         boolean canBeAdded = true;
 
-        HttpResponse<String> response = httpFunctions.Get(":8080/get/member");
+        HttpResponse<String> response = httpFunctions.GET(":8080/get/member");
 
         if (response.statusCode() == 200) {
             // the user is there
@@ -148,7 +148,7 @@ public class AddMember {
                     fiscal_code.setStyle("-fx-text-box-border: black;");
                     username.setStyle("-fx-text-box-border: black;");
 
-                    HttpResponse<String> getRes = httpFunctions.Get(":8080/get/member/username/" + memberUsername);
+                    HttpResponse<String> getRes = httpFunctions.GET(":8080/get/member/username/" + memberUsername);
 
                     if (getRes.statusCode() == 200) {
                         ObjectMapper mapper1 = new ObjectMapper();
@@ -171,7 +171,7 @@ public class AddMember {
                         e che lo si paghi sul momento.
                          */
 
-                        HttpResponse<String> putAnnualFee = httpFunctions.Put(
+                        HttpResponse<String> putAnnualFee = httpFunctions.PUT(
                                 ":8080/put/annual-fee/add-annual-fee/member-id/" + member.getId(),
                                 bodyAnnualFee
                         );

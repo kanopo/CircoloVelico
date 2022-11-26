@@ -17,10 +17,9 @@ public class Race {
 
     @JsonProperty("id")
     private Long id;
-    @JsonProperty("name")
-    private String name;
-    @JsonProperty("participationPrice")
-    private Double participationPrice;
+
+    @JsonProperty("price")
+    private Double price;
     @JsonProperty("award")
     private Double award;
     @JsonProperty("date")
@@ -38,24 +37,13 @@ public class Race {
         this.id = id;
     }
 
-    @JsonProperty("name")
-    public String getName() {
-        return name;
+
+    public Double getPrice() {
+        return price;
     }
 
-    @JsonProperty("name")
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @JsonProperty("participationPrice")
-    public Double getParticipationPrice() {
-        return participationPrice;
-    }
-
-    @JsonProperty("participationPrice")
-    public void setParticipationPrice(Double participationPrice) {
-        this.participationPrice = participationPrice;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     @JsonProperty("award")

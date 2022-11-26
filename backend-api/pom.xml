@@ -9,8 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>me.ollari</groupId>
-    <artifactId>circolo-velico-backend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>CVbackend</artifactId>
+    <version>0.0.1</version>
     <name>circolo-velico-backend</name>
     <description>circolo-velico-backend</description>
     <properties>
