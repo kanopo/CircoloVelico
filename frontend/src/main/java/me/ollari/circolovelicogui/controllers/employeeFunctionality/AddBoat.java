@@ -40,21 +40,14 @@ public class AddBoat {
     private final HttpFunctions httpFunctions = new HttpFunctions();
 
     public void setDropdown() throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + ":8080/get/member"))
-                .build();
+        HttpResponse<String> usersResponse = httpFunctions.GET("/members");
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() == 200) {
+        if (usersResponse.statusCode() == 200) {
             // the user is there
 
             // parse JSON
             ObjectMapper mapper = new ObjectMapper();
-            List<Member> members = mapper.readValue(response.body(), new TypeReference<List<Member>>() {
+            List<Member> members = mapper.readValue(usersResponse.body(), new TypeReference<List<Member>>() {
             });
 
             ObservableList<String> usernames = FXCollections.observableArrayList();
@@ -115,21 +108,14 @@ public class AddBoat {
         if (memberIndex != -1) {
             String memberUsername = member_selector.getSelectionModel().getSelectedItem().toString();
 
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .GET()
-                    .header("accept", "application/json")
-                    .uri(URI.create("http://" + Ip.getIp() + ":8080/get/member/username/" + memberUsername + ""))
-                    .build();
-
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> memberByUsernameResponse = httpFunctions.GET("/members/username/" + memberUsername);
 
 
-            if (response.statusCode() == 200) {
+            if (memberByUsernameResponse.statusCode() == 200) {
                 // the user is there
                 ObjectMapper mapper = new ObjectMapper();
 
-                Member member = mapper.readValue(response.body(), new TypeReference<Member>() {
+                Member member = mapper.readValue(memberByUsernameResponse.body(), new TypeReference<Member>() {
                 });
 
                 memberId = member.getId();
@@ -146,19 +132,11 @@ public class AddBoat {
                     if (!boatName.equals("") && boatLenght > 0) {
                         String body = "{\"name\":\"" + boatName + "\",\"length\":\"" + boatLenght + "\"}";
 
-                        HttpClient clientPut = HttpClient.newHttpClient();
-                        HttpRequest requestPut = HttpRequest.newBuilder()
-                                .PUT(HttpRequest.BodyPublishers.ofString(body))
-                                .header("Content-Type", "application/json")
-                                .uri(URI.create("http://" + Ip.getIp() + ":8080/put/boat/add-boat/member-id/" + memberId + ""))
-                                .build();
+                        HttpResponse<String> responsePut = httpFunctions.PUT("/boats/memberId/" + memberId, body);
 
-                        HttpResponse<String> responsePut = clientPut.send(requestPut, HttpResponse.BodyHandlers.ofString());
 
-                        System.out.println(responsePut.statusCode());
-
-                        if (responsePut.statusCode() == 200) {
-                            HttpResponse<String> getRes = httpFunctions.GET(":8080/get/boat/member-id/" + memberId);
+                        if (responsePut.statusCode() == 201) {
+                            HttpResponse<String> getRes = httpFunctions.GET("/boats/memberId/" + memberId);
 
                             if (getRes.statusCode() == 200) {
                                 ObjectMapper mapper1 = new ObjectMapper();
@@ -179,18 +157,13 @@ public class AddBoat {
                                 String endSubscriptionDate = java.time.LocalDate.now().plusYears(1).toString();
 
 
-                                String bodyParkingFee = "{\"price\":\"" + Math.round(10 * boatLenght) + "\"" +
-                                        ",\"transactionDate\":\"" + transactionDate + "\"" +
-                                        ",\"endSubscriptionDate\":\"" + endSubscriptionDate + "\"" +
-                                        ",\"toPay\":\"" + false + "\"}";
+                                String bodyParkingFee = "{\"price\":\"" + 10 * boatLenght + "\"" +
+                                        ",\"start\":\"" + transactionDate + "\"" +
+                                        ",\"end\":\"" + endSubscriptionDate + "\"}";
 
-                        /*
-                        WARNING: ho deciso di mettere il "toPay" di quando viene creato una barca a falso
-                        perché ho immaginato che se lo deve un impiegato il pagamento avvenga sul posto
-                         */
 
                                 HttpResponse<String> putParkingFee = httpFunctions.PUT(
-                                        ":8080/put/parking-fee/add-parking-fee/member-id/" + memberId + "/boat-id/" + boatId,
+                                        "/parkingFees/boatId/" + boatId,
                                         bodyParkingFee
                                 );
                                 System.out.println(putParkingFee.statusCode());

@@ -8,13 +8,8 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "id",
-        "member",
-        "race",
-        "boat",
         "price",
-        "paymentDate",
-        "paymentMethod",
-        "toPay"
+        "paymentDate"
 })
 
 

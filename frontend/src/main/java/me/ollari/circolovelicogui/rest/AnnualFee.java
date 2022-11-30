@@ -18,8 +18,6 @@ public class AnnualFee {
 
     @JsonProperty("id")
     private Long id;
-    @JsonProperty("member")
-    private Member member;
     @JsonProperty("price")
     private Double price;
     @JsonProperty("start")
@@ -38,16 +36,6 @@ public class AnnualFee {
     @JsonProperty("id")
     public void setId(Long id) {
         this.id = id;
-    }
-
-    @JsonProperty("member")
-    public Member getMember() {
-        return member;
-    }
-
-    @JsonProperty("member")
-    public void setMember(Member member) {
-        this.member = member;
     }
 
     @JsonProperty("price")

@@ -90,7 +90,7 @@ public class AddMember {
 
         boolean canBeAdded = true;
 
-        HttpResponse<String> response = httpFunctions.GET(":8080/get/member");
+        HttpResponse<String> response = httpFunctions.GET("/members");
 
         if (response.statusCode() == 200) {
             // the user is there
@@ -120,18 +120,9 @@ public class AddMember {
                         "\"username\":\"" + memberUsername + "\"," +
                         "\"password\":\"" + memberPassword + "\"}";
 
-                System.out.println(body);
+                HttpResponse<String> responsePost = httpFunctions.POST("/members", body);
 
-                HttpClient clientPost = HttpClient.newHttpClient();
-                HttpRequest requestPost = HttpRequest.newBuilder()
-                        .POST(HttpRequest.BodyPublishers.ofString(body))
-                        .header("Content-Type", "application/json")
-                        .uri(URI.create("http://" + Ip.getIp() + ":8080/post/member"))
-                        .build();
-
-                HttpResponse<String> responsePost = clientPost.send(requestPost, HttpResponse.BodyHandlers.ofString());
-
-                if (responsePost.statusCode() == 200) {
+                if (responsePost.statusCode() == 201) {
                     // added successfully
                     name.clear();
                     surname.clear();
@@ -148,7 +139,7 @@ public class AddMember {
                     fiscal_code.setStyle("-fx-text-box-border: black;");
                     username.setStyle("-fx-text-box-border: black;");
 
-                    HttpResponse<String> getRes = httpFunctions.GET(":8080/get/member/username/" + memberUsername);
+                    HttpResponse<String> getRes = httpFunctions.GET("/members/username/" + memberUsername);
 
                     if (getRes.statusCode() == 200) {
                         ObjectMapper mapper1 = new ObjectMapper();
@@ -156,14 +147,13 @@ public class AddMember {
                         });
 
 
-                        String transactionDate = java.time.LocalDate.now().toString();
-                        String endSubscriptionDate = java.time.LocalDate.now().plusYears(1).toString();
+                        String start = java.time.LocalDate.now().toString();
+                        String end = java.time.LocalDate.now().plusYears(1).toString();
 
 
                         String bodyAnnualFee = "{\"price\":\"" + 100 + "\"" +
-                                ",\"transactionDate\":\"" + transactionDate + "\"" +
-                                ",\"endSubscriptionDate\":\"" + endSubscriptionDate + "\"" +
-                                ",\"toPay\":\"" + false + "\"}";
+                                ",\"start\":\"" + start + "\"" +
+                                ",\"end\":\"" + end + "\"}";
 
                         /*
                         WARNING: ho deciso di mettere il "toPay" di quando viene creato un'utente a falso
@@ -172,7 +162,7 @@ public class AddMember {
                          */
 
                         HttpResponse<String> putAnnualFee = httpFunctions.PUT(
-                                ":8080/put/annual-fee/add-annual-fee/member-id/" + member.getId(),
+                                "/annualFees/memberId/" + member.getId(),
                                 bodyAnnualFee
                         );
 

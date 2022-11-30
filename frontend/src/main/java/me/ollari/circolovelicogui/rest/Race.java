@@ -18,7 +18,6 @@ public class Race {
 
     @JsonProperty("id")
     private Long id;
-
     @JsonProperty("price")
     private Double price;
     @JsonProperty("award")
