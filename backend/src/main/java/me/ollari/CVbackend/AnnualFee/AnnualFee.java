@@ -29,7 +29,8 @@ import java.time.LocalDate;
 @Table(name = "annual_fee")
 public class AnnualFee {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "annual_fee_seq", allocationSize = 1, sequenceName = "annual_fee_seq")
     @Column(name = "id")
     private Long id;
 
@@ -47,7 +48,7 @@ public class AnnualFee {
     @Column(name = "price")
     private Double price;
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "member_id")
     private Member membersAnnualFee;
 }

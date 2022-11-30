@@ -30,7 +30,8 @@ import java.util.Set;
 @Table(name = "boat")
 public class Boat {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "boat_seq", allocationSize = 1, sequenceName = "boat_seq")
     @Column(name = "id")
     private Long id;
 
@@ -41,7 +42,7 @@ public class Boat {
     private Double length;
 
     @JsonIgnore()
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "member_id")
     private Member membersBoat;
 

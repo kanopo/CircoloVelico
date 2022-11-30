@@ -13,27 +13,22 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import me.ollari.circolovelicogui.Ip;
+import me.ollari.circolovelicogui.HttpFunctions;
 import me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome;
 import me.ollari.circolovelicogui.rest.AnnualFee;
+import me.ollari.circolovelicogui.rest.Member;
 import me.ollari.circolovelicogui.tableView.AnnualFeeVisualization;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class AnnualFeeHistory {
     public TableView<AnnualFeeVisualization> annualFeeHistoryTable;
     public TableColumn<AnnualFeeVisualization, Integer> id;
     public TableColumn<AnnualFeeVisualization, Float> price;
-    public TableColumn<AnnualFeeVisualization, String> transactionDate;
-    public TableColumn<AnnualFeeVisualization, String> endSubscriptionDate;
-    public TableColumn<AnnualFeeVisualization, Boolean> toPay;
+    public TableColumn<AnnualFeeVisualization, String> start;
+    public TableColumn<AnnualFeeVisualization, String> end;
 
     public Long employeeId;
     public TableColumn<AnnualFeeVisualization, Integer> memberId;
@@ -42,39 +37,43 @@ public class AnnualFeeHistory {
     private Scene scene;
     private Parent parent;
 
+    private HttpFunctions httpFunctions = new HttpFunctions();
+
     public void setTable() throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + ":8080/get/annual-fee"))
-                .build();
+        //TODO: chiedo una lista di members e poi chiedo le annual fees per utente
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> membersResponse = httpFunctions.GET("/members");
+        List<AnnualFeeVisualization> annualFeeVisualizations = new ArrayList<>();
 
-        if (response.statusCode() == 200) {
-            // the user is there
+        if (membersResponse.statusCode() == 200) {
+            // esistono degli utenti
+            ObjectMapper memberMapper = new ObjectMapper();
+            ObjectMapper annualFeeMapper = new ObjectMapper();
 
-            // parse JSON
-            ObjectMapper mapper = new ObjectMapper();
-            List<AnnualFee> annualFees = mapper.readValue(response.body(), new TypeReference<List<AnnualFee>>() {
+            List<Member> members = memberMapper.readValue(membersResponse.body(), new TypeReference<List<Member>>() {
             });
 
-            List<AnnualFeeVisualization> annualFeeVisualizations = new ArrayList<>();
+            Map<Member, List<AnnualFee>> memberAnnualFeeMap = new HashMap<>();
 
-            for (AnnualFee af : annualFees) {
-                AnnualFeeVisualization afv = new AnnualFeeVisualization(af);
-                annualFeeVisualizations.add(afv);
+            for (Member m : members) {
+                // richiedo le tasse di ogni utente
+                HttpResponse<String> annualFeeByMemberResponse = httpFunctions.GET("/annualFees/memberId/" + m.getId());
+                List<AnnualFee> annualFees = annualFeeMapper.readValue(annualFeeByMemberResponse.body(), new TypeReference<List<AnnualFee>>() {
+                });
+
+
+                for (AnnualFee af : annualFees) {
+                    AnnualFeeVisualization afv = new AnnualFeeVisualization(m, af);
+                    annualFeeVisualizations.add(afv);
+                }
+
             }
-
 
             id.setCellValueFactory(new PropertyValueFactory<>("annualFeeId"));
             memberId.setCellValueFactory(new PropertyValueFactory<>("memberId"));
-            transactionDate.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
-            endSubscriptionDate.setCellValueFactory(new PropertyValueFactory<>("endSubscriptionDate"));
+            start.setCellValueFactory(new PropertyValueFactory<>("start"));
+            end.setCellValueFactory(new PropertyValueFactory<>("end"));
             price.setCellValueFactory(new PropertyValueFactory<>("price"));
-            toPay.setCellValueFactory(new PropertyValueFactory<>("toPay"));
-
 
             ObservableList<AnnualFeeVisualization> feeVisualizations = FXCollections.observableArrayList();
             feeVisualizations.addAll(annualFeeVisualizations);
@@ -83,9 +82,9 @@ public class AnnualFeeHistory {
 
 
         } else {
-            // 404 user not present
-            System.out.println("Problema di connessione");
+            System.out.println("conn");
         }
+
     }
 
 

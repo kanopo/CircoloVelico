@@ -30,7 +30,8 @@ import java.time.LocalDate;
 @Table(name = "parking_fee")
 public class ParkingFee {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "parking_fee_seq", allocationSize = 1, sequenceName = "parking_fee_seq")
     @Column(name = "id")
     private Long id;
 
@@ -49,11 +50,11 @@ public class ParkingFee {
     private Double price;
 
     @JsonIgnore()
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "member_id")
     private Member membersParkingFees;
     @JsonIgnore()
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "boat_id")
     private Boat boatsParkingFee;
 

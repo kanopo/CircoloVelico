@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import me.ollari.circolovelicogui.HttpFunctions;
 import me.ollari.circolovelicogui.Ip;
 import me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome;
 
@@ -29,6 +30,7 @@ public class AddRace {
 
     public Long employeeId;
 
+    private HttpFunctions httpFunctions = new HttpFunctions();
 
     public void go_home(ActionEvent actionEvent) {
         try {
@@ -83,34 +85,46 @@ public class AddRace {
 
         } catch (Error e) {
             e.printStackTrace();
-            /*
-            TODO:
-                - gestire il float con un segnale nel client grafico
-                - per il momento il programma continua solo se i due duble vengono parsati, non c'è un check sulla data
-             */
+
+
+            name.setStyle("-fx-text-box-border: red;");
+            price.setStyle("-fx-text-box-border: red;");
+            award.setStyle("-fx-text-box-border: red;");
+            date.setStyle("-fx-text-box-border: red;");
         }
 
 
-        System.out.println(raceName);
-        System.out.println(participationPrice);
-        System.out.println(raceAward);
-        System.out.println(raceDate);
+        //System.out.println(raceName);
+        //System.out.println(participationPrice);
+        //System.out.println(raceAward);
+        //System.out.println(raceDate);
 
-        String body = "{\"name\":\"" + raceName + "\",\"participationPrice\":\"" + participationPrice + "\",\"award\":\"" + raceAward + "\"," +
+        String body = "{\"name\":\"" + raceName + "\",\"price\":\"" + participationPrice + "\",\"award\":\"" + raceAward + "\"," +
                 "\"date\":\"" + raceDate + "\"}";
 
-        System.out.println(body);
-
-        HttpClient clientPost = HttpClient.newHttpClient();
-        HttpRequest requestPost = HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .header("Content-Type", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + ":8080/post/race"))
-                .build();
-
-        HttpResponse<String> responsePost = clientPost.send(requestPost, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> responsePost = httpFunctions.POST("/races", body);
 
         System.out.println(responsePost.statusCode());
+
+        if (responsePost.statusCode() == 201) {
+            // inserimento corretto
+            name.clear();
+            price.clear();
+            award.clear();
+            date.clear();
+
+            name.setStyle("-fx-text-box-border: gray;");
+            price.setStyle("-fx-text-box-border: gray;");
+            award.setStyle("-fx-text-box-border: gray;");
+            date.setStyle("-fx-text-box-border: gray;");
+        }
+        else
+        {
+            name.setStyle("-fx-text-box-border: red;");
+            price.setStyle("-fx-text-box-border: red;");
+            award.setStyle("-fx-text-box-border: red;");
+            date.setStyle("-fx-text-box-border: red;");
+        }
 
     }
 }

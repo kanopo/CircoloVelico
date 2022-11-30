@@ -1,35 +1,62 @@
 package me.ollari.circolovelicogui.tableView;
 
 import me.ollari.circolovelicogui.rest.AnnualFee;
+import me.ollari.circolovelicogui.rest.Member;
+
+import java.time.LocalDate;
 
 public class AnnualFeeVisualization {
-    private static Long annualFeeId;
-    private static String transactionDate;
-    private static String endSubscriptionDate;
-    private static Double price;
+    private Long annualFeeId;
+    private Long memberId;
+    private String start;
+    private String end;
+    private Double price;
 
-
-    public AnnualFeeVisualization(AnnualFee af) {
-        annualFeeId = af.getId();
-        transactionDate = af.getStart();
-        endSubscriptionDate = af.getEnd();
-        price = af.getPrice();
+    public AnnualFeeVisualization(Member m, AnnualFee af) {
+        this.annualFeeId = af.getId();
+        this.memberId = m.getId();
+        this.start = af.getStart();
+        this.end = af.getEnd();
+        this.price = af.getPrice();
     }
 
-    public static Long getAnnualFeeId() {
+    public Long getAnnualFeeId() {
         return annualFeeId;
     }
 
-    public static String getTransactionDate() {
-        return transactionDate;
+    public void setAnnualFeeId(Long annualFeeId) {
+        this.annualFeeId = annualFeeId;
     }
 
-    public static String getEndSubscriptionDate() {
-        return endSubscriptionDate;
+    public Long getMemberId() {
+        return memberId;
     }
 
-    public static Double getPrice() {
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
+
+    public Double getPrice() {
         return price;
     }
 
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 }

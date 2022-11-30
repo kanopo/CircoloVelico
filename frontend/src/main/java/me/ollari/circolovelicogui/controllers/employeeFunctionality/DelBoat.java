@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import me.ollari.circolovelicogui.HttpFunctions;
 import me.ollari.circolovelicogui.Ip;
 import me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome;
 import me.ollari.circolovelicogui.rest.Boat;
@@ -36,22 +37,17 @@ public class DelBoat {
     private Scene scene;
     private Parent parent;
 
+    private HttpFunctions httpFunctions = new HttpFunctions();
+
     public void setTable() throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + ":8080/get/boat"))
-                .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        if (response.statusCode() == 200) {
-            // the user is there
+        HttpResponse<String> boatResponse = httpFunctions.GET("/boats");
 
-            // parse JSON
-            ObjectMapper mapper = new ObjectMapper();
-            List<Boat> boats = mapper.readValue(response.body(), new TypeReference<List<Boat>>() {
+        if (boatResponse.statusCode() == 200) {
+
+            ObjectMapper boatMapper = new ObjectMapper();
+            List<Boat> boats = boatMapper.readValue(boatResponse.body(), new TypeReference<List<Boat>>() {
             });
 
 
@@ -121,14 +117,7 @@ public class DelBoat {
                 idToDelete = boatTable.getSelectionModel().getSelectedItem().getId();
                 System.out.println(idToDelete);
 
-                HttpClient clientDel = HttpClient.newHttpClient();
-                HttpRequest requestDel = HttpRequest.newBuilder()
-                        .DELETE()
-                        .header("accept", "application/json")
-                        .uri(URI.create("http://" + Ip.getIp() + ":8080/delete/boat/boat-id/" + idToDelete))
-                        .build();
-
-                HttpResponse<String> responseDel = clientDel.send(requestDel, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> responseDel = httpFunctions.DELETE("/boats/" + idToDelete);
 
                 if (responseDel.statusCode() == 200) {
                     // the user is there

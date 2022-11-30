@@ -31,7 +31,8 @@ import java.util.Set;
 @Table(name = "race")
 public class Race {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "race_seq", allocationSize = 1, sequenceName = "race_seq")
     @Column(name = "id")
     private Long id;
 

@@ -31,7 +31,8 @@ import java.util.Set;
 @Table(name = "member")
 public class Member {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "member_seq", allocationSize = 1, sequenceName = "member_seq")
     @Column(name = "id")
     private Long id;
 
@@ -44,7 +45,7 @@ public class Member {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "fiscal_code", unique = true)
+    @Column(name = "fiscal_code", unique = true, nullable = false)
     private String fiscalCode;
 
     @Column(name = "username", unique = true, nullable = false)
