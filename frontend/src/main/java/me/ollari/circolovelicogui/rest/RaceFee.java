@@ -22,21 +22,11 @@ public class RaceFee {
 
     @JsonProperty("id")
     private Long id;
-    @JsonProperty("member")
-    private Member member;
-    @JsonProperty("race")
-    private Race race;
-    @JsonProperty("boat")
-    private Boat boat;
     @JsonProperty("price")
     private Double price;
     @JsonProperty("paymentDate")
     private String paymentDate;
-    @JsonProperty("paymentMethod")
-    private String paymentMethod;
 
-    @JsonProperty("toPay")
-    private Boolean toPay;
     @JsonIgnore
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -50,35 +40,6 @@ public class RaceFee {
         this.id = id;
     }
 
-    @JsonProperty("member")
-    public Member getMember() {
-        return member;
-    }
-
-    @JsonProperty("member")
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
-    @JsonProperty("race")
-    public Race getRace() {
-        return race;
-    }
-
-    @JsonProperty("race")
-    public void setRace(Race race) {
-        this.race = race;
-    }
-
-    @JsonProperty("boat")
-    public Boat getBoat() {
-        return boat;
-    }
-
-    @JsonProperty("boat")
-    public void setBoat(Boat boat) {
-        this.boat = boat;
-    }
 
     @JsonProperty("price")
     public Double getPrice() {
@@ -98,26 +59,6 @@ public class RaceFee {
     @JsonProperty("paymentDate")
     public void setPaymentDate(String paymentDate) {
         this.paymentDate = paymentDate;
-    }
-
-    @JsonProperty("paymentMethod")
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    @JsonProperty("paymentMethod")
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    @JsonProperty("toPay")
-    public Boolean getToPay() {
-        return toPay;
-    }
-
-    @JsonProperty("toPay")
-    public void setToPay(Boolean toPay) {
-        this.toPay = toPay;
     }
 
     @JsonAnyGetter

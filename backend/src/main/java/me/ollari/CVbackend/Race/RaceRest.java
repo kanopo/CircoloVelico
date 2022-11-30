@@ -1,11 +1,12 @@
 package me.ollari.CVbackend.Race;
 
+import me.ollari.CVbackend.RaceFee.RaceFee;
+import me.ollari.CVbackend.RaceFee.RaceFeeRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Questa classe viene usata come uno degli endpoint del'API che vine usata per comunicare tra DB(tramite {@link RaceRepository}) e GUI.
@@ -19,18 +20,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class RaceRest {
 
     private final RaceRepository raceRepository;
+    private final RaceFeeRepository raceFeeRepository;
 
 
     /**
      * Questo costruttore viene utilizzato per inizializzare le repository che verranno utilizzate nelle chiamate del'API.
+     *
      * @param raceRepository repository usata per operazioni crud inerenti alle gare
      */
-    public RaceRest(RaceRepository raceRepository) {
+    public RaceRest(RaceRepository raceRepository, RaceFeeRepository raceFeeRepository) {
         this.raceRepository = raceRepository;
+        this.raceFeeRepository = raceFeeRepository;
     }
 
     /**
      * EndPoint di tipo GET della RESP API utilizzato per ottenere una lista di tutte le gare del DB
+     *
      * @return lista di oggetti gara
      */
     @GetMapping("/races")
@@ -39,7 +44,27 @@ public class RaceRest {
     }
 
     /**
+     * EndPoint di tipo GET della RESP API utilizzato per ricevere i dati di una gara in base all'id della raceFee
+     * @param raceFeeId
+     * @return
+     */
+    @GetMapping("/races/raceFee/{raceFeeId}")
+    ResponseEntity<Race> getRaceByRaceFee(@PathVariable Long raceFeeId) {
+
+        List<RaceFee> raceFees = raceFeeRepository.findAll();
+
+        for (RaceFee rf : raceFees) {
+            if (rf.getId().equals(raceFeeId)) {
+                return new ResponseEntity<>(rf.getRacesRaceFee(), HttpStatus.OK);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    /**
      * EndPoint di tipo POST della RESP API utilizzato per creare una gara nel DB
+     *
      * @param race oggetto gara che si vuole aggiungere nel DB
      * @return 201 se creazione avvenuta con successo, 406 se avviene un problema durante l'inserimento
      */

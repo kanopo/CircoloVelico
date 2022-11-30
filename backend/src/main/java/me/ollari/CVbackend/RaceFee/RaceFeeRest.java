@@ -28,26 +28,27 @@ import java.util.List;
 public class RaceFeeRest {
 
     private final RaceFeeRepository raceFeeRepository;
-    private final MemberRepository memberRepository;
     private final BoatRepository boatRepository;
     private final RaceRepository raceRepository;
+    private final MemberRepository memberRepository;
 
     /**
      * Questo costruttore viene utilizzato per inizializzare le repository che verranno utilizzate nelle chiamate del'API.
+     *
      * @param raceFeeRepository repository usata per operazioni crud inerenti alle tasse delle gare
-     * @param memberRepository repository usata per operazioni crud inerenti ai membri
-     * @param boatRepository repository usata per operazioni crud inerenti alle barche
-     * @param raceRepository repository usata per operazioni crud inerenti alle gare
+     * @param boatRepository    repository usata per operazioni crud inerenti alle barche
+     * @param raceRepository    repository usata per operazioni crud inerenti alle gare
      */
-    public RaceFeeRest(RaceFeeRepository raceFeeRepository, MemberRepository memberRepository, BoatRepository boatRepository, RaceRepository raceRepository) {
+    public RaceFeeRest(RaceFeeRepository raceFeeRepository, BoatRepository boatRepository, RaceRepository raceRepository, MemberRepository memberRepository) {
         this.raceFeeRepository = raceFeeRepository;
-        this.memberRepository = memberRepository;
         this.boatRepository = boatRepository;
         this.raceRepository = raceRepository;
+        this.memberRepository = memberRepository;
     }
 
     /**
      * EndPoint di tipo GET della RESP API utilizzato per richiedere tutte le tasse di partecipazione alle gare salvate nel DB
+     *
      * @return lista dui oggetti raceFee
      */
     @GetMapping("/raceFees")
@@ -56,29 +57,63 @@ public class RaceFeeRest {
     }
 
     /**
+     * EndPoint di tipo GET della RESP API che restituisce la raceFess con il corrispettivo id
+     * @param raceId id della gara
+     * @return dati della raceFee
+     */
+    @GetMapping("/raceFees/{raceId}")
+    ResponseEntity<RaceFee> getRaceFeeById(@PathVariable Long raceId) {
+
+
+        RaceFee raceFee = raceFeeRepository.findById(raceId).orElse(null);
+
+        if (raceFee != null) {
+            return new ResponseEntity<>(raceFee, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
+    @GetMapping("/raceFees/memberId/{memberId}")
+    ResponseEntity<Iterable<RaceFee>> getRaceFeesByMemberId(@PathVariable Long memberId) {
+
+        Member member = memberRepository.findById(memberId).orElse(null);
+
+        if (member != null) {
+            return new ResponseEntity<>(member.getRaceFees(), HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+
+    }
+
+
+
+    /**
      * EndPoint di tipo POST della RESP API utilizzato per creare una tassa d'iscrizione a una gara
+     *
      * @param boatId id della barca
-     * @param memberId id dell'utente
      * @param raceId id della gara
      * @return 201 se la tassa viene creata e 406 se la creazione fallisce
      */
-    @PostMapping("/raceFees/raceId/{raceId}/memberId/{memberId}/boatId/{boatId}")
-    ResponseEntity<RaceFee> createRaceFee(@PathVariable Long boatId, @PathVariable Long memberId, @PathVariable Long raceId) {
-        Member m = memberRepository.findById(memberId).orElse(null);
+    @PostMapping("/raceFees/raceId/{raceId}/boatId/{boatId}")
+    ResponseEntity<RaceFee> createRaceFee(@PathVariable Long boatId, @PathVariable Long raceId) {
+
         Boat b = boatRepository.findById(boatId).orElse(null);
         Race r = raceRepository.findById(raceId).orElse(null);
 
-        /*
-        TODO:
-            - penso di poter semplificare la query eliminando la richiesta del memberId e prendere il membro dall'oggetto barca
-         */
+        if (b != null && r != null) {
+            Member m = b.getMembersBoat();
 
-
-        if (m != null && b != null && r != null) {
             // all objects exists
             /*
             TODO:
-                - check if the boat is already in the race fees list (association betwean race id, race boat)
+                - check if the boat is already in the race fees list (association between race id, race boat)
              */
 
             if (b.getMembersBoat().getId().equals(m.getId())) {

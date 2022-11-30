@@ -15,14 +15,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import me.ollari.circolovelicogui.HttpFunctions;
 import me.ollari.circolovelicogui.controllers.homeHandlers.MemberHome;
+import me.ollari.circolovelicogui.rest.Boat;
+import me.ollari.circolovelicogui.rest.Race;
 import me.ollari.circolovelicogui.rest.RaceFee;
 import me.ollari.circolovelicogui.tableView.RaceFeeVisualization;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.util.*;
 
 public class MemberRaceFees {
     public Long memberId;
@@ -40,28 +41,75 @@ public class MemberRaceFees {
     private final HttpFunctions httpFunctions = new HttpFunctions();
 
     public void setTable() throws IOException, InterruptedException {
-        HttpResponse<String> response = httpFunctions.GET("/get/race-fee/member-id/" + memberId);
+        List<RaceFeeVisualization> raceFeeVisualizations = new ArrayList<>();
 
-        if (response.statusCode() == 200) {
+        HttpResponse<String> raceFeeResponse = httpFunctions.GET("/raceFees/memberId/" + memberId);
+
+        if (raceFeeResponse.statusCode() == 200) {
             // the user is there
 
             // parse JSON
-            ObjectMapper mapper = new ObjectMapper();
-            List<RaceFee> raceFees = mapper.readValue(response.body(), new TypeReference<List<RaceFee>>() {
+            ObjectMapper raceFeeMapper = new ObjectMapper();
+            ObjectMapper boatMapper = new ObjectMapper();
+            ObjectMapper raceMapper = new ObjectMapper();
+            List<RaceFee> raceFees = raceFeeMapper.readValue(raceFeeResponse.body(), new TypeReference<List<RaceFee>>() {
             });
 
-            List<RaceFeeVisualization> raceFeeVisualizations = new ArrayList<>();
+            Map<RaceFee, Boat> raceFeeBoatMap = new HashMap<>();
+            Map<RaceFee, Race> raceFeeRaceMap = new HashMap<>();
 
             for (RaceFee rf : raceFees) {
+
+                Boat boat = new Boat();
+                Race race = new Race();
+
+                HttpResponse<String> boatResponse = httpFunctions.GET("/boats/raceFee/" + rf.getId());
+
+                if (boatResponse.statusCode() == 200) {
+
+                    boat = boatMapper.readValue(boatResponse.body(), new TypeReference<Boat>() {
+                    });
+
+                }
+
+                HttpResponse<String> raceResponse = httpFunctions.GET("/races/raceFee/" + rf.getId());
+
+                if (raceResponse.statusCode() == 200) {
+
+                    race = raceMapper.readValue(raceResponse.body(), new TypeReference<Race>() {
+                    });
+
+                }
+
                 RaceFeeVisualization rfv = new RaceFeeVisualization();
 
+                /*
+                rf.getId(),
+                        race.getName(),
+                        boat.getName(),
+                        race.getDate(),
+                        rf.getPaymentDate(),
+                        rf.getPrice()
+                 */
+
+                // TODO: race/racefee/id return 404
+                rfv.setId(rf.getId());
+                rfv.setRaceName(race.getName());
+                rfv.setBoatName(boat.getName());
+                rfv.setDate(LocalDate.parse(race.getDate()));
+                rfv.setPaymentDate(LocalDate.parse(rf.getPaymentDate()));
+                rfv.setRaceFeePrice(rf.getPrice());
+
+
                 raceFeeVisualizations.add(rfv);
+
             }
+
 
             raceName.setCellValueFactory(new PropertyValueFactory<>("raceName"));
             boatName.setCellValueFactory(new PropertyValueFactory<>("boatName"));
-            raceDate.setCellValueFactory(new PropertyValueFactory<>("raceDate"));
-            raceFeePaymentDate.setCellValueFactory(new PropertyValueFactory<>("raceFeePaymentDate"));
+            raceFeePaymentDate.setCellValueFactory(new PropertyValueFactory<>("paymentDate"));
+            raceDate.setCellValueFactory(new PropertyValueFactory<>("date"));
             raceFeePrice.setCellValueFactory(new PropertyValueFactory<>("raceFeePrice"));
 
             ObservableList<RaceFeeVisualization> raceFeeToDisplay = FXCollections.observableArrayList();
@@ -69,7 +117,6 @@ public class MemberRaceFees {
             raceFeeToDisplay.addAll(raceFeeVisualizations);
 
             raceFeesTable.setItems(raceFeeToDisplay);
-
 
 
 

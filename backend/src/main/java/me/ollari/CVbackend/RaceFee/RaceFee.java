@@ -28,19 +28,19 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "race_fee")
+@Table(name = "race_fee", indexes = {@Index(name = "unique_boat_subscription_for_race", columnList = "race_id,boat_id", unique = true)})
 public class RaceFee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RACE_FEE_SEQ")
-    @Column(name = "id", nullable = false)
+    @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "payment_date", nullable = false)
+    @Column(name = "payment_date")
     private LocalDate paymentDate;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price")
     private Double price;
 
     @JsonIgnore

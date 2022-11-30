@@ -31,6 +31,17 @@ public class HttpFunctions {
 
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
+
+    public HttpResponse<String> POSTNoBody(String url) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .header("Content-Type", "application/json")
+                .uri(URI.create("http://" + Ip.getIp() + ":8080" + url))
+                .build();
+
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
+    }
     public HttpResponse<String> PUT(String url, String body) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -61,4 +72,5 @@ public class HttpFunctions {
             return false; // Either timeout or unreachable or failed DNS lookup.
         }
     }
+
 }

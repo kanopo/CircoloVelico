@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -76,6 +77,52 @@ public class BoatRest {
         if (boat != null) {
             return new ResponseEntity<>(boat, HttpStatus.OK);
         } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
+     * EndPoint di tipo GET della RESP API che restituisce tutte le barche di un utente non iscritte alla gara
+     *
+     * @param raceId   id della gara
+     * @param memberId possessore delle barche
+     * @return lista di barche che possono essere iscritte alla gara oppure 400(bad inputs)
+     */
+    @GetMapping("/boats/raceId/{raceId}/memberId/{memberId}")
+    ResponseEntity<Iterable<Boat>> getBoatsSignedInByMember(@PathVariable Long raceId, @PathVariable Long memberId) {
+        List<RaceFee> raceFees = raceFeeRepository.findAll();
+        Member member = memberRepository.findById(memberId).orElse(null);
+        Race race = raceRepository.findById(raceId).orElse(null);
+
+
+        if (member == null || race == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+            Set<Boat> notSubscribedToRace = member.getBoats();
+
+            if (raceFees.isEmpty()) {
+                return new ResponseEntity<>(notSubscribedToRace, HttpStatus.OK);
+            } else {
+                for (RaceFee rf : raceFees) {
+                    if (rf.getMembersRaceFee().getId().equals(memberId) && rf.getRacesRaceFee().getId().equals(raceId)) {
+                        notSubscribedToRace.remove(rf.getBoatsRaceFee());
+                    }
+                }
+            }
+
+            return new ResponseEntity<>(notSubscribedToRace, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/boats/raceFee/{raceFeeId}")
+    ResponseEntity<Boat> getBoatsByRaceFeeId(@PathVariable Long raceFeeId) {
+        RaceFee raceFee = raceFeeRepository.findById(raceFeeId).orElse(null);
+
+        if (raceFee != null) {
+            return new ResponseEntity<>(raceFee.getBoatsRaceFee(), HttpStatus.OK);
+        }
+        else
+        {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -186,7 +233,7 @@ public class BoatRest {
             for (Boat b : membersBoats) {
                 if (b.getRaceFees().isEmpty()) {
                     // non iscritto a nessuna gara -> può iscriversi
-                   boatsNotSubscribed.add(b);
+                    boatsNotSubscribed.add(b);
                 } else {
                     // devo fare il check per vesere se la barca b ha gia una tassa che fa riferimento alla gare di id raceId
                     for (RaceFee rf : b.getRaceFees()) {

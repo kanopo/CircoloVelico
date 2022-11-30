@@ -167,7 +167,7 @@ public class MemberBoats {
                 );
                 System.out.println(putParkingFee.statusCode());
 
-                if (putParkingFee.statusCode() == 200) {
+                if (putParkingFee.statusCode() == 201) {
                     setTable();
                 }
                 else

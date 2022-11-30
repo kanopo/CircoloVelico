@@ -31,8 +31,8 @@ import java.util.Set;
 @Table(name = "member")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ")
-    @Column(name = "id", nullable = false)
+    @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -47,10 +47,10 @@ public class Member {
     @Column(name = "fiscal_code", unique = true)
     private String fiscalCode;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @JsonIgnore
@@ -72,7 +72,7 @@ public class Member {
     @OneToMany(mappedBy = "membersRaceFee", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<RaceFee> raceFees = new HashSet<>();
-
+    
 
     /**
      * Costruttore usato durante la creazione dell'oggetto, non presente l'id poiché il database lo genera in automatico.

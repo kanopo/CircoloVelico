@@ -29,25 +29,25 @@ import java.time.LocalDate;
 @Table(name = "annual_fee")
 public class AnnualFee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANNUAL_FEE_SEQ")
-    @Column(name = "id", nullable = false)
+    @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @Column(name = "start", nullable = false)
+    @Column(name = "start")
     private LocalDate start;
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "end", nullable = false)
+    @Column(name = "end")
     private LocalDate end;
 
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price")
     private Double price;
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id")
     private Member membersAnnualFee;
 }

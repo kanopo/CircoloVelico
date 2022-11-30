@@ -30,31 +30,31 @@ import java.time.LocalDate;
 @Table(name = "parking_fee")
 public class ParkingFee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PARKING_FEE_SEQ")
-    @Column(name = "id", nullable = false)
+    @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "start", nullable = false)
+    @Column(name = "start")
     private LocalDate start;
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "end", nullable = false)
+    @Column(name = "end")
     private LocalDate end;
 
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price")
     private Double price;
 
     @JsonIgnore()
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id")
     private Member membersParkingFees;
     @JsonIgnore()
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "boat_id", nullable = false)
+    @JoinColumn(name = "boat_id")
     private Boat boatsParkingFee;
 
 }

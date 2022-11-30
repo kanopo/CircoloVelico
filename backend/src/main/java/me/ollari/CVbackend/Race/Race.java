@@ -31,19 +31,22 @@ import java.util.Set;
 @Table(name = "race")
 public class Race {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RACE_SEQ")
-    @Column(name = "id", nullable = false)
+    @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
     private LocalDate date;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price")
     private Double price;
 
-    @Column(name = "award", nullable = false)
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "award")
     private Double award;
 
     @JsonIgnore

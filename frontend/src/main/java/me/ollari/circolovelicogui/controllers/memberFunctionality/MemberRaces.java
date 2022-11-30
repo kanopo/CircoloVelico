@@ -36,7 +36,7 @@ public class MemberRaces {
 
     public Long memberId;
     public ComboBox<String> boatSelector;
-    public ComboBox<String> paymentSelector;
+    public TableColumn<Race, String> name;
 
     private Stage stage;
     private Scene scene;
@@ -63,6 +63,7 @@ public class MemberRaces {
             });
 
 
+            name.setCellValueFactory(new PropertyValueFactory<>("name"));
             date.setCellValueFactory(new PropertyValueFactory<>("date"));
             price.setCellValueFactory(new PropertyValueFactory<>("price"));
             award.setCellValueFactory(new PropertyValueFactory<>("award"));
@@ -73,11 +74,7 @@ public class MemberRaces {
 
             raceTable.setItems(racesToDisplay);
 
-            List<String> pay = new ArrayList<>();
-            pay.add("Carta di credito");
-            pay.add("Ricevuta di bonifico");
 
-            paymentSelector.setItems(FXCollections.observableList(pay));
 
 
         } else {
@@ -161,15 +158,8 @@ public class MemberRaces {
             // ora creo la race fee per far si che la barca risulti iscritta
 
 
-            Double price = raceTable.getSelectionModel().getSelectedItem().getPrice();
-            LocalDate localDate = LocalDate.now();
-            String paymentDate = localDate.toString();
-            String paymentMethod = "";
-
-            String body = "{\"price\":\"" + price + "\",\"paymentDate\":\"" + paymentDate + "\",\"price\":\"" + price + "\"}";
-
             // TODO: modificare l'api per prendere il memberID dalla barca
-            HttpResponse<String> responsePost = httpFunctions.POST("/raceFees/raceId/" + raceId + "/memberId/" + memberId + "/boatId/" + boatId, body);
+            HttpResponse<String> responsePost = httpFunctions.POSTNoBody("/raceFees/raceId/" + raceId + "/boatId/" + boatId);
 
 
             System.out.println(responsePost);
@@ -194,7 +184,7 @@ public class MemberRaces {
             Race race = raceTable.getSelectionModel().getSelectedItem();
             raceId = race.getId();
 
-            HttpResponse<String> response = httpFunctions.GET("/boats/memberId/" + memberId + "/notInRace/" + raceId);
+            HttpResponse<String> response = httpFunctions.GET("/boats/raceId/" + raceId + "/memberId/" + memberId);
 
             if (response.statusCode() == 200) {
                 // the user is there

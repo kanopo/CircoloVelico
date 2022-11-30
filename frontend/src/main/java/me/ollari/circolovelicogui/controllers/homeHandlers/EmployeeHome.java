@@ -29,7 +29,7 @@ public class EmployeeHome {
     private Stage stage;
     private Scene scene;
     private Parent parent;
-    private HttpFunctions httpFunctions;
+    private HttpFunctions httpFunctions = new HttpFunctions();
 
 
     @FXML

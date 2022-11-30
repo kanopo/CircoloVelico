@@ -11,6 +11,7 @@ import java.util.Map;
         "name",
         "participationPrice",
         "award",
+        "name",
         "date"
 })
 public class Race {
@@ -24,6 +25,9 @@ public class Race {
     private Double award;
     @JsonProperty("date")
     private String date;
+
+    @JsonProperty("name")
+    private String name;
     @JsonIgnore
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -37,6 +41,13 @@ public class Race {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Double getPrice() {
         return price;

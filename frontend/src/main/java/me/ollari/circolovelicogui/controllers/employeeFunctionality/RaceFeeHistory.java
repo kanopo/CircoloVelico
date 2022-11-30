@@ -1,9 +1,5 @@
 package me.ollari.circolovelicogui.controllers.employeeFunctionality;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,20 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import me.ollari.circolovelicogui.Ip;
 import me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome;
-import me.ollari.circolovelicogui.rest.RaceFee;
 import me.ollari.circolovelicogui.tableView.RaceFeeVisualization;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -82,6 +69,7 @@ public class RaceFeeHistory {
     }
 
     public void setTable() throws IOException, InterruptedException {
+        /*
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
@@ -122,11 +110,14 @@ public class RaceFeeHistory {
             feeVisualizations.addAll(raceFeeVisualizations);
 
             raceFeeHistoryTable.setItems(feeVisualizations);
+            } else
 
-
-        } else {
-            // 404 user not present
-            System.out.println("Problema di connessione");
-        }
+    {
+        // 404 user not present
+        System.out.println("Problema di connessione");
     }
+         */
+    }
+
+
 }
