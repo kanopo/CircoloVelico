@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import me.ollari.circolovelicogui.HttpFunctions;
 import me.ollari.circolovelicogui.Ip;
 import me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome;
 import me.ollari.circolovelicogui.rest.Member;
@@ -41,23 +42,18 @@ public class MemberManagement {
     private Scene scene;
     private Parent parent;
 
+    HttpFunctions httpFunctions = new HttpFunctions();
+
 
     public void setTable() throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + ":8080/get/member"))
-                .build();
+        HttpResponse<String> memberResponse = httpFunctions.GET("/members");
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() == 200) {
+        if (memberResponse.statusCode() == 200) {
             // the user is there
 
             // parse JSON
-            ObjectMapper mapper = new ObjectMapper();
-            List<Member> members = mapper.readValue(response.body(), new TypeReference<List<Member>>() {
+            ObjectMapper memberMapper = new ObjectMapper();
+            List<Member> members = memberMapper.readValue(memberResponse.body(), new TypeReference<List<Member>>() {
             });
 
 
@@ -67,9 +63,7 @@ public class MemberManagement {
 
             ObservableList<Member> membersToDisplay = FXCollections.observableArrayList();
 
-            members.forEach(member -> {
-                membersToDisplay.add(member);
-            });
+            membersToDisplay.addAll(members);
 
             userTable.setItems(membersToDisplay);
 
@@ -159,15 +153,24 @@ public class MemberManagement {
                     // add name mod to http body
                     newName = nameToModify;
                 }
+                else {
+                    newName = userName;
+                }
 
                 if (!userSurname.equals(surnameToModify)) {
                     // add surname mod to http body
                     newSurname = surnameToModify;
                 }
+                else {
+                    newSurname = userSurname;
+                }
 
                 if (!userAddress.equals(addressToModify)) {
                     // add address mod to http body
                     newAddress = addressToModify;
+                }
+                else {
+                    newAddress = userAddress;
                 }
 
 
@@ -175,16 +178,10 @@ public class MemberManagement {
                     // do nothing
                 } else {
                     String body = "{\"name\":\"" + newName + "\",\"surname\":\"" + newSurname + "\",\"address\":\"" + newAddress + "\"}";
-                    System.out.println(body);
 
-                    HttpClient clientPut = HttpClient.newHttpClient();
-                    HttpRequest requestPut = HttpRequest.newBuilder()
-                            .PUT(HttpRequest.BodyPublishers.ofString(body))
-                            .header("Content-Type", "application/json")
-                            .uri(URI.create("http://" + Ip.getIp() + ":8080/put/member/member-id/" + memberId + ""))
-                            .build();
+                    HttpResponse<String> responsePut = httpFunctions.PUT("/members/" + memberId, body);
 
-                    HttpResponse<String> responsePut = clientPut.send(requestPut, HttpResponse.BodyHandlers.ofString());
+                    System.out.println(responsePut);
 
                     setTable();
                     nameMod.clear();

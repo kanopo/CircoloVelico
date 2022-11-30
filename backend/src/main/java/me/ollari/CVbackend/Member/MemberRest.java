@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Questa classe viene usata come uno degli endpoint del'API che vine usata per comunicare tra DB(tramite {@link MemberRepository}) e GUI.
@@ -88,6 +89,45 @@ public class MemberRest {
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    /**
+     * EndPoint di tipo PUT della RESP API utilizzato per modificare alcuni parametri del member
+     * @param memberId id dell'utente da modificare
+     * @param modded dati modificati
+     * @return 404 se l'id non esiste e 200 se la modifica e' avvenuta con successo
+     */
+    @PutMapping("/members/{memberId}")
+    ResponseEntity<Member> modifyMemberById(@PathVariable Long memberId, @RequestBody Member modded) {
+        Member old = memberRepository.findById(memberId).orElse(null);
+
+        if (old != null) {
+
+            // id of member exists
+            if (!Objects.equals(old.getName(), modded.getName()) || modded.getName().isBlank() || modded.getName().isEmpty()) {
+                old.setName(modded.getName());
+            }
+
+            if (!Objects.equals(old.getAddress(), modded.getAddress()) || modded.getAddress().isBlank() || modded.getAddress().isEmpty()) {
+                old.setAddress(modded.getAddress());
+            }
+
+            if (!Objects.equals(old.getSurname(), modded.getSurname()) || modded.getSurname().isBlank() || modded.getSurname().isEmpty()) {
+                old.setSurname(modded.getSurname());
+            }
+
+
+
+
+
+
+            memberRepository.save(old);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

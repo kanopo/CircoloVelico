@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import me.ollari.circolovelicogui.HttpFunctions;
 import me.ollari.circolovelicogui.Ip;
 import me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome;
 import me.ollari.circolovelicogui.rest.Race;
@@ -37,22 +38,17 @@ public class DelRace {
 
     public Long employeeId;
 
+    private HttpFunctions httpFunctions = new HttpFunctions();
+
     public void setTable() throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + ":8080/get/race"))
-                .build();
+        HttpResponse<String> racesResponse = httpFunctions.GET("/races");
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() == 200) {
+        if (racesResponse.statusCode() == 200) {
             // the user is there
 
             // parse JSON
-            ObjectMapper mapper = new ObjectMapper();
-            List<Race> races = mapper.readValue(response.body(), new TypeReference<List<Race>>() {
+            ObjectMapper racesMapper = new ObjectMapper();
+            List<Race> races = racesMapper.readValue(racesResponse.body(), new TypeReference<List<Race>>() {
             });
 
 
@@ -120,24 +116,11 @@ public class DelRace {
 
             try {
                 idToDelete = raceTable.getSelectionModel().getSelectedItem().getId();
-                System.out.println(idToDelete);
 
-                HttpClient clientDel = HttpClient.newHttpClient();
-                HttpRequest requestDel = HttpRequest.newBuilder()
-                        .DELETE()
-                        .header("accept", "application/json")
-                        .uri(URI.create("http://" + Ip.getIp() + ":8080/delete/race/race-id/" + idToDelete))
-                        .build();
-
-                HttpResponse<String> responseDel = clientDel.send(requestDel, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> responseDel = httpFunctions.DELETE("/races" + idToDelete);
 
                 if (responseDel.statusCode() == 200) {
-                    // the user is there
-                    System.out.println(responseDel.statusCode());
-
                     setTable();
-
-
                 } else {
                     // 404 user not present
                     System.out.println("Problema di connessione");
