@@ -3,18 +3,18 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="me.ollari.circolovelicogui.controllers.memberFunctionality.MemberBoats">
     <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="6.0" prefHeight="40.0"
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="7.0" prefHeight="40.0"
                prefWidth="100.0" text="Le mie barche"/>
-        <TableView fx:id="boats_table" layoutY="54.0" prefHeight="204.0" prefWidth="300.0">
+        <TableView fx:id="boats_table" layoutY="54.0" prefHeight="272.0" prefWidth="400.0">
             <columns>
                 <TableColumn fx:id="name" prefWidth="200.0" text="Nome"/>
-                <TableColumn fx:id="length" prefWidth="100.0" text="Lunghezza"/>
+                <TableColumn fx:id="length" prefWidth="200.0" text="Lunghezza"/>
             </columns>
         </TableView>
-        <VBox alignment="TOP_CENTER" layoutX="300.0" layoutY="54.0" prefHeight="341.0" prefWidth="300.0"
+        <VBox alignment="CENTER" layoutX="400.0" layoutY="54.0" prefHeight="501.0" prefWidth="400.0"
               style="-fx-border-color: black;">
             <children>
                 <Label lineSpacing="1.0" prefHeight="43.0" prefWidth="238.0"
@@ -24,40 +24,39 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </VBox.margin>
                 </Label>
-                <Label text="Nome">
+                <Label alignment="CENTER" minHeight="25.0" minWidth="150.0" text="Nome">
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </VBox.margin>
                 </Label>
-                <TextField fx:id="new_boat_name">
+                <TextField fx:id="new_boat_name" alignment="CENTER" minHeight="25.0" minWidth="150.0">
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </VBox.margin>
                 </TextField>
-                <Label text="Lunghezza">
+                <Label alignment="CENTER" minHeight="25.0" minWidth="150.0" text="Lunghezza">
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </VBox.margin>
                 </Label>
-                <TextField fx:id="new_boat_length">
+                <TextField fx:id="new_boat_length" alignment="CENTER" minHeight="25.0" minWidth="150.0">
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </VBox.margin>
                 </TextField>
-                <Button mnemonicParsing="false" onAction="#add_boat" prefHeight="20.0" prefWidth="100.0"
-                        text="Aggiungi">
+                <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" onAction="#add_boat" prefHeight="20.0"
+                        prefWidth="100.0" text="Aggiungi">
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </VBox.margin>
                 </Button>
             </children>
         </VBox>
-        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#go_home" prefHeight="20.0"
-                prefWidth="100.0" text="Home"/>
-        <Button layoutX="486.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefHeight="20.0"
-                prefWidth="100.0" text="Logout"/>
-        <VBox alignment="TOP_CENTER" layoutY="257.0" prefHeight="138.0" prefWidth="300.0"
-              style="-fx-border-color: black;">
+        <Button layoutX="14.0" layoutY="14.0" minHeight="25.0" minWidth="150.0" mnemonicParsing="false"
+                onAction="#go_home" prefHeight="20.0" prefWidth="100.0" text="Home"/>
+        <Button layoutX="636.0" layoutY="14.0" minHeight="25.0" minWidth="150.0" mnemonicParsing="false"
+                onAction="#logout" prefHeight="20.0" prefWidth="100.0" text="Logout"/>
+        <VBox alignment="CENTER" layoutY="326.0" prefHeight="229.0" prefWidth="400.0">
             <children>
                 <Label prefHeight="54.0" prefWidth="278.0"
                        text="Per eliminare una barca, selezionarla dalla lista e premere il tasto &quot;Cancella&quot;"
@@ -66,8 +65,8 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </VBox.margin>
                 </Label>
-                <Button mnemonicParsing="false" onAction="#delete_boat" prefHeight="20.0" prefWidth="100.0"
-                        text="Cancella">
+                <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" onAction="#delete_boat"
+                        prefHeight="20.0" prefWidth="100.0" text="Cancella">
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </VBox.margin>

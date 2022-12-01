@@ -8,13 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import me.ollari.circolovelicogui.HttpFunctions;
-import me.ollari.circolovelicogui.Ip;
 import me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Objects;
 
@@ -117,9 +113,7 @@ public class AddRace {
             price.setStyle("-fx-text-box-border: gray;");
             award.setStyle("-fx-text-box-border: gray;");
             date.setStyle("-fx-text-box-border: gray;");
-        }
-        else
-        {
+        } else {
             name.setStyle("-fx-text-box-border: red;");
             price.setStyle("-fx-text-box-border: red;");
             award.setStyle("-fx-text-box-border: red;");

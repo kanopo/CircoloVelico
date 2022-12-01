@@ -1,27 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="me.ollari.circolovelicogui.controllers.employeeFunctionality.MemberManagement">
     <children>
-        <TableView layoutY="45.0" fx:id="userTable" onMouseClicked="#requestDataToMod" prefHeight="200.0"
-                   prefWidth="600.0">
+        <TableView fx:id="userTable" layoutY="62.0" onMouseClicked="#requestDataToMod" prefHeight="273.0"
+                   prefWidth="800.0">
             <columns>
                 <TableColumn fx:id="name" prefWidth="200.0" text="Nome"/>
                 <TableColumn fx:id="surname" prefWidth="200.0" text="Cognome"/>
                 <TableColumn fx:id="address" prefWidth="200.0" text="Indirizzo"/>
             </columns>
         </TableView>
-        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goHome" text="Home"/>
-        <Button layoutX="524.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" text="Logout"/>
-        <Label layoutX="195.0" layoutY="18.0" text="Seleziona l'utente da modificare"/>
-        <Label layoutX="14.0" layoutY="267.0" text="Nome"/>
-        <TextField fx:id="nameMod" layoutX="110.0" layoutY="263.0"/>
-        <Label layoutX="14.0" layoutY="305.0" text="Cognome"/>
-        <TextField fx:id="surnameMod" layoutX="110.0" layoutY="301.0"/>
-        <Label layoutX="14.0" layoutY="345.0" text="Indirizzo"/>
-        <TextField fx:id="addressMod" layoutX="110.0" layoutY="341.0"/>
-        <Button layoutX="406.0" layoutY="301.0" mnemonicParsing="false" onAction="#modifySelected" text="Modifica"/>
+        <Button layoutX="14.0" layoutY="14.0" minHeight="25.0" minWidth="150.0" mnemonicParsing="false"
+                onAction="#goHome" text="Home"/>
+        <Button layoutX="636.0" layoutY="14.0" minHeight="25.0" minWidth="150.0" mnemonicParsing="false"
+                onAction="#logout" text="Logout"/>
+        <Label layoutX="301.0" layoutY="19.0" text="Seleziona l'utente da modificare"/>
+        <HBox alignment="CENTER" layoutY="377.0" prefHeight="223.0" prefWidth="800.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Label minHeight="25.0" minWidth="150.0" text="Nome">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <Label minHeight="25.0" minWidth="150.0" text="Cognome">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <Label minHeight="25.0" minWidth="150.0" text="Indirizzo">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <TextField fx:id="nameMod" minHeight="25.0" minWidth="150.0">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="surnameMod" minHeight="25.0" minWidth="150.0">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="addressMod" minHeight="25.0" minWidth="150.0">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </TextField>
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" onAction="#modifySelected"
+                                text="Modifica">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
     </children>
 </AnchorPane>

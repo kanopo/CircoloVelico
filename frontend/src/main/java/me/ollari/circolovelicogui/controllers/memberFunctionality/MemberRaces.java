@@ -22,8 +22,6 @@ import me.ollari.circolovelicogui.rest.Race;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -73,8 +71,6 @@ public class MemberRaces {
             racesToDisplay.addAll(races);
 
             raceTable.setItems(racesToDisplay);
-
-
 
 
         } else {

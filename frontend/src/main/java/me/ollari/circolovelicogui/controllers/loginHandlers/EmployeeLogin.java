@@ -15,14 +15,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import me.ollari.circolovelicogui.HttpFunctions;
-import me.ollari.circolovelicogui.Ip;
 import me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome;
 import me.ollari.circolovelicogui.rest.Employee;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Objects;
 
@@ -122,10 +118,9 @@ public class EmployeeLogin {
                     employee_password.setStyle("-fx-text-box-border: red;");
                 }
             }
-        }
-        else
-        {
+        } else {
             backendisOffline.setOpacity(1);
-        };
+        }
+        ;
     }
 }

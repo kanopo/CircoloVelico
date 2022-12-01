@@ -5,16 +5,36 @@ import me.ollari.circolovelicogui.rest.ParkingFee;
 
 public class ParkingFeeVisualization {
     private String boatName;
+    private Long boatId;
+    private Long memberId;
     private String parkingFeeStart;
     private String parkingFeeEnd;
     private Double parkingFeePrice;
 
-    public ParkingFeeVisualization(Boat b, ParkingFee pf) {
+    public ParkingFeeVisualization(Long memberId, Boat b, ParkingFee pf) {
         this.boatName = b.getName();
         this.parkingFeeStart = pf.getStart();
         this.parkingFeeEnd = pf.getEnd();
         this.parkingFeePrice = pf.getPrice();
+        this.boatId = b.getId();
+        this.memberId = memberId;
 
+    }
+
+    public Long getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
+    }
+
+    public Long getBoatId() {
+        return boatId;
+    }
+
+    public void setBoatId(Long boatId) {
+        this.boatId = boatId;
     }
 
     public String getBoatName() {

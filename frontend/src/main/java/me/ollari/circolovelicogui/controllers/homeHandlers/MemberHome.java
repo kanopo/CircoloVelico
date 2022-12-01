@@ -120,14 +120,13 @@ public class MemberHome {
 
         if (response1.statusCode() == 200) {
             ObjectMapper mapper1 = new ObjectMapper();
-            List<Boat> boatsWithExpiredParkingFee = mapper1.readValue(response1.body(), new TypeReference<List<Boat>>() {});
+            List<Boat> boatsWithExpiredParkingFee = mapper1.readValue(response1.body(), new TypeReference<List<Boat>>() {
+            });
 
 
             if (boatsWithExpiredParkingFee.isEmpty()) {
 
-            }
-            else
-            {
+            } else {
                 notificationParkingFee.setOpacity(1);
             }
             /*

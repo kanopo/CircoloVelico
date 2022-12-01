@@ -13,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -120,9 +118,7 @@ public class BoatRest {
 
         if (raceFee != null) {
             return new ResponseEntity<>(raceFee.getBoatsRaceFee(), HttpStatus.OK);
-        }
-        else
-        {
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -141,6 +137,28 @@ public class BoatRest {
             return new ResponseEntity<>(member.getBoats(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
+     * EndPoint di tipo GET della RESP API che restituisce una hashmap di tutti gli utenti(id degli utenti) con le annesse barche
+     * @return una hashmap dove la chiave è l'utente e il valore è un set di tutte le imbarcazioni possedute dall'utente
+     * restituisce 204 se non sono presenti membri
+     */
+    @GetMapping("/boats/memberBoatSet")
+    ResponseEntity<Map<Long, Set<Boat>>> getMapOfAllMemberAndAllBoats() {
+        Map<Long, Set<Boat>> map = new HashMap<>();
+
+        List<Member> allMembers = memberRepository.findAll();
+
+        if (allMembers.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            for (Member m : allMembers) {
+                map.put(m.getId(), m.getBoats());
+            }
+
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
 

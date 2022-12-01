@@ -3,21 +3,23 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="me.ollari.circolovelicogui.controllers.employeeFunctionality.AddRace">
     <children>
-        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#go_home" text="Home"/>
-        <Button layoutX="526.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" text="Logout"/>
-        <VBox alignment="CENTER" layoutY="47.0" prefHeight="324.0" prefWidth="600.0">
+        <Button layoutX="14.0" layoutY="14.0" minHeight="25.0" minWidth="150.0" mnemonicParsing="false"
+                onAction="#go_home" text="Home"/>
+        <Button layoutX="636.0" layoutY="14.0" minHeight="25.0" minWidth="150.0" mnemonicParsing="false"
+                onAction="#logout" text="Logout"/>
+        <VBox alignment="CENTER" layoutY="47.0" prefHeight="500.0" prefWidth="800.0">
             <children>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label text="Nome gara">
+                        <Label minHeight="25.0" minWidth="200.0" text="Nome gara">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="name">
+                        <TextField fx:id="name" minHeight="25.0" minWidth="200.0">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
@@ -26,12 +28,12 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label text="Prezzo partecipazione">
+                        <Label minHeight="25.0" minWidth="200.0" text="Prezzo partecipazione">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="price">
+                        <TextField fx:id="price" minHeight="25.0" minWidth="200.0">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
@@ -40,12 +42,12 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label text="Premio primo posto">
+                        <Label minHeight="25.0" minWidth="200.0" text="Premio primo posto">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="award">
+                        <TextField fx:id="award" minHeight="25.0" minWidth="200.0">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
@@ -54,19 +56,19 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label text="Data">
+                        <Label minHeight="25.0" minWidth="200.0" text="Data">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="date">
+                        <TextField fx:id="date" minHeight="25.0" minWidth="200.0">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </TextField>
                     </children>
                 </HBox>
-                <Button mnemonicParsing="false" onAction="#add_race" text="Add race"/>
+                <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" onAction="#add_race" text="Add race"/>
             </children>
         </VBox>
     </children>

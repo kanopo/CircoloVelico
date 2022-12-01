@@ -42,6 +42,7 @@ public class HttpFunctions {
 
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
+
     public HttpResponse<String> PUT(String url, String body) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()

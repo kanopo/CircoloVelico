@@ -3,8 +3,6 @@ package me.ollari.circolovelicogui.tableView;
 import me.ollari.circolovelicogui.rest.AnnualFee;
 import me.ollari.circolovelicogui.rest.Member;
 
-import java.time.LocalDate;
-
 public class AnnualFeeVisualization {
     private Long annualFeeId;
     private Long memberId;

@@ -169,9 +169,7 @@ public class MemberBoats {
 
                 if (putParkingFee.statusCode() == 201) {
                     setTable();
-                }
-                else
-                {
+                } else {
                     System.out.println("Problema di connessione!");
                 }
             }

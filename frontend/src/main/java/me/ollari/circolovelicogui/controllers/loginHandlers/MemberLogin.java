@@ -97,9 +97,7 @@ public class MemberLogin {
                     member_password.setStyle("-fx-text-box-border: red;");
                 }
             }
-        }
-        else
-        {
+        } else {
             backendIsOff.setOpacity(1);
         }
 

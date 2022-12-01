@@ -13,36 +13,38 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import me.ollari.circolovelicogui.Ip;
+import me.ollari.circolovelicogui.HttpFunctions;
 import me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome;
+import me.ollari.circolovelicogui.rest.Boat;
 import me.ollari.circolovelicogui.rest.ParkingFee;
 import me.ollari.circolovelicogui.tableView.ParkingFeeVisualization;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class ParkingFeeHistory {
     public Long employeeId;
 
 
     public TableView<ParkingFeeVisualization> parkingFeeHistoryTable;
-    public TableColumn<ParkingFeeVisualization, Integer> id;
-    public TableColumn<ParkingFeeVisualization, Integer> memberId;
     public TableColumn<ParkingFeeVisualization, Integer> boatId;
     public TableColumn<ParkingFeeVisualization, Float> price;
-    public TableColumn<ParkingFeeVisualization, String> transactionDate;
-    public TableColumn<ParkingFeeVisualization, String> endSubscriptionDate;
+    public TableColumn<ParkingFeeVisualization, String> start;
+    public TableColumn<ParkingFeeVisualization, String> end;
+    public TableColumn<ParkingFeeVisualization, Integer> memberId;
 
 
     private Stage stage;
     private Scene scene;
     private Parent parent;
+
+    private HttpFunctions httpFunctions = new HttpFunctions();
+
+    private final HashMap<Boat, List<ParkingFee>> parkingFeesMap = new HashMap<>();
 
     public void go_home(ActionEvent actionEvent) {
         try {
@@ -83,48 +85,51 @@ public class ParkingFeeHistory {
     }
 
     public void setTable() throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + ":8080/get/parking-fee"))
-                .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        boatId.setCellValueFactory(new PropertyValueFactory<>("boatId"));
+        memberId.setCellValueFactory(new PropertyValueFactory<>("memberId"));
+        price.setCellValueFactory(new PropertyValueFactory<>("parkingFeePrice"));
+        start.setCellValueFactory(new PropertyValueFactory<>("parkingFeeStart"));
+        end.setCellValueFactory(new PropertyValueFactory<>("parkingFeeEnd"));
 
-        if (response.statusCode() == 200) {
-            // the user is there
+        ObservableList<ParkingFeeVisualization> parkingFeeToDisplay = FXCollections.observableArrayList();
 
-            // parse JSON
-            ObjectMapper mapper = new ObjectMapper();
-            List<ParkingFee> parkingFees = mapper.readValue(response.body(), new TypeReference<List<ParkingFee>>() {
+        ObjectMapper parkingFeeMapper = new ObjectMapper();
+        ObjectMapper boatMapper = new ObjectMapper();
+
+        HashMap<Long, Set<Boat>> memberIdBoatMap = new HashMap<>();
+        HashMap<Long, Set<ParkingFee>> boatIdParkignFeeMap = new HashMap<>();
+
+        HttpResponse<String> boatResponse = httpFunctions.GET("/boats/memberBoatSet");
+
+        if (boatResponse.statusCode() == 200) {
+            // ci sono utenti nel db
+            memberIdBoatMap = boatMapper.readValue(boatResponse.body(), new TypeReference<HashMap<Long, Set<Boat>>>() {
             });
+        }
 
-            List<ParkingFeeVisualization> parkingFeeVisualizations = new ArrayList<>();
+        HttpResponse<String> parkingFeeResponse = httpFunctions.GET("/parkingFee/boatParkingFeeSet");
 
-            for (ParkingFee pf : parkingFees) {
-                //ParkingFeeVisualization pfv = new ParkingFeeVisualization(pf);
-                //parkingFeeVisualizations.add(pfv);
+        if (parkingFeeResponse.statusCode() == 200) {
+            // ci sono utenti nel db
+            boatIdParkignFeeMap = parkingFeeMapper.readValue(parkingFeeResponse.body(), new TypeReference<HashMap<Long, Set<ParkingFee>>>() {
+            });
+        }
+
+
+        if (boatResponse.statusCode() == 200 && parkingFeeResponse.statusCode() == 200) {
+            for (Long memberId : memberIdBoatMap.keySet()) {
+
+                for (Boat b : memberIdBoatMap.get(memberId)) {
+
+                    for (ParkingFee pf : boatIdParkignFeeMap.get(b.getId())) {
+                        parkingFeeToDisplay.add(new ParkingFeeVisualization(memberId, b, pf));
+                    }
+                }
             }
 
+            parkingFeeHistoryTable.setItems(parkingFeeToDisplay);
 
-            id.setCellValueFactory(new PropertyValueFactory<>("parkingFeeId"));
-            memberId.setCellValueFactory(new PropertyValueFactory<>("memberId"));
-            boatId.setCellValueFactory(new PropertyValueFactory<>("boatId"));
-            transactionDate.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
-            endSubscriptionDate.setCellValueFactory(new PropertyValueFactory<>("endSubscriptionDate"));
-            price.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-
-            ObservableList<ParkingFeeVisualization> feeVisualizations = FXCollections.observableArrayList();
-            feeVisualizations.addAll(parkingFeeVisualizations);
-
-            parkingFeeHistoryTable.setItems(feeVisualizations);
-
-
-        } else {
-            // 404 user not present
-            System.out.println("Problema di connessione");
         }
     }
 }

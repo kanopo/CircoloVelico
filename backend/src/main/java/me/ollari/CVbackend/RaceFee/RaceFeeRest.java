@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,6 +72,26 @@ public class RaceFeeRest {
             return new ResponseEntity<>(raceFee, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/raceFees/visualization")
+    ResponseEntity<List<RaceFeeVisualization>> getRaceFeesForVisualization() {
+        List<RaceFee> raceFees = raceFeeRepository.findAll();
+
+        if (raceFees.isEmpty()) {
+            // no race fees
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        else
+        {
+            List<RaceFeeVisualization> rfv = new ArrayList<>();
+
+            for (RaceFee rf : raceFees) {
+                rfv.add(new RaceFeeVisualization(rf));
+            }
+
+            return new ResponseEntity<>(rfv, HttpStatus.OK);
         }
     }
 

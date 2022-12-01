@@ -3,101 +3,107 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="me.ollari.circolovelicogui.controllers.employeeFunctionality.AddMember">
     <children>
-        <Label layoutX="169.0" layoutY="21.0" text="Inserisci i dati dell'utente da aggiungere"/>
-        <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#go_home" text="Home"/>
-        <Button layoutX="524.0" layoutY="17.0" mnemonicParsing="false" onAction="#logout" text="Logout"/>
-        <VBox layoutY="48.0" prefHeight="271.0" prefWidth="412.0">
+        <Label layoutX="281.0" layoutY="22.0" text="Inserisci i dati dell'utente da aggiungere"/>
+        <Button layoutX="14.0" layoutY="17.0" minHeight="25.0" minWidth="150.0" mnemonicParsing="false"
+                onAction="#go_home" text="Home"/>
+        <Button layoutX="636.0" layoutY="17.0" minHeight="25.0" minWidth="150.0" mnemonicParsing="false"
+                onAction="#logout" text="Logout"/>
+        <VBox alignment="CENTER" layoutY="93.0" prefHeight="507.0" prefWidth="800.0">
             <children>
-                <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="600.0">
+                <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0">
                     <children>
-                        <Label text="Nome">
+                        <Label minHeight="25.0" minWidth="150.0" text="Nome">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="name">
+                        <TextField fx:id="name" minHeight="25.0" minWidth="150.0">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </TextField>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="600.0">
+                <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0">
                     <children>
-                        <Label text="Cognome">
+                        <Label minHeight="25.0" minWidth="150.0" text="Cognome">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="surname">
+                        <TextField fx:id="surname" minHeight="25.0" minWidth="150.0">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </TextField>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="600.0">
+                <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0">
                     <children>
-                        <Label text="Indirizzo(Casa)">
+                        <Label minHeight="25.0" minWidth="150.0" text="Indirizzo(Casa)">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="address">
+                        <TextField fx:id="address" minHeight="25.0" minWidth="150.0">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </TextField>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="600.0">
+                <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0">
                     <children>
-                        <Label text="Codice fiscale">
+                        <Label minHeight="25.0" minWidth="150.0" text="Codice fiscale">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="fiscal_code">
+                        <TextField fx:id="fiscal_code" minHeight="25.0" minWidth="150.0">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </TextField>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="600.0">
+                <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0">
                     <children>
-                        <Label text="Username">
+                        <Label minHeight="25.0" minWidth="150.0" text="Username">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="username">
+                        <TextField fx:id="username" minHeight="25.0" minWidth="150.0">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </TextField>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="600.0">
+                <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0">
                     <children>
-                        <Label text="Password">
+                        <Label minHeight="25.0" minWidth="150.0" text="Password">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="password">
+                        <TextField fx:id="password" minHeight="25.0" minWidth="150.0">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </TextField>
                     </children>
                 </HBox>
+                <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" onAction="#add_member"
+                        text="Aggiungi membro al circolo">
+                    <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="50.0"/>
+                    </VBox.margin>
+                </Button>
             </children>
         </VBox>
-        <Button layoutX="202.0" layoutY="341.0" mnemonicParsing="false" onAction="#add_member"
-                text="Aggiungi membro al circolo"/>
     </children>
 </AnchorPane>

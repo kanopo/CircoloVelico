@@ -1,5 +1,9 @@
 package me.ollari.circolovelicogui.controllers.employeeFunctionality;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -7,28 +11,34 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import me.ollari.circolovelicogui.HttpFunctions;
 import me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome;
-import me.ollari.circolovelicogui.tableView.RaceFeeVisualization;
+import me.ollari.circolovelicogui.rest.RaceFeeVisualizationEmployee;
 
 import java.io.IOException;
+import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Objects;
 
 
 public class RaceFeeHistory {
     public Long employeeId;
-    public TableView<RaceFeeVisualization> raceFeeHistoryTable;
-    public TableColumn<RaceFeeVisualization, Integer> id;
-    public TableColumn<RaceFeeVisualization, Integer> memberId;
-    public TableColumn<RaceFeeVisualization, Integer> boatId;
-    public TableColumn<RaceFeeVisualization, Integer> raceId;
-    public TableColumn<RaceFeeVisualization, Float> price;
-    public TableColumn<RaceFeeVisualization, String> paymentDate;
+    public TableView<RaceFeeVisualizationEmployee> raceFeeHistoryTable;
+    public TableColumn<RaceFeeVisualizationEmployee, Integer> id;
+    public TableColumn<RaceFeeVisualizationEmployee, Integer> memberId;
+    public TableColumn<RaceFeeVisualizationEmployee, Integer> boatId;
+    public TableColumn<RaceFeeVisualizationEmployee, Integer> raceId;
+    public TableColumn<RaceFeeVisualizationEmployee, Float> price;
+    public TableColumn<RaceFeeVisualizationEmployee, String> paymentDate;
 
 
     private Stage stage;
     private Scene scene;
     private Parent parent;
+
+    private HttpFunctions httpFunctions = new HttpFunctions();
 
     public void go_home(ActionEvent actionEvent) {
         try {
@@ -69,55 +79,27 @@ public class RaceFeeHistory {
     }
 
     public void setTable() throws IOException, InterruptedException {
-        /*
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create("http://" + Ip.getIp() + ":8080/get/race-fee"))
-                .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        id.setCellValueFactory(new PropertyValueFactory<>("raceFeeId"));
+        memberId.setCellValueFactory(new PropertyValueFactory<>("memberId"));
+        raceId.setCellValueFactory(new PropertyValueFactory<>("raceId"));
+        boatId.setCellValueFactory(new PropertyValueFactory<>("boatId"));
+        price.setCellValueFactory(new PropertyValueFactory<>("raceFeePrice"));
+        paymentDate.setCellValueFactory(new PropertyValueFactory<>("raceFeePaymentDate"));
 
-        if (response.statusCode() == 200) {
-            // the user is there
+        HttpResponse<String> raceFeesVisualizeResponse = httpFunctions.GET("/raceFees/visualization");
 
-            // parse JSON
-            ObjectMapper mapper = new ObjectMapper();
-            List<RaceFee> raceFees = mapper.readValue(response.body(), new TypeReference<List<RaceFee>>() {
+        ObjectMapper raceFeesMapper = new ObjectMapper();
+
+
+        if (raceFeesVisualizeResponse.statusCode() == 200) {
+            List<RaceFeeVisualizationEmployee> raceFeeVisualizations = raceFeesMapper.readValue(raceFeesVisualizeResponse.body(), new TypeReference<List<RaceFeeVisualizationEmployee>>() {
             });
 
-            List<RaceFeeVisualization> raceFeeVisualizations = new ArrayList<>();
-
-            for (RaceFee rf : raceFees) {
-                RaceFeeVisualization rfv = new RaceFeeVisualization(rf);
-                raceFeeVisualizations.add(rfv);
-            }
-
-
-            for (RaceFeeVisualization rfv : raceFeeVisualizations) {
-                System.out.println(rfv.toString());
-            }
-
-            id.setCellValueFactory(new PropertyValueFactory<>("raceFeeId"));
-            memberId.setCellValueFactory(new PropertyValueFactory<>("memberId"));
-            raceId.setCellValueFactory(new PropertyValueFactory<>("raceId"));
-            boatId.setCellValueFactory(new PropertyValueFactory<>("boatId"));
-            price.setCellValueFactory(new PropertyValueFactory<>("raceFeePrice"));
-            paymentDate.setCellValueFactory(new PropertyValueFactory<>("raceFeePaymentDate"));
-
-            ObservableList<RaceFeeVisualization> feeVisualizations = FXCollections.observableArrayList();
+            ObservableList<RaceFeeVisualizationEmployee> feeVisualizations = FXCollections.observableArrayList();
             feeVisualizations.addAll(raceFeeVisualizations);
 
             raceFeeHistoryTable.setItems(feeVisualizations);
-            } else
-
-    {
-        // 404 user not present
-        System.out.println("Problema di connessione");
+        }
     }
-         */
-    }
-
-
 }

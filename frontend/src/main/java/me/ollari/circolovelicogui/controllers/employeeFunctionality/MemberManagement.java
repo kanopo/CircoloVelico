@@ -16,14 +16,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import me.ollari.circolovelicogui.HttpFunctions;
-import me.ollari.circolovelicogui.Ip;
 import me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome;
 import me.ollari.circolovelicogui.rest.Member;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Objects;
@@ -152,24 +148,21 @@ public class MemberManagement {
                 if (!userName.equals(nameToModify)) {
                     // add name mod to http body
                     newName = nameToModify;
-                }
-                else {
+                } else {
                     newName = userName;
                 }
 
                 if (!userSurname.equals(surnameToModify)) {
                     // add surname mod to http body
                     newSurname = surnameToModify;
-                }
-                else {
+                } else {
                     newSurname = userSurname;
                 }
 
                 if (!userAddress.equals(addressToModify)) {
                     // add address mod to http body
                     newAddress = addressToModify;
-                }
-                else {
+                } else {
                     newAddress = userAddress;
                 }
 

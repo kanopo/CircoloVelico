@@ -6,8 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Questa classe viene usata come uno degli endpoint del'API che vine usata per comunicare tra DB(tramite {@link ParkingFeeRepository}) e GUI.
@@ -95,6 +94,28 @@ public class ParkingFeeRest {
             return new ResponseEntity<>(boatsParkingFees, HttpStatus.OK);
 
 
+    }
+
+    /**
+     * EndPoint di tipo GET della RESP API che restituisce una hashmap di tutte le barche(id delle barche) con le annesse parking fee
+     * @return una hashmap dove la chiave è la barca e il valore è un set di tutte le parking fee associate alla barca
+     * restituisce 204 se non sono presenti barche
+     */
+    @GetMapping("/parkingFee/boatParkingFeeSet")
+    ResponseEntity<Map<Long, Set<ParkingFee>>> getMapOfAllBoatsAndAllParkingFee() {
+        Map<Long, Set<ParkingFee>> map = new HashMap<>();
+
+        List<Boat> allBoats = boatRepository.findAll();
+
+        if (allBoats.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            for (Boat b : allBoats) {
+                map.put(b.getId(), b.getParkingFees());
+            }
+
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
     }
 
 

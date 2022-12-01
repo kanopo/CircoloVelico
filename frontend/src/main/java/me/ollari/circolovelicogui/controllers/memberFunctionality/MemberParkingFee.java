@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import me.ollari.circolovelicogui.HttpFunctions;
 import me.ollari.circolovelicogui.controllers.homeHandlers.MemberHome;
 import me.ollari.circolovelicogui.rest.Boat;
+import me.ollari.circolovelicogui.rest.Member;
 import me.ollari.circolovelicogui.rest.ParkingFee;
 import me.ollari.circolovelicogui.tableView.ParkingFeeVisualization;
 
@@ -56,11 +57,19 @@ public class MemberParkingFee {
          */
 
         HttpResponse<String> getBoatsResponse = httpFunctions.GET("/boats/memberId/" + memberId);
+        ObjectMapper boatsMapper = new ObjectMapper();
+        HttpResponse<String> getMemberResponse = httpFunctions.GET("/member/" + memberId);
+        ObjectMapper memberMapper = new ObjectMapper();
+
+        Member member = null;
+
+        if (getMemberResponse.statusCode() == 200) {
+            member = memberMapper.readValue(getMemberResponse.body(), new TypeReference<Member>() {
+            });
+        }
 
         if (getBoatsResponse.statusCode() == 200) {
             // esistono delle barche associate all'id dell'utente
-            ObjectMapper boatsMapper = new ObjectMapper();
-
             List<Boat> usersBoats = boatsMapper.readValue(getBoatsResponse.body(), new TypeReference<List<Boat>>() {
             });
             for (Boat b : usersBoats) {
@@ -91,7 +100,7 @@ public class MemberParkingFee {
         System.out.println(today);
         for (Boat b : parkingFeesMap.keySet()) {
             for (ParkingFee pf : parkingFeesMap.get(b)) {
-                parkingFeeToDisplay.add(new ParkingFeeVisualization(b, pf));
+                parkingFeeToDisplay.add(new ParkingFeeVisualization(member.getId(), b, pf));
 
                 LocalDate start = LocalDate.parse(pf.getStart());
                 LocalDate end = LocalDate.parse(pf.getEnd());

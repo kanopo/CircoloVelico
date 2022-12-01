@@ -18,21 +18,20 @@ import me.ollari.circolovelicogui.controllers.homeHandlers.MemberHome;
 import me.ollari.circolovelicogui.rest.Boat;
 import me.ollari.circolovelicogui.rest.Race;
 import me.ollari.circolovelicogui.rest.RaceFee;
-import me.ollari.circolovelicogui.tableView.RaceFeeVisualization;
+import me.ollari.circolovelicogui.tableView.RaceFeeVisualizationMember;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
-import java.time.LocalDate;
 import java.util.*;
 
 public class MemberRaceFees {
     public Long memberId;
-    public TableView<RaceFeeVisualization> raceFeesTable;
-    public TableColumn<RaceFeeVisualization, String> raceName;
-    public TableColumn<RaceFeeVisualization, String> boatName;
-    public TableColumn<RaceFeeVisualization, String> raceDate;
-    public TableColumn<RaceFeeVisualization, String> raceFeePaymentDate;
-    public TableColumn<RaceFeeVisualization, String> raceFeePrice;
+    public TableView<RaceFeeVisualizationMember> raceFeesTable;
+    public TableColumn<RaceFeeVisualizationMember, String> raceName;
+    public TableColumn<RaceFeeVisualizationMember, String> boatName;
+    public TableColumn<RaceFeeVisualizationMember, String> raceDate;
+    public TableColumn<RaceFeeVisualizationMember, String> raceFeePaymentDate;
+    public TableColumn<RaceFeeVisualizationMember, String> raceFeePrice;
 
     private Stage stage;
     private Scene scene;
@@ -41,7 +40,7 @@ public class MemberRaceFees {
     private final HttpFunctions httpFunctions = new HttpFunctions();
 
     public void setTable() throws IOException, InterruptedException {
-        List<RaceFeeVisualization> raceFeeVisualizations = new ArrayList<>();
+        List<RaceFeeVisualizationMember> raceFeeVisualizations = new ArrayList<>();
 
         HttpResponse<String> raceFeeResponse = httpFunctions.GET("/raceFees/memberId/" + memberId);
 
@@ -81,27 +80,12 @@ public class MemberRaceFees {
 
                 }
 
-                RaceFeeVisualization rfv = new RaceFeeVisualization();
+                if (boatResponse.statusCode() == 200 && raceResponse.statusCode() == 200) {
 
-                /*
-                rf.getId(),
-                        race.getName(),
-                        boat.getName(),
-                        race.getDate(),
-                        rf.getPaymentDate(),
-                        rf.getPrice()
-                 */
+                    RaceFeeVisualizationMember rfv = new RaceFeeVisualizationMember(memberId, race, boat, rf);
+                    raceFeeVisualizations.add(rfv);
+                }
 
-                // TODO: race/racefee/id return 404
-                rfv.setId(rf.getId());
-                rfv.setRaceName(race.getName());
-                rfv.setBoatName(boat.getName());
-                rfv.setDate(LocalDate.parse(race.getDate()));
-                rfv.setPaymentDate(LocalDate.parse(rf.getPaymentDate()));
-                rfv.setRaceFeePrice(rf.getPrice());
-
-
-                raceFeeVisualizations.add(rfv);
 
             }
 
@@ -112,12 +96,11 @@ public class MemberRaceFees {
             raceDate.setCellValueFactory(new PropertyValueFactory<>("date"));
             raceFeePrice.setCellValueFactory(new PropertyValueFactory<>("raceFeePrice"));
 
-            ObservableList<RaceFeeVisualization> raceFeeToDisplay = FXCollections.observableArrayList();
+            ObservableList<RaceFeeVisualizationMember> raceFeeToDisplay = FXCollections.observableArrayList();
 
             raceFeeToDisplay.addAll(raceFeeVisualizations);
 
             raceFeesTable.setItems(raceFeeToDisplay);
-
 
 
         } else {

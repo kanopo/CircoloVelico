@@ -1,88 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome">
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="me.ollari.circolovelicogui.controllers.homeHandlers.EmployeeHome">
     <children>
-        <Button layoutX="486.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefHeight="20.0" prefWidth="100.0" text="Logout" />
-        <HBox alignment="CENTER" layoutY="48.0" prefHeight="47.0" prefWidth="600.0">
+        <Button layoutX="636.0" layoutY="14.0" minHeight="25.0" minWidth="150.0" mnemonicParsing="false"
+                onAction="#logout" prefHeight="20.0" prefWidth="100.0" text="Logout"/>
+        <HBox alignment="CENTER" layoutY="48.0" prefHeight="50.0" prefWidth="800.0">
             <children>
-                <Label fx:id="user_logged_in" alignment="CENTER" contentDisplay="CENTER" text="user" />
+                <Label fx:id="user_logged_in" alignment="CENTER" contentDisplay="CENTER" text="user"/>
             </children>
         </HBox>
-        <VBox layoutY="92.0" prefHeight="308.0" prefWidth="600.0">
+        <VBox layoutY="92.0" prefHeight="500.0" prefWidth="800.0">
             <children>
-                <HBox alignment="CENTER" prefHeight="172.0" prefWidth="600.0">
+                <HBox alignment="CENTER" prefHeight="250.0" prefWidth="800.0">
                     <children>
                         <VBox alignment="CENTER" prefHeight="88.0" prefWidth="171.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#member_management" prefHeight="20.0" prefWidth="150.0" text="Modifica soci">
+                                <Button minHeight="25.0" minWidth="200.0" mnemonicParsing="false"
+                                        onAction="#member_management" prefHeight="20.0" prefWidth="150.0"
+                                        text="Modifica soci">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                     </VBox.margin>
                                 </Button>
-                                <Button mnemonicParsing="false" onAction="#add_member" prefHeight="20.0" prefWidth="150.0" text="Aggiungi soci">
+                                <Button minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#add_member"
+                                        prefHeight="20.0" prefWidth="150.0" text="Aggiungi soci">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                     </VBox.margin>
                                 </Button>
-                                <Button mnemonicParsing="false" onAction="#del_member" prefHeight="20.0" prefWidth="150.0" text="Elimina soci">
+                                <Button minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#del_member"
+                                        prefHeight="20.0" prefWidth="150.0" text="Elimina soci">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </VBox.margin>
-                                </Button>
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="88.0" prefWidth="171.0">
-                            <children>
-                                <Button mnemonicParsing="false" onAction="#add_boat" prefHeight="20.0" prefWidth="150.0" text="Aggiungi barche">
-                                    <VBox.margin>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </VBox.margin>
-                                </Button>
-                                <Button mnemonicParsing="false" onAction="#del_boat" prefHeight="20.0" prefWidth="150.0" text="Elimina barche">
-                                    <VBox.margin>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                     </VBox.margin>
                                 </Button>
                             </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="88.0" prefWidth="171.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#add_race" prefHeight="20.0" prefWidth="150.0" text="gare">
+                                <Button minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#add_boat"
+                                        prefHeight="20.0" prefWidth="150.0" text="Aggiungi barche">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                     </VBox.margin>
                                 </Button>
-                                <Button mnemonicParsing="false" onAction="#del_race" prefHeight="20.0" prefWidth="150.0" text="Elimina gare">
+                                <Button minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#del_boat"
+                                        prefHeight="20.0" prefWidth="150.0" text="Elimina barche">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </VBox.margin>
+                                </Button>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="88.0" prefWidth="171.0">
+                            <children>
+                                <Button minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#add_race"
+                                        prefHeight="20.0" prefWidth="150.0" text="gare">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </VBox.margin>
+                                </Button>
+                                <Button minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#del_race"
+                                        prefHeight="20.0" prefWidth="150.0" text="Elimina gare">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                     </VBox.margin>
                                 </Button>
                             </children>
                         </VBox>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#go_race_fee_history" prefHeight="20.0" prefWidth="150.0" text="Iscrizioni gare">
+                        <Button minHeight="25.0" minWidth="200.0" mnemonicParsing="false"
+                                onAction="#go_race_fee_history" prefHeight="20.0" prefWidth="150.0"
+                                text="Iscrizioni gare">
                             <HBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#go_annual_fee_history" prefHeight="20.0" prefWidth="150.0" text="Iscrizioni annuali">
+                        <Button minHeight="25.0" minWidth="200.0" mnemonicParsing="false"
+                                onAction="#go_annual_fee_history" prefHeight="20.0" prefWidth="150.0"
+                                text="Iscrizioni annuali">
                             <HBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#go_parking_fee_history" prefHeight="20.0" prefWidth="150.0" text="Rimessaggi">
+                        <Button minHeight="25.0" minWidth="200.0" mnemonicParsing="false"
+                                onAction="#go_parking_fee_history" prefHeight="20.0" prefWidth="150.0"
+                                text="Rimessaggi">
                             <HBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </Button>
                     </children>

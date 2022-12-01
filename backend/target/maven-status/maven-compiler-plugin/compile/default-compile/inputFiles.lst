@@ -19,6 +19,7 @@
 /home/user/Documents/CircoloVelico/backend/src/main/java/me/ollari/CVbackend/AnnualFee/package-info.java
 /home/user/Documents/CircoloVelico/backend/src/main/java/me/ollari/CVbackend/Boat/BoatRest.java
 /home/user/Documents/CircoloVelico/backend/src/main/java/me/ollari/CVbackend/ParkingFee/ParkingFee.java
+/home/user/Documents/CircoloVelico/backend/src/main/java/me/ollari/CVbackend/RaceFee/RaceFeeVisualization.java
 /home/user/Documents/CircoloVelico/backend/src/main/java/me/ollari/CVbackend/AnnualFee/AnnualFeeRest.java
 /home/user/Documents/CircoloVelico/backend/src/main/java/me/ollari/CVbackend/CircoloVelicoBackendApplication.java
 /home/user/Documents/CircoloVelico/backend/src/main/java/me/ollari/CVbackend/RaceFee/RaceFeeRest.java

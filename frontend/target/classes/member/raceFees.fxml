@@ -3,13 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="me.ollari.circolovelicogui.controllers.memberFunctionality.MemberRaceFees">
     <children>
-        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#go_home" prefHeight="20.0"
-                prefWidth="100.0" text="Home"/>
-        <Label layoutX="364.0" layoutY="18.0" text="Tasse gare"/>
-        <TableView fx:id="raceFeesTable" layoutY="50.0" prefHeight="300.0" prefWidth="800.0">
+        <Button layoutX="14.0" layoutY="14.0" minHeight="25.0" minWidth="150.0" mnemonicParsing="false"
+                onAction="#go_home" prefHeight="20.0" prefWidth="100.0" text="Home"/>
+        <Label layoutX="364.0" layoutY="19.0" text="Tasse gare"/>
+        <TableView fx:id="raceFeesTable" layoutY="69.0" prefHeight="328.0" prefWidth="800.0">
             <columns>
                 <TableColumn fx:id="raceName" prefWidth="200.0" text="Nome gara"/>
                 <TableColumn fx:id="boatName" prefWidth="200.0" text="Nome Barca"/>
@@ -18,5 +18,7 @@
                 <TableColumn fx:id="raceFeePrice" prefWidth="100.0" text="Prezzo"/>
             </columns>
         </TableView>
+        <Button layoutX="636.0" layoutY="14.0" minHeight="25.0" minWidth="150.0" mnemonicParsing="false"
+                onAction="#logout" prefHeight="20.0" prefWidth="100.0" text="Home"/>
     </children>
 </AnchorPane>

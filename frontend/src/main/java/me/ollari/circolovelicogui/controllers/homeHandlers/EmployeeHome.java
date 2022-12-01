@@ -11,14 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import me.ollari.circolovelicogui.HttpFunctions;
-import me.ollari.circolovelicogui.Ip;
 import me.ollari.circolovelicogui.controllers.employeeFunctionality.*;
 import me.ollari.circolovelicogui.rest.Employee;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Objects;
 

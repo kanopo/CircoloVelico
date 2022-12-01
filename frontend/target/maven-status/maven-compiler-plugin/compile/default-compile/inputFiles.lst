@@ -1,9 +1,9 @@
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/employeeFunctionality/AddMember.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/homeHandlers/EmployeeHome.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/Ip.java
+/home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/rest/RaceFeeVisualizationEmployee.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/tableView/ParkingFeeVisualization.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/loginHandlers/EmployeeLogin.java
-/home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/tableView/RaceFeeVisualization.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/rest/Member.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/employeeFunctionality/DelMember.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/rest/Boat.java
@@ -16,6 +16,7 @@
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/employeeFunctionality/DelRace.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/memberFunctionality/MemberBoats.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/loginHandlers/MemberLogin.java
+/home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/tableView/RaceFeeVisualizationMember.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/homeHandlers/MemberHome.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/memberFunctionality/MemberAnnualFees.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/tableView/AnnualFeeVisualization.java
@@ -28,7 +29,6 @@
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/memberFunctionality/MemberRaces.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/HttpFunctions.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/memberFunctionality/MemberParkingFee.java
-/home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/Dialogs/MemberRaceFeeDialog.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/DefaultController.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/controllers/employeeFunctionality/MemberManagement.java
 /home/user/Documents/CircoloVelico/frontend/src/main/java/me/ollari/circolovelicogui/App.java
