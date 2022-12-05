@@ -45,8 +45,8 @@ public class RaceRest {
 
     /**
      * EndPoint di tipo GET della RESP API utilizzato per ricevere i dati di una gara in base all'id della raceFee
-     * @param raceFeeId
-     * @return
+     * @param raceFeeId id della gara
+     * @return oggetto gara
      */
     @GetMapping("/races/raceFee/{raceFeeId}")
     ResponseEntity<Race> getRaceByRaceFee(@PathVariable Long raceFeeId) {

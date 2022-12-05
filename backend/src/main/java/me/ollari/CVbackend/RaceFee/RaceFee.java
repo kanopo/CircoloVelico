@@ -27,12 +27,12 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @ToString
-@Entity
+@Entity(name = "RaceFee")
 @Table(name = "race_fee", indexes = {@Index(name = "unique_boat_subscription_for_race", columnList = "race_id,boat_id", unique = true)})
 public class RaceFee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "race_fee_seq", allocationSize = 1, sequenceName = "race_fee_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@SequenceGenerator(name = "race_fee_seq", allocationSize = 1, sequenceName = "race_fee_seq")
     @Column(name = "id")
     private Long id;
 

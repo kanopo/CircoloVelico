@@ -26,12 +26,12 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@Entity(name = "Boat")
 @Table(name = "boat")
 public class Boat {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "boat_seq", allocationSize = 1, sequenceName = "boat_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@SequenceGenerator(name = "boat_seq", allocationSize = 1, sequenceName = "boat_seq")
     @Column(name = "id")
     private Long id;
 

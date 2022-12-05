@@ -2,6 +2,7 @@ package me.ollari.CVbackend.RaceFee;
 
 import java.time.LocalDate;
 
+
 public class RaceFeeVisualization {
 
     private Long raceFeeId;

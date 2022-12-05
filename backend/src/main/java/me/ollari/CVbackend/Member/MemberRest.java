@@ -117,11 +117,6 @@ public class MemberRest {
                 old.setSurname(modded.getSurname());
             }
 
-
-
-
-
-
             memberRepository.save(old);
             return new ResponseEntity<>(HttpStatus.OK);
         }

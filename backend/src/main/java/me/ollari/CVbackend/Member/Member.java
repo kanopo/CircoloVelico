@@ -27,12 +27,12 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@Entity(name = "Member")
 @Table(name = "member")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "member_seq", allocationSize = 1, sequenceName = "member_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@SequenceGenerator(name = "member_seq", allocationSize = 1, sequenceName = "member_seq")
     @Column(name = "id")
     private Long id;
 

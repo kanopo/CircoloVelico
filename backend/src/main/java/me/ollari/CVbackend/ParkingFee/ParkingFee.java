@@ -26,12 +26,12 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @ToString
-@Entity
+@Entity(name = "ParkingFee")
 @Table(name = "parking_fee")
 public class ParkingFee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "parking_fee_seq", allocationSize = 1, sequenceName = "parking_fee_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@SequenceGenerator(name = "parking_fee_seq", allocationSize = 1, sequenceName = "parking_fee_seq")
     @Column(name = "id")
     private Long id;
 

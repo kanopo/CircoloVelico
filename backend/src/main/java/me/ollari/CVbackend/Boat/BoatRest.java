@@ -112,6 +112,12 @@ public class BoatRest {
         }
     }
 
+
+    /**
+     * EndPoint di tipo GET della RESP API che restituisce la barca associata all'id di una raceFee
+     * @param raceFeeId id della raceFee
+     * @return oggetto barca inerente alla tassa
+     */
     @GetMapping("/boats/raceFee/{raceFeeId}")
     ResponseEntity<Boat> getBoatsByRaceFeeId(@PathVariable Long raceFeeId) {
         RaceFee raceFee = raceFeeRepository.findById(raceFeeId).orElse(null);

@@ -75,6 +75,10 @@ public class RaceFeeRest {
         }
     }
 
+    /**
+     * EndPoint di tipo GET della RESP API che restituisce tutte le race fees in un formato comodo per la visualizzazione nella tab degli employee
+     * @return lista di raceFeeVisualization
+     */
     @GetMapping("/raceFees/visualization")
     ResponseEntity<List<RaceFeeVisualization>> getRaceFeesForVisualization() {
         List<RaceFee> raceFees = raceFeeRepository.findAll();
@@ -96,7 +100,11 @@ public class RaceFeeRest {
     }
 
 
-
+    /**
+     * EndPoint di tipo GET della RESP API che restituisce tutte le race fee in base all'id dell'utente
+     * @param memberId id dell'utente
+     * @return lista di race fee
+     */
     @GetMapping("/raceFees/memberId/{memberId}")
     ResponseEntity<Iterable<RaceFee>> getRaceFeesByMemberId(@PathVariable Long memberId) {
 

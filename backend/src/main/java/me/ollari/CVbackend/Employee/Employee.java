@@ -19,12 +19,12 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @ToString
-@Entity
+@Entity(name = "Employee")
 @Table(name = "employee")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "employee_seq", allocationSize = 1, sequenceName = "employee_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@SequenceGenerator(name = "employee_seq", allocationSize = 1, sequenceName = "employee_seq")
     @Column(name = "id")
     private Long id;
 
