@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,7 +16,7 @@ import java.util.Objects;
  */
 @RestController
 public class MemberRest {
-    private final MemberRepository memberRepository;
+    public MemberRepository memberRepository;
 
     /**
      * Questo costruttore viene utilizzato per inizializzare le repository che verranno utilizzate nelle chiamate del'API.
@@ -33,7 +32,7 @@ public class MemberRest {
      * @return lista di tutti i membri
      */
     @GetMapping("/members")
-    Iterable<Member> getMembers() {
+    public Iterable<Member> getMembers() {
         return memberRepository.findAll();
     }
 
@@ -43,7 +42,7 @@ public class MemberRest {
      * @return oggetto member con i dati e il codice 200, se l'id non esiste viene restituito il codice 404
      */
     @GetMapping("/members/{memberId}")
-    ResponseEntity<Member> getMemberById(@PathVariable Long memberId) {
+    public ResponseEntity<Member> getMemberById(@PathVariable Long memberId) {
         Member member = memberRepository.findById(memberId).orElse(null);
 
         if (member != null) {
@@ -59,14 +58,17 @@ public class MemberRest {
      * @return oggetto di tipo member contenente i dati e il codice 200, se l'username non esiste nel db viene restituito il codice 404
      */
     @GetMapping("/members/username/{username}")
-    ResponseEntity<Member> findMemberByUsername(@PathVariable String username) {
-        List<Member> all = memberRepository.findAll();
-        for (Member member : all) {
-            if (member.getUsername().equals(username)) {
-                return new ResponseEntity<>(member, HttpStatus.OK);
-            }
+    public ResponseEntity<Member> findMemberByUsername(@PathVariable String username) {
+
+        Member member = memberRepository.findByUsername(username).orElse(null);
+
+        if (member == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else
+        {
+            return new ResponseEntity<>(member, HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
     }
 
     /**
@@ -75,7 +77,7 @@ public class MemberRest {
      * @return 406(not acceptable) se il CF o username sono gia' presenti nel DB, restituisce 201(created) se l'utente viene inserito e salvato correttamente
      */
     @PostMapping("/members")
-    ResponseEntity<Member> createMember(@RequestBody Member member) {
+    public ResponseEntity<Member> createMember(@RequestBody Member member) {
         Iterable<Member> allMembers = memberRepository.findAll();
 
         for (Member m : allMembers) {
@@ -99,7 +101,7 @@ public class MemberRest {
      * @return 404 se l'id non esiste e 200 se la modifica e' avvenuta con successo
      */
     @PutMapping("/members/{memberId}")
-    ResponseEntity<Member> modifyMemberById(@PathVariable Long memberId, @RequestBody Member modded) {
+    public ResponseEntity<Member> modifyMemberById(@PathVariable Long memberId, @RequestBody Member modded) {
         Member old = memberRepository.findById(memberId).orElse(null);
 
         if (old != null) {
@@ -132,7 +134,7 @@ public class MemberRest {
      * @return 404 se l'id non esiste, 200 se l'id esiste e l'utente viene eliminato
      */
     @DeleteMapping("/members/{memberId}")
-    ResponseEntity<Member> deleteMember(@PathVariable Long memberId) {
+    public ResponseEntity<Member> deleteMember(@PathVariable Long memberId) {
         Member member = memberRepository.findById(memberId).orElse(null);
 
         if (member != null) {

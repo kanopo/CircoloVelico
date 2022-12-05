@@ -4,8 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * Questa classe viene usata come uno degli endpoint del'API che vine usata per comunicare tra DB(tramite {@link EmployeeRepository}) e GUI.
  * In questa classe vengono racchiuse tutte quelle chiamate API che restituiscono oggetti o liste di oggetti inerenti alla
@@ -59,15 +57,18 @@ public class EmployeeRest {
      */
     @GetMapping("/employee/username/{username}")
     ResponseEntity<Employee> getEmployeeByUsername(@PathVariable String username) {
-        List<Employee> employees = employeeRepository.findAll();
 
-        for (Employee e : employees) {
-            if (e.getUsername().equals(username)) {
-                return new ResponseEntity<>(e, HttpStatus.OK);
-            }
+        Employee employee = employeeRepository.findByUsername(username).orElse(null);
+
+        if (employee == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else
+        {
+            return new ResponseEntity<>(employee, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
     }
 
 

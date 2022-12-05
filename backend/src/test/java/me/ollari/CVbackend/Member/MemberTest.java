@@ -1,8 +1,12 @@
 package me.ollari.CVbackend.Member;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
@@ -15,19 +19,28 @@ class MemberTest {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    MemberRest memberRest;
+
     @BeforeEach
-    @Disabled
     void setUp() {
+        if (memberRepository.findAll().size() > 0) {
+            memberRepository.deleteAll();
+        }
     }
 
     @AfterEach
-    @Disabled
     void tearDown() {
+        if (memberRepository.findAll().size() > 0) {
+            memberRepository.deleteAll();
+        }
     }
 
+
     @Test()
-    @DisplayName("create two members with equal values when values need to be unique")
-    void createMemberUnique(){
+    @DisplayName("Create two members with equal values when values need to be unique")
+    void createMemberUnique() {
         Member m1 = new Member();
 
         m1.setUsername("dmo");
@@ -47,9 +60,11 @@ class MemberTest {
         m2.setName("dmo");
         m2.setSurname("dmo");
 
+        memberRepository.save(m1);
+
 
         assertThrows(RuntimeException.class, () -> {
-            memberRepository.save(m1);
+
             memberRepository.save(m2);
         });
 
@@ -61,6 +76,23 @@ class MemberTest {
         Member m = new Member();
 
         assertThrows(RuntimeException.class, () -> memberRepository.save(m));
+    }
+
+    @Test
+    void ciao() {
+
+        Member m1 = new Member();
+
+        m1.setUsername("dmo");
+        m1.setFiscalCode("dmo");
+        m1.setPassword("dmo");
+        m1.setAddress("dmo");
+        m1.setName("dmo");
+        m1.setSurname("dmo");
+
+        ResponseEntity<Member> memberHttpResponse = memberRest.createMember(m1);
+
+        System.out.println(memberRepository.findAll());
     }
 
 

@@ -2,7 +2,6 @@ package me.ollari.CVbackend.Member;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import me.ollari.CVbackend.AnnualFee.AnnualFee;
@@ -14,11 +13,12 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-
 /**
  * Classe usata per rappresentare gli utenti presenti nel database.
- * Viene usata per creare la tabella member nel DB e viene utilizzata nelle relative call del'API.
- * I metodi Getter, Setter, ToString e Costruttore senza argomenti sono rimpiazzati da lombok per evitare boilerplate.
+ * Viene usata per creare la tabella member nel DB e viene utilizzata nelle
+ * relative call del'API.
+ * I metodi Getter, Setter, ToString e Costruttore senza argomenti sono
+ * rimpiazzati da lombok per evitare boilerplate.
  *
  * @author Dmitri Ollari
  * @since 24-11-2022
@@ -26,13 +26,13 @@ import java.util.Set;
 @ToString
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity(name = "Member")
 @Table(name = "member")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    //@SequenceGenerator(name = "member_seq", allocationSize = 1, sequenceName = "member_seq")
+    // @SequenceGenerator(name = "member_seq", allocationSize = 1, sequenceName =
+    // "member_seq")
     @Column(name = "id")
     private Long id;
 
@@ -73,16 +73,18 @@ public class Member {
     @OneToMany(mappedBy = "membersRaceFee", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<RaceFee> raceFees = new HashSet<>();
-    
 
     /**
-     * Costruttore usato durante la creazione dell'oggetto, non presente l'id poiché il database lo genera in automatico.
+     * Costruttore usato durante la creazione dell'oggetto, non presente l'id poiché
+     * il database lo genera in automatico.
      *
      * @param name       stringa rappresentante il nome del'utente
      * @param surname    stringa rappresentante il cognome del'utente
      * @param address    stringa rappresentante l'indirizzo del'utente
-     * @param fiscalCode stringa rappresentante il codice fiscale del'utente (deve essere univoco)
-     * @param username   stringa rappresentante il nome utente del'utente (deve essere univoco)
+     * @param fiscalCode stringa rappresentante il codice fiscale del'utente (deve
+     *                   essere univoco)
+     * @param username   stringa rappresentante il nome utente del'utente (deve
+     *                   essere univoco)
      * @param password   stringa rappresentante la password del'utente
      */
     public Member(String name, String surname, String address, String fiscalCode, String username, String password) {
@@ -92,5 +94,9 @@ public class Member {
         this.fiscalCode = fiscalCode;
         this.username = username;
         this.password = password;
+    }
+
+    public Member() {
+
     }
 }

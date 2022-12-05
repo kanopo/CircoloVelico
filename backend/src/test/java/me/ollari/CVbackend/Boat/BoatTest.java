@@ -1,15 +1,203 @@
 package me.ollari.CVbackend.Boat;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import me.ollari.CVbackend.Member.Member;
+import me.ollari.CVbackend.Member.MemberRepository;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
+@SpringBootTest()
+@ActiveProfiles("test")
+@TestPropertySource("classpath:application-test.yml")
 class BoatTest {
+
+    @Autowired
+    private BoatRepository boatRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @BeforeEach
     void setUp() {
+        if (boatRepository.findAll().size() > 0) {
+            boatRepository.deleteAll();
+        }
+
+        if (memberRepository.findAll().size() > 0) {
+            memberRepository.deleteAll();
+        }
     }
 
     @AfterEach
     void tearDown() {
+        if (boatRepository.findAll().size() > 0) {
+            boatRepository.deleteAll();
+        }
+
+        if (memberRepository.findAll().size() > 0) {
+            memberRepository.deleteAll();
+        }
     }
+
+
+    @Test
+    @DisplayName("Boat should have a reference to an existing member")
+    void boatShouldHaveExistingMember() {
+
+        Member m1 = new Member();
+
+        m1.setUsername("dmo");
+        m1.setFiscalCode("dmo");
+        m1.setPassword("dmo");
+        m1.setAddress("dmo");
+        m1.setName("dmo");
+        m1.setSurname("dmo");
+
+
+        Boat boat = new Boat();
+
+
+        boat.setName("Barca bella");
+        boat.setMembersBoat(m1);
+
+        assertThrows(RuntimeException.class, () -> {
+            boatRepository.save(boat);
+        });
+    }
+
+    @Test
+    @DisplayName("Boat should have length")
+    void boatShouldHaveLength() {
+
+        Member m1 = new Member();
+
+        m1.setUsername("dmo");
+        m1.setFiscalCode("dmo");
+        m1.setPassword("dmo");
+        m1.setAddress("dmo");
+        m1.setName("dmo");
+        m1.setSurname("dmo");
+
+        memberRepository.save(m1);
+
+
+        Boat boat = new Boat();
+
+
+        boat.setName("Barca bella");
+        boat.setMembersBoat(m1);
+
+        assertThrows(RuntimeException.class, () -> {
+            boatRepository.save(boat);
+        });
+    }
+
+    @Test
+    @DisplayName("Boat should have a name")
+    void boatShouldHaveName() {
+
+        Member m1 = new Member();
+
+        m1.setUsername("dmo");
+        m1.setFiscalCode("dmo");
+        m1.setPassword("dmo");
+        m1.setAddress("dmo");
+        m1.setName("dmo");
+        m1.setSurname("dmo");
+
+        memberRepository.save(m1);
+
+
+        Boat boat = new Boat();
+
+
+        boat.setLength(1.1);
+        boat.setMembersBoat(m1);
+
+        assertThrows(RuntimeException.class, () -> {
+            boatRepository.save(boat);
+        });
+    }
+
+    @Test
+    @DisplayName("Boat should have member")
+    void boatShouldHaveMember() {
+
+        Boat boat = new Boat();
+
+
+        boat.setName("Barca bella");
+        boat.setLength(1.1);
+
+        assertThrows(RuntimeException.class, () -> {
+            boatRepository.save(boat);
+        });
+    }
+
+    @Test
+    @DisplayName("Removing boat from db should leave the member")
+    void removingBoatFromDBShouldLeaveMember() {
+
+        Member m1 = new Member();
+
+        m1.setUsername("dmo");
+        m1.setFiscalCode("dmo");
+        m1.setPassword("dmo");
+        m1.setAddress("dmo");
+        m1.setName("dmo");
+        m1.setSurname("dmo");
+
+        memberRepository.save(m1);
+
+        Boat b1 = new Boat();
+
+
+        b1.setLength(1.1);
+        b1.setMembersBoat(m1);
+        b1.setName("blu");
+
+        boatRepository.save(b1);
+
+        boatRepository.deleteAll();
+
+        assertEquals(1, memberRepository.findAll().size());
+
+    }
+
+    @Test
+    @DisplayName("Removing member from db should remove all of his boats")
+    void removingMemberShouldRemoveAllOfHisBoats() {
+
+        Member m1 = new Member();
+
+        m1.setUsername("dmo");
+        m1.setFiscalCode("dmo");
+        m1.setPassword("dmo");
+        m1.setAddress("dmo");
+        m1.setName("dmo");
+        m1.setSurname("dmo");
+
+        memberRepository.save(m1);
+
+        Boat b1 = new Boat();
+
+
+        b1.setLength(1.1);
+        b1.setMembersBoat(m1);
+        b1.setName("blu");
+
+        boatRepository.save(b1);
+
+        memberRepository.deleteAll();
+
+        assertEquals(0, boatRepository.findAll().size());
+
+    }
+
+
 }

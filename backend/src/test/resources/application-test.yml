@@ -8,7 +8,6 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create
-    generate-ddl: false
 
     properties:
       hibernate:

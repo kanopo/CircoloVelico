@@ -43,7 +43,7 @@ public class BoatRest {
      * @param parkingFeeRepository repository usata per operazioni crud inerenti alle tasse di rimessaggio
      * @param raceRepository       repository usata per operazioni crud inerenti alle gare
      */
-    public BoatRest(BoatRepository boatRepository, MemberRepository memberRepository, RaceFeeRepository raceFeeRepository, ParkingFeeRepository parkingFeeRepository, RaceRepository raceRepository) {
+    private BoatRest(BoatRepository boatRepository, MemberRepository memberRepository, RaceFeeRepository raceFeeRepository, ParkingFeeRepository parkingFeeRepository, RaceRepository raceRepository) {
         this.boatRepository = boatRepository;
         this.memberRepository = memberRepository;
         this.raceFeeRepository = raceFeeRepository;
@@ -57,7 +57,7 @@ public class BoatRest {
      * @return lista di tutte le barche
      */
     @GetMapping("/boats")
-    Iterable<Boat> getBoats() {
+    public Iterable<Boat> getBoats() {
         return boatRepository.findAll();
     }
 
@@ -69,7 +69,7 @@ public class BoatRest {
      * esistere, 404(not found)
      */
     @GetMapping("/boats/{boatId}")
-    ResponseEntity<Boat> getBoatById(@PathVariable Long boatId) {
+    public ResponseEntity<Boat> getBoatById(@PathVariable Long boatId) {
         Boat boat = boatRepository.findById(boatId).orElse(null);
 
         if (boat != null) {
@@ -87,7 +87,7 @@ public class BoatRest {
      * @return lista di barche che possono essere iscritte alla gara oppure 400(bad inputs)
      */
     @GetMapping("/boats/raceId/{raceId}/memberId/{memberId}")
-    ResponseEntity<Iterable<Boat>> getBoatsSignedInByMember(@PathVariable Long raceId, @PathVariable Long memberId) {
+    public ResponseEntity<Iterable<Boat>> getBoatsSignedInByMember(@PathVariable Long raceId, @PathVariable Long memberId) {
         List<RaceFee> raceFees = raceFeeRepository.findAll();
         Member member = memberRepository.findById(memberId).orElse(null);
         Race race = raceRepository.findById(raceId).orElse(null);
@@ -119,7 +119,7 @@ public class BoatRest {
      * @return oggetto barca inerente alla tassa
      */
     @GetMapping("/boats/raceFee/{raceFeeId}")
-    ResponseEntity<Boat> getBoatsByRaceFeeId(@PathVariable Long raceFeeId) {
+    public ResponseEntity<Boat> getBoatsByRaceFeeId(@PathVariable Long raceFeeId) {
         RaceFee raceFee = raceFeeRepository.findById(raceFeeId).orElse(null);
 
         if (raceFee != null) {
@@ -136,7 +136,7 @@ public class BoatRest {
      * @return tutte le barche dell'utente e il codice 200, altrimenti, se l'utente non esiste, restituisce il codice 404(not found)
      */
     @GetMapping("/boats/memberId/{memberId}")
-    ResponseEntity<Iterable<Boat>> getBoatsByUserId(@PathVariable Long memberId) {
+    public ResponseEntity<Iterable<Boat>> getBoatsByUserId(@PathVariable Long memberId) {
         Member member = memberRepository.findById(memberId).orElse(null);
 
         if (member != null) {
@@ -152,7 +152,7 @@ public class BoatRest {
      * restituisce 204 se non sono presenti membri
      */
     @GetMapping("/boats/memberBoatSet")
-    ResponseEntity<Map<Long, Set<Boat>>> getMapOfAllMemberAndAllBoats() {
+    public ResponseEntity<Map<Long, Set<Boat>>> getMapOfAllMemberAndAllBoats() {
         Map<Long, Set<Boat>> map = new HashMap<>();
 
         List<Member> allMembers = memberRepository.findAll();
@@ -175,7 +175,7 @@ public class BoatRest {
      * @return lista di barche con tassa scaduta e il codice 200, se l'id del membro non esiste, restituisce 404(not found)
      */
     @GetMapping("/boats/expiredParking/{memberId}")
-    ResponseEntity<Iterable<Boat>> getBoatsOfUserWithExpiredParking(@PathVariable Long memberId) {
+    public ResponseEntity<Iterable<Boat>> getBoatsOfUserWithExpiredParking(@PathVariable Long memberId) {
         if (memberRepository.existsById(memberId)) {
             Member member = memberRepository.findById(memberId).orElseThrow();
 
@@ -226,7 +226,7 @@ public class BoatRest {
      * @return la barca associata e il codice 200, altrimenti se non dovesse esistere l'id della tassa, restituisce 404
      */
     @GetMapping("/boats/parkingFeeId/{parkingFeeId}")
-    ResponseEntity<Boat> getBoatByParkingFeeId(@PathVariable Long parkingFeeId) {
+    public ResponseEntity<Boat> getBoatByParkingFeeId(@PathVariable Long parkingFeeId) {
         ParkingFee pf = parkingFeeRepository.findById(parkingFeeId).orElse(null);
 
         if (pf == null) {
@@ -244,7 +244,7 @@ public class BoatRest {
      * @return tutte le barche dell'utente non iscritte alla gara, se la gara o l'utente non dovessero esistere in DB, viene restituito 404
      */
     @GetMapping("/boats/memberId/{memberId}/notInRace/{raceId}")
-    ResponseEntity<Iterable<Boat>> boatOfMemberNotSubscribedToRace(@PathVariable Long memberId, @PathVariable Long raceId) {
+    public ResponseEntity<Iterable<Boat>> boatOfMemberNotSubscribedToRace(@PathVariable Long memberId, @PathVariable Long raceId) {
         Member m = memberRepository.findById(memberId).orElse(null);
         Race r = raceRepository.findById(memberId).orElse(null);
 
@@ -285,7 +285,7 @@ public class BoatRest {
      * @return 406 se l'utente non esiste o se l'inserimento della barca fallisce, 201 se la barca viene inserita correttamente.
      */
     @PutMapping("/boats/memberId/{memberId}")
-    ResponseEntity<Boat> createBoat(@RequestBody Boat boat, @PathVariable Long memberId) {
+    public ResponseEntity<Boat> createBoat(@RequestBody Boat boat, @PathVariable Long memberId) {
 
         Member member = memberRepository.findById(memberId).orElse(null);
 
@@ -312,7 +312,7 @@ public class BoatRest {
      * @return 200 se la barca esiste ed è stata eliminata, 404 se la barca non esiste o se l'eliminazione è fallita
      */
     @DeleteMapping("/boats/{boatId}")
-    ResponseEntity<Boat> deleteBoat(@PathVariable Long boatId) {
+    public ResponseEntity<Boat> deleteBoat(@PathVariable Long boatId) {
         if (boatRepository.existsById(boatId)) {
             try {
                 boatRepository.deleteById(boatId);

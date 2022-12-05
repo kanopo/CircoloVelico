@@ -35,15 +35,15 @@ public class Boat {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "length")
+    @Column(name = "length", nullable = false)
     private Double length;
 
     @JsonIgnore()
     @ManyToOne()
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
     private Member membersBoat;
 
     @JsonIgnore

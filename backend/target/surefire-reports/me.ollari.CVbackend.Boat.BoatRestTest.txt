@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: me.ollari.CVbackend.Boat.BoatRestTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.02 s <<< FAILURE! - in me.ollari.CVbackend.Boat.BoatRestTest
+getBoats  Time elapsed: 0.02 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "me.ollari.CVbackend.Member.MemberRepository.findAll()" because "this.memberRepository" is null
+	at me.ollari.CVbackend.Boat.BoatRestTest.getBoats(BoatRestTest.java:39)
+

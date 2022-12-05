@@ -37,25 +37,25 @@ public class ParkingFee {
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "start")
+    @Column(name = "start", nullable = false)
     private LocalDate start;
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "end")
+    @Column(name = "end", nullable = false)
     private LocalDate end;
 
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private Double price;
 
     @JsonIgnore()
     @ManyToOne()
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
     private Member membersParkingFees;
     @JsonIgnore()
     @ManyToOne()
-    @JoinColumn(name = "boat_id")
+    @JoinColumn(name = "boat_id", nullable = false)
     private Boat boatsParkingFee;
 
 }
