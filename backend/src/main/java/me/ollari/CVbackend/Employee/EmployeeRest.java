@@ -52,7 +52,7 @@ public class EmployeeRest {
 
     /**
      * EndPoint di tipo GET della RESP API utilizzato per ricevere i dati di un impiegato in base al'username
-     * @param username usename dell'utente usato per il login
+     * @param username username dell'utente usato per il login
      * @return oggetto employee contenente i dati dell'utente
      */
     @GetMapping("/employee/username/{username}")

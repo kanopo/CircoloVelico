@@ -52,6 +52,7 @@ public class AnnualFee {
 
     @Column(name = "price")
     private Double price;
+
     @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "member_id", nullable = false)

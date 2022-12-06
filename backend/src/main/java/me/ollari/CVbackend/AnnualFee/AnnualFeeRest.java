@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * Questa classe viene usata come uno degli endpoint del'API che vine usata per comunicare tra DB(tramite {@link AnnualFeeRepository}) e GUI.
  * In questa classe vengono racchiuse tutte quelle chiamate API che restituiscono oggetti o liste di oggetti inerenti alla
@@ -48,10 +51,10 @@ public class AnnualFeeRest {
      */
     @GetMapping("/annualFees/{annualFeeId}")
     ResponseEntity<AnnualFee> getAnnualFeeById(@PathVariable Long annualFeeId) {
-        AnnualFee annualFee = annualFeeRepository.findById(annualFeeId).orElse(null);
+        Optional<AnnualFee> annualFee = annualFeeRepository.findById(annualFeeId);
 
-        if (annualFee != null) {
-            return new ResponseEntity<>(annualFee, HttpStatus.OK);
+        if (annualFee.isPresent() && annualFee.get().getId() != null) {
+            return new ResponseEntity<>(annualFee.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -65,12 +68,13 @@ public class AnnualFeeRest {
      */
     @GetMapping("/annualFees/memberId/{memberId}")
     ResponseEntity<Iterable<AnnualFee>> annualFeesByMemberId(@PathVariable Long memberId) {
-        Member member = memberRepository.findById(memberId).orElse(null);
+        Optional<List<AnnualFee>> annualFees = annualFeeRepository.findByMemberId(memberId);
 
-        if (member != null) {
-            Iterable<AnnualFee> annualFees = member.getAnnualFees();
-            return new ResponseEntity<>(annualFees, HttpStatus.OK);
-        } else {
+        if (annualFees.isPresent() && !annualFees.get().isEmpty()) {
+            return new ResponseEntity<>(annualFees.get(), HttpStatus.OK);
+        }
+        else
+        {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

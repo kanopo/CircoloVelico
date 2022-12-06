@@ -1,10 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: me.ollari.CVbackend.AnnualFee.AnnualFeeTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.071 s <<< FAILURE! - in me.ollari.CVbackend.AnnualFee.AnnualFeeTest
-annualFeesMustHaveStartEndAndPrice  Time elapsed: 0.029 s  <<< ERROR!
-org.springframework.dao.DataIntegrityViolationException: not-null property references a null or transient value : me.ollari.CVbackend.AnnualFee.AnnualFee.end; nested exception is org.hibernate.PropertyValueException: not-null property references a null or transient value : me.ollari.CVbackend.AnnualFee.AnnualFee.end
-	at me.ollari.CVbackend.AnnualFee.AnnualFeeTest.annualFeesMustHaveStartEndAndPrice(AnnualFeeTest.java:116)
-Caused by: org.hibernate.PropertyValueException: not-null property references a null or transient value : me.ollari.CVbackend.AnnualFee.AnnualFee.end
-	at me.ollari.CVbackend.AnnualFee.AnnualFeeTest.annualFeesMustHaveStartEndAndPrice(AnnualFeeTest.java:116)
-
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.303 s - in me.ollari.CVbackend.AnnualFee.AnnualFeeTest

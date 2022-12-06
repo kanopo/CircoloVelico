@@ -38,16 +38,16 @@ public class Race {
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "award")
+    @Column(name = "award", nullable = false)
     private Double award;
 
     @JsonIgnore
@@ -55,4 +55,10 @@ public class Race {
     @ToString.Exclude
     private Set<RaceFee> raceFees = new HashSet<>();
 
+    public Race(LocalDate date, Double price, String name, Double award) {
+        this.date = date;
+        this.price = price;
+        this.name = name;
+        this.award = award;
+    }
 }
