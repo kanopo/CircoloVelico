@@ -5,8 +5,11 @@ import me.ollari.CVbackend.Member.MemberRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
@@ -21,6 +24,9 @@ class BoatTest {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private BoatRest boatRest;
 
     @BeforeEach
     void setUp() {
@@ -61,13 +67,13 @@ class BoatTest {
 
         Boat boat = new Boat();
 
+        // questo test lancia un errore perche' l'utente non e' registrato nel db
+        // manca il memberRepository.save(m1);
 
         boat.setName("Barca bella");
         boat.setMembersBoat(m1);
 
-        assertThrows(RuntimeException.class, () -> {
-            boatRepository.save(boat);
-        });
+        assertThrows(RuntimeException.class, () -> boatRepository.save(boat));
     }
 
     @Test
@@ -92,9 +98,7 @@ class BoatTest {
         boat.setName("Barca bella");
         boat.setMembersBoat(m1);
 
-        assertThrows(RuntimeException.class, () -> {
-            boatRepository.save(boat);
-        });
+        assertThrows(RuntimeException.class, () -> boatRepository.save(boat));
     }
 
     @Test
@@ -119,9 +123,7 @@ class BoatTest {
         boat.setLength(1.1);
         boat.setMembersBoat(m1);
 
-        assertThrows(RuntimeException.class, () -> {
-            boatRepository.save(boat);
-        });
+        assertThrows(RuntimeException.class, () -> boatRepository.save(boat));
     }
 
     @Test
@@ -134,9 +136,7 @@ class BoatTest {
         boat.setName("Barca bella");
         boat.setLength(1.1);
 
-        assertThrows(RuntimeException.class, () -> {
-            boatRepository.save(boat);
-        });
+        assertThrows(RuntimeException.class, () -> boatRepository.save(boat));
     }
 
     @Test
@@ -198,6 +198,46 @@ class BoatTest {
         assertEquals(0, boatRepository.findAll().size());
 
     }
+
+    @Test
+    @DisplayName("Get all boats using rest")
+    void getAllBoatsUsingRest() {
+        Member m1 = new Member();
+
+        m1.setUsername("dmo");
+        m1.setFiscalCode("dmo");
+        m1.setPassword("dmo");
+        m1.setAddress("dmo");
+        m1.setName("dmo");
+        m1.setSurname("dmo");
+
+        memberRepository.save(m1);
+
+        Boat b1 = new Boat();
+
+
+        b1.setLength(1.1);
+        b1.setMembersBoat(m1);
+        b1.setName("blu");
+
+        boatRepository.save(b1);
+
+        Boat b2 = new Boat();
+
+
+        b2.setLength(1.1);
+        b2.setMembersBoat(m1);
+        b2.setName("blu");
+
+        boatRepository.save(b2);
+
+        List<Boat> boats = (List<Boat>) boatRest.getBoats();
+
+        assertEquals(2, boats.size());
+    }
+    
+
+
 
 
 }

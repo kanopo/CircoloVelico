@@ -241,7 +241,7 @@ class RaceTest {
 
         Race r = races.get(0);
 
-        assertEquals("2022-12-20", r.getDate().toString());
+        assertEquals(LocalDate.now().plusWeeks(2), r.getDate());
         assertEquals(1.1, r.getPrice(), 0.001);
         assertEquals(100.7, r.getAward(), 0.001);
         assertEquals("gara", r.getName());

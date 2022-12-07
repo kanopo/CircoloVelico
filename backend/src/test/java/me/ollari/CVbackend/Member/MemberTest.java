@@ -1,9 +1,6 @@
 package me.ollari.CVbackend.Member;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -13,8 +10,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 @SpringBootTest()
 @ActiveProfiles("test")
@@ -150,8 +146,10 @@ class MemberTest {
         Long memberId = memberRepository.findAll().get(0).getId();
 
         ResponseEntity<Member> memberById = memberRest.getMemberById(memberId);
+        ResponseEntity<Member> memberByIdFailed = memberRest.getMemberById(memberId + 1);
 
         assertEquals(HttpStatus.OK, memberById.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, memberByIdFailed.getStatusCode());
 
         Member member = memberById.getBody();
 
@@ -161,6 +159,108 @@ class MemberTest {
 
     @Test
     @DisplayName("Get member by username with rest")
-    void getMemberByUsername
+    void getMemberByUsername() {
+        Member m1 = new Member();
 
+        m1.setUsername("dmo");
+        m1.setFiscalCode("dmo");
+        m1.setPassword("dmo");
+        m1.setAddress("dmo");
+        m1.setName("dmo");
+        m1.setSurname("dmo");
+
+        memberRepository.save(m1);
+
+        ResponseEntity<Member> member1 = memberRest.findMemberByUsername("dmo");
+        ResponseEntity<Member> member2 = memberRest.findMemberByUsername("qwe");
+
+        assertEquals(member1.getStatusCode(), HttpStatus.OK);
+        assertEquals(member1.getBody().getFiscalCode(), "dmo");
+
+        assertEquals(member2.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    @DisplayName("Post member with rest")
+    void postMemberWithRest() {
+
+        Member m1 = new Member();
+
+        m1.setUsername("dmo");
+        m1.setFiscalCode("dmo");
+        m1.setPassword("dmo");
+        m1.setAddress("dmo");
+        m1.setName("dmo");
+        m1.setSurname("dmo");
+
+        Member m2 = new Member();
+
+        m2.setUsername("dmo");
+        m2.setFiscalCode("dmo");
+        m2.setPassword("dmo");
+        m2.setAddress("dmo");
+        m2.setName("dmo");
+        m2.setSurname("dmo");
+
+        ResponseEntity<Member> responseFirstMemberSave = memberRest.createMember(m1);
+
+        assertEquals(HttpStatus.CREATED, responseFirstMemberSave.getStatusCode());
+
+        assertEquals(true, memberRepository.findByUsername("dmo").isPresent());
+
+        ResponseEntity<Member> responseEntitySecondSave = memberRest.createMember(m2);
+
+        assertEquals(HttpStatus.NOT_ACCEPTABLE, responseEntitySecondSave.getStatusCode());
+
+    }
+
+    @Test
+    @DisplayName("Mod member using put mapping in rest")
+    void modMemberUsingRest() {
+
+        Member oldMember = new Member("dmo", "dmo", "dmo", "dmo", "dmo", "dmo");
+
+        Member moddedMember = new Member();
+
+        memberRepository.save(oldMember);
+
+        moddedMember.setName("qwe");
+
+        Long memberIdToMod = memberRepository.findByUsername("dmo").get().getId();
+
+
+        ResponseEntity<Member> responseEntity1 = memberRest.modifyMemberById(memberIdToMod, moddedMember);
+
+        assertEquals(HttpStatus.OK, responseEntity1.getStatusCode());
+
+        ResponseEntity<Member> responseEntity2 = memberRest.modifyMemberById(memberIdToMod + 1, moddedMember);
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity2.getStatusCode());
+
+    }
+
+    @Test
+    @DisplayName("Delete member with rest")
+    void deleteMemberWithRest() {
+        Member m1 = new Member();
+
+        m1.setUsername("dmo");
+        m1.setFiscalCode("dmo");
+        m1.setPassword("dmo");
+        m1.setAddress("dmo");
+        m1.setName("dmo");
+        m1.setSurname("dmo");
+
+        memberRepository.save(m1);
+
+        Long memberId = memberRepository.findByUsername("dmo").get().getId();
+
+        ResponseEntity<Member> responseEntity1 = memberRest.deleteMember(memberId);
+
+        assertEquals(HttpStatus.OK, responseEntity1.getStatusCode());
+
+        ResponseEntity<Member> responseEntity2 = memberRest.deleteMember(memberId);
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity2.getStatusCode());
+    }
 }

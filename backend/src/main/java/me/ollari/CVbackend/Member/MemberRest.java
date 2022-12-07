@@ -78,6 +78,7 @@ public class MemberRest {
      */
     @PostMapping("/members")
     public ResponseEntity<Member> createMember(@RequestBody Member member) {
+/*
         Iterable<Member> allMembers = memberRepository.findAll();
 
         for (Member m : allMembers) {
@@ -86,6 +87,7 @@ public class MemberRest {
             }
         }
 
+ */
         try {
             memberRepository.save(member);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -107,15 +109,15 @@ public class MemberRest {
         if (old != null) {
 
             // id of member exists
-            if (!Objects.equals(old.getName(), modded.getName()) || modded.getName().isBlank() || modded.getName().isEmpty()) {
+            if (modded.getName() != null && !Objects.equals(old.getName(), modded.getName()) && !modded.getName().isBlank() && !modded.getName().isEmpty()) {
                 old.setName(modded.getName());
             }
 
-            if (!Objects.equals(old.getAddress(), modded.getAddress()) || modded.getAddress().isBlank() || modded.getAddress().isEmpty()) {
+            if (modded.getAddress() != null && !Objects.equals(old.getAddress(), modded.getAddress()) && !modded.getAddress().isBlank() && !modded.getAddress().isEmpty()) {
                 old.setAddress(modded.getAddress());
             }
 
-            if (!Objects.equals(old.getSurname(), modded.getSurname()) || modded.getSurname().isBlank() || modded.getSurname().isEmpty()) {
+            if (modded.getSurname() != null && !Objects.equals(old.getSurname(), modded.getSurname()) && !modded.getSurname().isBlank() && !modded.getSurname().isEmpty()) {
                 old.setSurname(modded.getSurname());
             }
 
