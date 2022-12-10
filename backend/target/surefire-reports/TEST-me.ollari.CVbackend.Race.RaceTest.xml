@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.225" tests="11" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="me.ollari.CVbackend.Race.RaceTest" time="0.086" tests="9" errors="0" skipped="2" failures="0">
   <properties>
     <property name="java.specification.version" value="19"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -53,15 +53,17 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="63.0"/>
   </properties>
-  <testcase name="annualFeesMustHaveStartDate" classname="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.024"/>
-  <testcase name="getAnnualFeesUsingRestEndpoint" classname="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.025"/>
-  <testcase name="annualFeesMustHaveEndDate" classname="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.01"/>
-  <testcase name="removingMemberShouldRemoveAnnualFee" classname="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.015"/>
-  <testcase name="annualFeesMustHavePrice" classname="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.012"/>
-  <testcase name="putAnnualFeeToMemberByREST" classname="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.019"/>
-  <testcase name="getAnnualFeeByEndPointWithId" classname="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.025"/>
-  <testcase name="removingAnnualFeeShouldLeaveMember" classname="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.018"/>
-  <testcase name="getAnnualFeesUsingRestEndpointByMemberId" classname="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.032"/>
-  <testcase name="createAnnualFeeForMemberThatNotExists" classname="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.006"/>
-  <testcase name="memberShouldHaveUniqueAnnualFees" classname="me.ollari.CVbackend.AnnualFee.AnnualFeeTest" time="0.017"/>
+  <testcase name="addRaceWithNullAward" classname="me.ollari.CVbackend.Race.RaceTest" time="0.021"/>
+  <testcase name="addRaceWithNullPrice" classname="me.ollari.CVbackend.Race.RaceTest" time="0.008"/>
+  <testcase name="getRacesUsingRest" classname="me.ollari.CVbackend.Race.RaceTest" time="0.012"/>
+  <testcase name="removingRace" classname="me.ollari.CVbackend.Race.RaceTest" time="0.006"/>
+  <testcase name="getRaceByIdUsingRest" classname="me.ollari.CVbackend.Race.RaceTest" time="0">
+    <skipped message="void me.ollari.CVbackend.Race.RaceTest.getRaceByIdUsingRest() is @Disabled"/>
+  </testcase>
+  <testcase name="removingRaceFee" classname="me.ollari.CVbackend.Race.RaceTest" time="0">
+    <skipped message="void me.ollari.CVbackend.Race.RaceTest.removingRaceFee() is @Disabled"/>
+  </testcase>
+  <testcase name="addRaceWithNullDate" classname="me.ollari.CVbackend.Race.RaceTest" time="0.008"/>
+  <testcase name="addRaceWithNullName" classname="me.ollari.CVbackend.Race.RaceTest" time="0.007"/>
+  <testcase name="postRaceUsingRest" classname="me.ollari.CVbackend.Race.RaceTest" time="0.012"/>
 </testsuite>

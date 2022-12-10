@@ -1,8 +1,8 @@
-/home/user/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/RaceFee/RaceFeeTest.java
-/home/user/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/Employee/EmployeeTest.java
-/home/user/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/CircoloVelicoBackendApplicationTests.java
-/home/user/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/ParkingFee/ParkingFeeTest.java
-/home/user/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/Member/MemberTest.java
-/home/user/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/Boat/BoatTest.java
-/home/user/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/AnnualFee/AnnualFeeTest.java
-/home/user/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/Race/RaceTest.java
+/home/me/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/Boat/BoatTest.java
+/home/me/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/Race/RaceTest.java
+/home/me/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/RaceFee/RaceFeeTest.java
+/home/me/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/Member/MemberTest.java
+/home/me/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/AnnualFee/AnnualFeeTest.java
+/home/me/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/ParkingFee/ParkingFeeTest.java
+/home/me/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/CircoloVelicoBackendApplicationTests.java
+/home/me/Documents/CircoloVelico/backend/src/test/java/me/ollari/CVbackend/Employee/EmployeeTest.java

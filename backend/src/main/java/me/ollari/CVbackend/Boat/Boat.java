@@ -47,7 +47,7 @@ public class Boat {
     private Member membersBoat;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "boatsParkingFee", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boatsParkingFee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @ToString.Exclude
     private Set<ParkingFee> parkingFees = new HashSet<>();
 

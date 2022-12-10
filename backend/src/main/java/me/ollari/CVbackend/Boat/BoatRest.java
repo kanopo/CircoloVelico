@@ -116,6 +116,7 @@ public class BoatRest {
 
     /**
      * EndPoint di tipo GET della RESP API che restituisce la barca associata all'id di una raceFee
+     *
      * @param raceFeeId id della raceFee
      * @return oggetto barca inerente alla tassa
      */
@@ -149,6 +150,7 @@ public class BoatRest {
 
     /**
      * EndPoint di tipo GET della RESP API che restituisce una hashmap di tutti gli utenti(id degli utenti) con le annesse barche
+     *
      * @return una hashmap dove la chiave è l'utente e il valore è un set di tutte le imbarcazioni possedute dall'utente
      * restituisce 204 se non sono presenti membri
      */
@@ -190,29 +192,26 @@ public class BoatRest {
 
                 if (b.getParkingFees().isEmpty()) {
                     expiredBoats.add(b);
-                    break;
                 }
+                else
+                {
+                    boolean validParking = false;
 
-                boolean validParking = false;
+                    for (ParkingFee pf : b.getParkingFees()) {
+                        LocalDate start = pf.getStart();
+                        LocalDate end = pf.getEnd();
 
+                        if ((start.isBefore(today) || start.isEqual(today)) && (end.isAfter(today) || end.isEqual(today))) {
+                            validParking = true;
+                            break;
+                        }
+                    }
 
-                for (ParkingFee pf : b.getParkingFees()) {
-                    LocalDate start = pf.getStart();
-                    LocalDate end = pf.getEnd();
-
-                    if ((start.isBefore(today) || start.isEqual(today)) && (end.isAfter(today) || end.isEqual(today))) {
-                        //boats.remove(b);
-                        validParking = true;
-                        break;
+                    if (!validParking) {
+                        expiredBoats.add(b);
                     }
                 }
-
-                if (!validParking) {
-                    expiredBoats.add(b);
-                    break;
-                }
             }
-
 
             return new ResponseEntity<>(expiredBoats, HttpStatus.OK);
         } else {
@@ -247,7 +246,7 @@ public class BoatRest {
     @GetMapping("/boats/memberId/{memberId}/notInRace/{raceId}")
     public ResponseEntity<Iterable<Boat>> boatOfMemberNotSubscribedToRace(@PathVariable Long memberId, @PathVariable Long raceId) {
         Member m = memberRepository.findById(memberId).orElse(null);
-        Race r = raceRepository.findById(memberId).orElse(null);
+        Race r = raceRepository.findById(raceId).orElse(null);
 
 
         Set<Boat> boatsNotSubscribed = new HashSet<>();
@@ -314,9 +313,12 @@ public class BoatRest {
      */
     @DeleteMapping("/boats/{boatId}")
     public ResponseEntity<Boat> deleteBoat(@PathVariable Long boatId) {
-        if (boatRepository.existsById(boatId)) {
+
+        Boat b = boatRepository.findById(boatId).orElse(null);
+
+        if (b != null) {
             try {
-                boatRepository.deleteById(boatId);
+                boatRepository.delete(b);
                 return new ResponseEntity<>(HttpStatus.OK);
             } catch (Error e) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
