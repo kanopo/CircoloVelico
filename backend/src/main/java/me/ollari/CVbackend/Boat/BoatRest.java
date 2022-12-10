@@ -103,12 +103,13 @@ public class BoatRest {
             } else {
                 for (RaceFee rf : raceFees) {
                     if (rf.getMembersRaceFee().getId().equals(memberId) && rf.getRacesRaceFee().getId().equals(raceId)) {
-                        notSubscribedToRace.remove(rf.getBoatsRaceFee());
+                        notSubscribedToRace.removeIf(boat -> boat.getId().equals(rf.getBoatsRaceFee().getId()));
                     }
                 }
+                return new ResponseEntity<>(notSubscribedToRace, HttpStatus.OK);
             }
 
-            return new ResponseEntity<>(notSubscribedToRace, HttpStatus.OK);
+
         }
     }
 
