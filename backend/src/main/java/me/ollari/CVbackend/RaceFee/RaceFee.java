@@ -38,24 +38,24 @@ public class RaceFee {
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "payment_date")
+    @Column(name = "payment_date", nullable = false)
     private LocalDate paymentDate;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private Double price;
 
     @JsonIgnore
     @ManyToOne()
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
     private Member membersRaceFee;
 
     @JsonIgnore
     @ManyToOne()
-    @JoinColumn(name = "race_id")
+    @JoinColumn(name = "race_id", nullable = false)
     private Race racesRaceFee;
 
     @JsonIgnore
     @ManyToOne()
-    @JoinColumn(name = "boat_id")
+    @JoinColumn(name = "boat_id", nullable = false)
     private Boat boatsRaceFee;
 }
