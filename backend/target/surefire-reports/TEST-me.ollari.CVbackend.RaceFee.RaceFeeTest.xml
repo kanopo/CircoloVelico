@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="me.ollari.CVbackend.Employee.EmployeeTest" time="0.141" tests="7" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="me.ollari.CVbackend.RaceFee.RaceFeeTest" time="0.288" tests="9" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="19"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -54,11 +54,13 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="63.0"/>
   </properties>
-  <testcase name="createEmployeeNullUsername" classname="me.ollari.CVbackend.Employee.EmployeeTest" time="0.013"/>
-  <testcase name="getEmployeesByIdRest" classname="me.ollari.CVbackend.Employee.EmployeeTest" time="0.019"/>
-  <testcase name="createEmployeeUnique" classname="me.ollari.CVbackend.Employee.EmployeeTest" time="0.015"/>
-  <testcase name="getEmployeesByUsernameRest" classname="me.ollari.CVbackend.Employee.EmployeeTest" time="0.021"/>
-  <testcase name="postEmployeeUsingEndPoint" classname="me.ollari.CVbackend.Employee.EmployeeTest" time="0.024"/>
-  <testcase name="getEmployeesRest" classname="me.ollari.CVbackend.Employee.EmployeeTest" time="0.015"/>
-  <testcase name="deleteEmployeeUsingREST" classname="me.ollari.CVbackend.Employee.EmployeeTest" time="0.011"/>
+  <testcase name="getAllRaceFeesWithRest" classname="me.ollari.CVbackend.RaceFee.RaceFeeTest" time="0.044"/>
+  <testcase name="addRaceFeeWithNullMember" classname="me.ollari.CVbackend.RaceFee.RaceFeeTest" time="0.022"/>
+  <testcase name="addRaceFeeWithNullPaymentDate" classname="me.ollari.CVbackend.RaceFee.RaceFeeTest" time="0.025"/>
+  <testcase name="addRaceFeeWithNullBoat" classname="me.ollari.CVbackend.RaceFee.RaceFeeTest" time="0.023"/>
+  <testcase name="addRaceFeeWithNullRace" classname="me.ollari.CVbackend.RaceFee.RaceFeeTest" time="0.018"/>
+  <testcase name="getRaceFeeById" classname="me.ollari.CVbackend.RaceFee.RaceFeeTest" time="0.03"/>
+  <testcase name="createRaceFeeWithRest" classname="me.ollari.CVbackend.RaceFee.RaceFeeTest" time="0.05"/>
+  <testcase name="addRaceFeeWithNullPrice" classname="me.ollari.CVbackend.RaceFee.RaceFeeTest" time="0.031"/>
+  <testcase name="getRaceFeeByMemberId" classname="me.ollari.CVbackend.RaceFee.RaceFeeTest" time="0.022"/>
 </testsuite>

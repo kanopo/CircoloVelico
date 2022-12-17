@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: me.ollari.CVbackend.AnnualFee.AnnualFeeTest
 -------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.225 s - in me.ollari.CVbackend.AnnualFee.AnnualFeeTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.326 s - in me.ollari.CVbackend.AnnualFee.AnnualFeeTest
