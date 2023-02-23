@@ -41,7 +41,7 @@ Progetto per corso di ingegneria del software
       - [x] gare
 
 
-1. [ ] Inoltre è necessario fornire:(IN UN PDF)
+1. [x] Inoltre è necessario fornire:(IN UN PDF)
     - [x] requisiti funzionali e diagramma UML dei casi di uso
     - [x] diagramma UML delle classi:
       - [x] evidenziando attributi delle classi
@@ -54,8 +54,8 @@ Progetto per corso di ingegneria del software
       - [x] aggiunta di una imbarcazione
       - [x] iscrizioe ad una gara
 
-1. [ ] fare un PDF che svolgala funzione di manuale:
-    - [ ] descrivere come eseguire le applicazioni
+1. [x] fare un PDF che svolgala funzione di manuale:
+    - [x] descrivere come eseguire le applicazioni
 
 
 
