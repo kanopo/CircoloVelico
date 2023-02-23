@@ -15,5 +15,6 @@ public class CircoloVelicoBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(CircoloVelicoBackendApplication.class, args);
     }
+    
 
 }

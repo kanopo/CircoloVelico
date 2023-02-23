@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://173.199.119.240:3306/database
+    url: jdbc:mariadb://localhost:3306/database
     username: user
     password: password
     driver-class-name: org.mariadb.jdbc.Driver
@@ -9,3 +9,4 @@ spring:
     hibernate:
       ddl-auto: update
     generate-ddl: true
+

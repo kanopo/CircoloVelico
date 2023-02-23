@@ -96,7 +96,7 @@ public class MemberHome {
 
                 if (
                         (today.isAfter(start) || today.isEqual(start)) && today.isBefore(end)
-                                && today.isBefore(end.minusWeeks(2))
+                                && today.isBefore(end.minusWeeks(2)) || today.isBefore(start)
                 ) {
                     // abbonamento valido
                     //System.out.println("Abbonamento valido");

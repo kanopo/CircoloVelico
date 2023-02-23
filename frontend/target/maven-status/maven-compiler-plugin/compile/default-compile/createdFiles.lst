@@ -27,8 +27,8 @@ me/ollari/circolovelicogui/controllers/memberFunctionality/MemberParkingFee$2.cl
 me/ollari/circolovelicogui/controllers/employeeFunctionality/AddMember.class
 me/ollari/circolovelicogui/Ip.class
 me/ollari/circolovelicogui/controllers/employeeFunctionality/AddBoat$2.class
-me/ollari/circolovelicogui/controllers/employeeFunctionality/AnnualFeeHistory.class
 me/ollari/circolovelicogui/controllers/employeeFunctionality/MemberManagement.class
+me/ollari/circolovelicogui/controllers/employeeFunctionality/AnnualFeeHistory.class
 me/ollari/circolovelicogui/controllers/memberFunctionality/MemberRaceFees$1.class
 me/ollari/circolovelicogui/controllers/DefaultController.class
 me/ollari/circolovelicogui/controllers/employeeFunctionality/DelMember$1.class
@@ -52,11 +52,11 @@ me/ollari/circolovelicogui/controllers/loginHandlers/EmployeeLogin$1.class
 me/ollari/circolovelicogui/controllers/employeeFunctionality/AddMember$2.class
 me/ollari/circolovelicogui/rest/ParkingFee.class
 me/ollari/circolovelicogui/Main.class
-me/ollari/circolovelicogui/controllers/memberFunctionality/MemberParkingFee$1.class
 me/ollari/circolovelicogui/controllers/homeHandlers/MemberHome$2.class
+me/ollari/circolovelicogui/controllers/memberFunctionality/MemberParkingFee$1.class
 me/ollari/circolovelicogui/rest/Race.class
-me/ollari/circolovelicogui/controllers/memberFunctionality/MemberBoats$1.class
 me/ollari/circolovelicogui/controllers/homeHandlers/MemberHome.class
+me/ollari/circolovelicogui/controllers/memberFunctionality/MemberBoats$1.class
 me/ollari/circolovelicogui/controllers/memberFunctionality/MemberRaces$1.class
 me/ollari/circolovelicogui/controllers/employeeFunctionality/AddBoat.class
 me/ollari/circolovelicogui/controllers/memberFunctionality/MemberAnnualFees$1.class

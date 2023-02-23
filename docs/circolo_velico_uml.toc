@@ -1,0 +1,21 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {chapter}{\numberline {1}Requisiti funzionali e diagramma UML dei casi d'uso}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Requisiti funzionali}{3}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Impiegato}{3}{subsection.1.1.1}%
+\contentsline {subsubsection}{Azioni sui membri}{3}{section*.3}%
+\contentsline {subsubsection}{Azioni su imbarcazioni}{3}{section*.4}%
+\contentsline {subsubsection}{Azioni sulle gare}{3}{section*.5}%
+\contentsline {subsection}{\numberline {1.1.2}Membro}{3}{subsection.1.1.2}%
+\contentsline {section}{\numberline {1.2}Diagrammi UML dei casi d'uso}{4}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Diagramma UML delle classi}{5}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Descrizione di casi d'uso}{6}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Rinnovo quote associative annuali}{6}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Aggiunta imbarcazione}{6}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Iscrizione ad una gara}{6}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Manuale}{7}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Avvio applicazione}{7}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Avvio di singole applicazioni}{7}{subsection.4.1.1}%
+\contentsline {subsubsection}{Avvio del database}{7}{section*.6}%
+\contentsline {subsubsection}{Avvio del backend}{7}{section*.7}%
+\contentsline {subsubsection}{Avvio del frontend}{7}{section*.8}%
