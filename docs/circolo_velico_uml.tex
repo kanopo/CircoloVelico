@@ -138,6 +138,13 @@
 
     \chapter{Manuale} % (fold)
     \label{cha:Manuale}
+    Prerequisiti:
+    \begin{itemize}
+      \item java
+      \item maven
+    \end{itemize}
+
+    Se il pc non fosse dotato di maven per la compilazione del progegtto in file jar, si possono direttamente scaricare i file jar dalla release di github(https://github.com/kanopo/CircoloVelico/releases/tag/latest).
 
     \section{Avvio applicazione}
     L'applicazione si divide in due parti principali:
@@ -158,6 +165,11 @@
   \end{lstlisting}    
 
   \subsubsection{Avvio del backend}
+  Per ottenere il file jar da avviare, scegliere una delle opzioni:
+  \begin{itemize}
+    \item Scaricare il file jar da github
+    \item Usare maven per compilare il progetto e ottenere il file con il comando "mvn package" lanciato dentro alla cartella "backend"
+  \end{itemize}
 
   \begin{lstlisting}[language=bash]
   $ java -jar backend/target/backend-0.0.1.jar
@@ -165,6 +177,11 @@
 
   \subsubsection{Avvio del frontend}
 
+  Per ottenere il file jar da avviare, scegliere una delle opzioni:
+  \begin{itemize}
+    \item Scaricare il file jar da github
+    \item Usare maven per compilare il progetto e ottenere il file con il comando "mvn package" lanciato dentro alla cartella "frontend"
+  \end{itemize}
   \begin{lstlisting}[language=bash]
   $ java -jar frontend/target/CV-gui-0.0.1.jar
   \end{lstlisting}  
