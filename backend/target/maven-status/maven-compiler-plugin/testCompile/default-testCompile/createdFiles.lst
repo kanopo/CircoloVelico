@@ -1,8 +1,8 @@
-me/ollari/CVbackend/Employee/EmployeeTest.class
 me/ollari/CVbackend/RaceFee/RaceFeeTest.class
+me/ollari/CVbackend/Employee/EmployeeTest.class
 me/ollari/CVbackend/CircoloVelicoBackendApplicationTests.class
 me/ollari/CVbackend/Member/MemberTest.class
 me/ollari/CVbackend/ParkingFee/ParkingFeeTest.class
-me/ollari/CVbackend/AnnualFee/AnnualFeeTest.class
 me/ollari/CVbackend/Race/RaceTest.class
+me/ollari/CVbackend/AnnualFee/AnnualFeeTest.class
 me/ollari/CVbackend/Boat/BoatTest.class
