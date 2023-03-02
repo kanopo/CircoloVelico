@@ -959,7 +959,7 @@ class BoatTest {
 
         assertEquals(HttpStatus.OK, responseEntity1.getStatusCode());
 
-        ResponseEntity<Boat> responseEntity2 = boatRest.deleteBoat(boatId + 1);
+        ResponseEntity<Boat> responseEntity2 = boatRest.deleteBoat(boatId);
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity2.getStatusCode());
     }

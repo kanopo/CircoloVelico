@@ -58,7 +58,7 @@ public class MemberParkingFee {
 
         HttpResponse<String> getBoatsResponse = httpFunctions.GET("/boats/memberId/" + memberId);
         ObjectMapper boatsMapper = new ObjectMapper();
-        HttpResponse<String> getMemberResponse = httpFunctions.GET("/member/" + memberId);
+        HttpResponse<String> getMemberResponse = httpFunctions.GET("/members/" + memberId);
         ObjectMapper memberMapper = new ObjectMapper();
 
         Member member = null;

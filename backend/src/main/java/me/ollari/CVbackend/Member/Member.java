@@ -55,7 +55,7 @@ public class Member {
     private String password;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "membersBoat", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "membersBoat", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @ToString.Exclude
     private Set<Boat> boats = new HashSet<>();
 
